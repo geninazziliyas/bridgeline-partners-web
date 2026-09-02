@@ -217,6 +217,8 @@ export const fr = {
     documents: 'Documents',
     ariaLabel: 'Navigation de l’espace investisseur',
     signOut: 'Se déconnecter',
+    /** Affiché quand le compte n'a pas de nom renseigné. */
+    fallbackUser: 'Investisseur',
   },
 
   dashboard: {

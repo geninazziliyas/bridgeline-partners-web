@@ -24,12 +24,14 @@ export default async function RoomDashboardLayout({
     redirect(localizedPath(params.locale, '/room/login'));
   }
 
+  const dict = getDictionary(params.locale);
+
   return (
     <RoomShell
       locale={params.locale}
-      dict={getDictionary(params.locale)}
+      dict={dict}
       user={{
-        name: session.user.name ?? 'Investisseur',
+        name: session.user.name ?? dict.roomNav.fallbackUser,
         email: session.user.email ?? '',
         company: session.user.company,
       }}

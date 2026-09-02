@@ -219,6 +219,7 @@ export const en: Dictionary = {
     documents: 'Documents',
     ariaLabel: 'Investor area navigation',
     signOut: 'Sign out',
+    fallbackUser: 'Investor',
   },
 
   dashboard: {
