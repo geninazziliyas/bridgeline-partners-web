@@ -1,18 +1,12 @@
 import type { DealStatus } from '@prisma/client';
 
+import type { Dictionary } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
 /**
- * Statut d'une operation. Le badge porte l'information par son libelle et son
- * contraste, sans pastille decorative.
+ * Statut d'une opération. Le badge porte l'information par son libellé et son
+ * contraste, sans pastille décorative.
  */
-export const dealStatusLabels: Record<DealStatus, string> = {
-  OPEN: 'Ouvert',
-  CLOSING_SOON: 'Cloture proche',
-  INVITE_ONLY: 'Sur invitation',
-  CLOSED: 'Cloture',
-};
-
 const styles: Record<DealStatus, string> = {
   OPEN: 'bg-accent-soft text-accent border-accent/20',
   CLOSING_SOON: 'bg-amber-50 text-amber-800 border-amber-200',
@@ -22,9 +16,11 @@ const styles: Record<DealStatus, string> = {
 
 export function StatusBadge({
   status,
+  dict,
   className,
 }: {
   status: DealStatus;
+  dict: Dictionary;
   className?: string;
 }) {
   return (
@@ -35,7 +31,7 @@ export function StatusBadge({
         className,
       )}
     >
-      {dealStatusLabels[status]}
+      {dict.dealStatus[status]}
     </span>
   );
 }

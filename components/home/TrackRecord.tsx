@@ -1,26 +1,27 @@
 import { Container } from '@/components/ui/Container';
 import { trackRecord } from '@/lib/site';
+import type { Dictionary } from '@/lib/i18n';
 
 /**
- * Bandeau des investissements passes.
+ * Bandeau des investissements passés.
  *
- * Defilement horizontal continu : c'est le seul de la page, et il sert a
- * montrer l'etendue de la liste sans l'etaler sur toute la hauteur. La bande est
- * dupliquee une fois pour que la boucle soit sans raccord, et la copie est
- * masquee aux lecteurs d'ecran. L'animation s'arrete sous prefers-reduced-motion
+ * Défilement horizontal continu : c'est le seul de la page, et il sert à
+ * montrer l'étendue de la liste sans l'étaler sur toute la hauteur. La bande est
+ * dupliquée une fois pour que la boucle soit sans raccord, et la copie est
+ * masquée aux lecteurs d'écran. L'animation s'arrête sous prefers-reduced-motion
  * (voir globals.css) et au survol.
  */
-export function TrackRecord() {
+export function TrackRecord({ dict }: { dict: Dictionary }) {
   return (
     <section className="overflow-hidden border-b border-hairline bg-white py-16 lg:py-20">
       <Container>
         <h2 className="font-display text-2xl font-bold text-navy md:text-3xl">
-          Operations menees depuis 2019
+          {dict.home.trackRecord.title}
         </h2>
       </Container>
 
       <div className="group relative mt-10 flex overflow-hidden">
-        {/* Degrades lateraux : la bande entre et sort du champ sans coupure nette. */}
+        {/* Dégradés latéraux : la bande entre et sort du champ sans coupure nette. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent"
@@ -32,11 +33,7 @@ export function TrackRecord() {
 
         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
           {[0, 1].map((copy) => (
-            <ul
-              key={copy}
-              aria-hidden={copy === 1}
-              className="flex shrink-0 items-center"
-            >
+            <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center">
               {trackRecord.map((entry) => (
                 <li
                   key={`${copy}-${entry.name}`}

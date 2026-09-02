@@ -1,30 +1,30 @@
 import Image from 'next/image';
 
 import { Container } from '@/components/ui/Container';
-import { advantages } from '@/lib/site';
+import type { Dictionary } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
 /**
- * Grille asymetrique a quatre cellules, une par avantage : autant de cellules
- * que de contenus, jamais de tuile vide pour completer une rangee. Deux
- * cellules portent un traitement visuel (aplat navy, photographie) pour eviter
- * une grille uniformement blanche.
+ * Grille asymétrique à quatre cellules, une par avantage : autant de cellules
+ * que de contenus, jamais de tuile vide pour compléter une rangée. Deux
+ * cellules portent un traitement visuel (aplat navy, photographie) pour éviter
+ * une grille uniformément blanche.
  */
 const spans = ['lg:col-span-4', 'lg:col-span-2', 'lg:col-span-2', 'lg:col-span-4'];
 
-export function Advantages() {
+export function Advantages({ dict }: { dict: Dictionary }) {
   return (
     <section className="border-b border-hairline bg-canvas py-20 lg:py-28">
       <Container>
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint">
-          Ce que nous apportons
+          {dict.home.advantages.eyebrow}
         </p>
         <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold text-navy md:text-4xl">
-          Un acces, une structuration, un suivi
+          {dict.home.advantages.title}
         </h2>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-6">
-          {advantages.map((item, index) => {
+          {dict.advantages.map((item, index) => {
             const isNavy = index === 0;
             const hasPhoto = index === 3;
 
@@ -34,15 +34,13 @@ export function Advantages() {
                 className={cn(
                   'relative overflow-hidden rounded-card border p-8 lg:p-10',
                   spans[index],
-                  isNavy
-                    ? 'border-navy bg-navy text-white'
-                    : 'border-hairline bg-white',
-                  hasPhoto && 'flex flex-col justify-end min-h-[280px] text-white',
+                  isNavy ? 'border-navy bg-navy text-white' : 'border-hairline bg-white',
+                  hasPhoto && 'flex min-h-[280px] flex-col justify-end text-white',
                 )}
               >
                 {hasPhoto ? (
                   <>
-                    {/* Placeholder photographique, a remplacer par un visuel de marque. */}
+                    {/* Placeholder photographique, à remplacer par un visuel de marque. */}
                     <Image
                       src="https://picsum.photos/seed/bridgeline-advantage-desk/1200/700"
                       alt=""
@@ -51,10 +49,7 @@ export function Advantages() {
                       className="object-cover"
                     />
                     {/* Voile navy : garantit le contraste du texte sur la photo. */}
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0 bg-navy/80"
-                    />
+                    <div aria-hidden="true" className="absolute inset-0 bg-navy/80" />
                   </>
                 ) : null}
 

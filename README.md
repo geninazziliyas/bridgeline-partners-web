@@ -148,18 +148,47 @@ Deux barrieres :
 
 ---
 
+## Langues
+
+Le site est bilingue francais / anglais, avec une URL par langue :
+`/fr/...` et `/en/...`. Le francais est la langue par defaut.
+
+- **Textes de l'interface** : `lib/i18n/dictionaries/fr.ts` et `en.ts`. Le
+  dictionnaire anglais est type d'apres le francais : une cle manquante ou mal
+  orthographiee fait echouer la compilation, jamais l'affichage en production.
+- **Contenu editorial** (biographies, approche, avantages) : dans les memes
+  fichiers, indexe par les identifiants de `lib/site.ts`.
+- **Donnees des operations** : le modele `Deal` porte des colonnes anglaises
+  facultatives (`summaryEn`, `descriptionEn`, `sectorEn`, `geographyEn`). Quand
+  un champ est vide, l'affichage anglais retombe sur le francais : l'equipe peut
+  publier une operation sans la traduire.
+- **Choix de la langue** : le middleware redirige toute URL sans prefixe vers la
+  bonne version, d'apres le cookie `bridgeline_locale` puis l'en-tete
+  `Accept-Language`. Le selecteur de l'entete pose ce cookie.
+- **Formatage** : montants, dates et pourcentages suivent la langue
+  (`lib/utils.ts`).
+- **Referencement** : chaque page declare ses alternates `hreflang`.
+
+Pour ajouter une langue : l'ajouter dans `lib/i18n/config.ts`, creer le
+dictionnaire correspondant, et TypeScript signalera tout ce qui manque.
+
+---
+
 ## Structure
 
 ```
 app/
-├── (public)/                  # site vitrine (entete + pied de page publics)
-│   ├── page.tsx               # accueil
-│   ├── about/ team/ contact/
-├── room/
-│   ├── (public)/              # /room : presentation + demande d'acces
-│   ├── login/                 # /room/login
-│   └── (dashboard)/           # routes protegees, menu lateral
-│       ├── dashboard/ opportunities/ portfolio/ documents/
+├── [locale]/                  # /fr/... et /en/...
+│   ├── layout.tsx             # balise html, polices, providers
+│   ├── (public)/              # site vitrine (entete + pied de page publics)
+│   │   ├── page.tsx           # accueil
+│   │   └── about/ team/ contact/
+│   ├── room/
+│   │   ├── (public)/          # /room : presentation + demande d'acces
+│   │   ├── login/             # /room/login
+│   │   └── (dashboard)/       # routes protegees, menu lateral
+│   │       └── dashboard/ opportunities/ portfolio/ documents/
+│   └── not-found.tsx
 └── api/auth/[...nextauth]/    # handler NextAuth
 
 components/
@@ -173,11 +202,12 @@ lib/
 ├── auth.ts        # configuration NextAuth
 ├── prisma.ts      # client Prisma en singleton
 ├── email.ts       # envois Resend
-├── deals.ts       # lectures des operations
+├── deals.ts       # lectures des operations, resolution des traductions
 ├── portfolio.ts   # lectures propres a l'investisseur connecte
-├── validations.ts # schemas zod partages
-├── site.ts        # contenu editorial du site public
-└── utils.ts       # formatage (montants, dates, pourcentages)
+├── validations.ts # schemas zod, messages issus du dictionnaire
+├── site.ts        # donnees du site independantes de la langue
+├── i18n/          # config des langues et dictionnaires fr / en
+└── utils.ts       # formatage (montants, dates, pourcentages) par langue
 
 prisma/            # schema et seed
 types/             # extension des types NextAuth
@@ -214,11 +244,12 @@ Le code est complet ; ces elements editoriaux sont a remplacer.
 | Element | Ou | Etat |
 | --- | --- | --- |
 | Adresses postales et telephones des bureaux | `lib/site.ts`, `offices` | `null`, les champs ne s'affichent pas tant qu'ils sont vides |
-| Biographies des associes | `lib/site.ts`, `team` | Descriptives du role exerce, sans parcours anterieur : a valider et completer par chaque associe |
+| Biographies des associes | `lib/i18n/dictionaries/*.ts`, `team_members` | Descriptives du role exerce, sans parcours anterieur : a valider et completer par chaque associe, dans les deux langues |
 | Portraits de l'equipe | `lib/site.ts`, champ `photo` | Placeholders `picsum.photos` |
 | Photographies (accueil, bureaux, Room) | `components/home/Hero.tsx`, `app/(public)/about/page.tsx`, `app/room/(public)/page.tsx` | Placeholders `picsum.photos` |
 | Logo vectoriel | `components/layout/Wordmark.tsx` | Marque nominale + glyphe geometrique provisoire |
 | Track record (operations passees) | `lib/site.ts`, `trackRecord` | Noms et annees a confirmer |
+| Traductions anglaises des operations | colonnes `*En` de `Deal` | Renseignees pour les 5 operations de demonstration |
 | Mentions legales et politique de confidentialite | a creer | Absentes |
 
 Les domaines `picsum.photos` sont declares dans `next.config.js` : une fois les

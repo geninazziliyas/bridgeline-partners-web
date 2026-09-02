@@ -1,45 +1,52 @@
 import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/Button';
 import { offices } from '@/lib/site';
+import { localizedPath, type Locale } from '@/lib/i18n/config';
+import type { Dictionary } from '@/lib/i18n';
 
 /**
- * Section A propos de la page d'accueil. Texte a gauche, bureaux a droite en
- * blocs separes par des filets : pas de cartes, l'elevation n'apporte rien ici.
+ * Section À propos de la page d'accueil. Texte à gauche, bureaux à droite en
+ * blocs séparés par des filets : pas de cartes, l'élévation n'apporte rien ici.
  */
-export function AboutIntro() {
+export function AboutIntro({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
   return (
     <section className="border-b border-hairline bg-canvas py-20 lg:py-28">
       <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
           <h2 className="font-display text-3xl font-bold text-navy md:text-4xl">
-            Une maison de placement, deux juridictions
+            {dict.home.about.title}
           </h2>
           <p className="mt-6 text-[17px] leading-relaxed text-ink-muted">
-            Nous relions des investisseurs professionnels a des operations de
-            marches prives auxquelles ils n’auraient pas acces autrement :
-            secondaires, co-investissements, financements adosses a des actifs
-            reels. Chaque dossier est structure dans un vehicule dedie, avec la
-            documentation et les prestataires qui vont avec.
+            {dict.home.about.body1}
           </p>
           <p className="mt-4 text-[17px] leading-relaxed text-ink-muted">
-            Notre taille est un choix. Nous traitons un nombre limite
-            d’operations par an pour rester en mesure de les suivre jusqu’a la
-            sortie.
+            {dict.home.about.body2}
           </p>
-          <ButtonLink href="/about" variant="ghost" size="md" className="mt-8 -ml-3">
-            En savoir plus sur notre positionnement
+          <ButtonLink
+            href={localizedPath(locale, '/about')}
+            variant="ghost"
+            size="md"
+            className="mt-8 -ml-3"
+          >
+            {dict.home.about.link}
           </ButtonLink>
         </div>
 
         <div className="lg:col-span-5 lg:col-start-8">
           <dl className="divide-y divide-hairline border-y border-hairline">
             {offices.map((office) => (
-              <div key={office.city} className="py-6">
+              <div key={office.id} className="py-6">
                 <dt className="font-display text-xl font-bold text-navy">
                   {office.city}
                 </dt>
                 <dd className="mt-2 text-[15px] leading-relaxed text-ink-muted">
-                  {office.role}
+                  {dict.offices[office.id].role}
                 </dd>
               </div>
             ))}

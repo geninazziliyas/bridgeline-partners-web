@@ -70,8 +70,14 @@ async function main() {
         'Financement de flux physiques d’or entre raffineries suisses et negociants agrees.',
       description:
         'Strategie de trade finance adossee a des flux physiques d’or entre raffineries suisses et negociants agrees. Chaque tirage est collateralise sur stock audite, avec une duration moyenne de 94 jours et une couverture de change systematique. Le vehicule cible une distribution trimestrielle.',
+      summaryEn:
+        'Financing of physical gold flows between Swiss refineries and approved traders.',
+      descriptionEn:
+        'A trade finance strategy backed by physical gold flows between Swiss refineries and approved traders. Every drawdown is collateralised on audited stock, with an average duration of 94 days and systematic currency hedging. The vehicle targets a quarterly distribution.',
       sector: 'Trade finance',
+      sectorEn: 'Trade finance',
       geography: 'Suisse, EAU',
+      geographyEn: 'Switzerland, UAE',
       status: DealStatus.OPEN,
       targetAmount: 42_000_000,
       raisedAmount: 27_350_000,
@@ -86,8 +92,14 @@ async function main() {
         'Acces secondaire a une position existante sur un laboratoire de recherche en IA.',
       description:
         'Vehicule dedie a l’acquisition secondaire d’une position existante au capital d’un laboratoire de recherche en intelligence artificielle. Structure en SPV luxembourgeois, avec droits d’information transmis par le vendeur. Allocation contrainte, servie par ordre de reception des engagements.',
+      summaryEn:
+        'Secondary access to an existing position in an artificial intelligence research laboratory.',
+      descriptionEn:
+        'A vehicle dedicated to the secondary acquisition of an existing position in the capital of an artificial intelligence research laboratory. Structured as a Luxembourg SPV, with information rights passed through by the seller. Allocation is constrained and served in the order commitments are received.',
       sector: 'Technologie',
+      sectorEn: 'Technology',
       geography: 'Etats-Unis',
+      geographyEn: 'United States',
       status: DealStatus.CLOSING_SOON,
       targetAmount: 18_500_000,
       raisedAmount: 16_940_000,
@@ -102,8 +114,13 @@ async function main() {
         'Serie B d’une plateforme de biocontrole pour cultures cerealieres.',
       description:
         'Participation en Serie B dans une plateforme de biocontrole destinee aux cultures cerealieres d’Europe du Sud et d’Afrique du Nord. Trois produits homologues, un quatrieme en instruction. Le tour finance l’industrialisation du site de production et l’extension du portefeuille reglementaire.',
+      summaryEn: 'Series B in a biocontrol platform for cereal crops.',
+      descriptionEn:
+        'A Series B holding in a biocontrol platform serving cereal crops in Southern Europe and North Africa. Three products are approved, a fourth is under review. The round funds the industrialisation of the production site and the extension of the regulatory portfolio.',
       sector: 'Agritech',
+      sectorEn: 'Agritech',
       geography: 'Europe, Afrique du Nord',
+      geographyEn: 'Europe, North Africa',
       status: DealStatus.OPEN,
       targetAmount: 12_000_000,
       raisedAmount: 4_120_000,
@@ -117,8 +134,13 @@ async function main() {
       summary: 'Co-investissement sur un constructeur de robotique humanoide.',
       description:
         'Co-investissement aux cotes d’un fonds chef de file sur un constructeur de robotique humanoide destinee a la logistique industrielle. Acces reserve aux investisseurs deja engages sur au moins un vehicule Bridgeline, dans la limite de l’allocation obtenue.',
+      summaryEn: 'Co-investment in a humanoid robotics manufacturer.',
+      descriptionEn:
+        'A co-investment alongside a lead fund in a manufacturer of humanoid robotics for industrial logistics. Access is reserved for investors already committed to at least one Bridgeline vehicle, within the limit of the allocation obtained.',
       sector: 'Robotique',
+      sectorEn: 'Robotics',
       geography: 'Etats-Unis',
+      geographyEn: 'United States',
       status: DealStatus.INVITE_ONLY,
       targetAmount: 25_000_000,
       raisedAmount: 9_600_000,
@@ -133,8 +155,14 @@ async function main() {
         'Infrastructure de stockage par batteries raccordee au reseau iberique.',
       description:
         'Financement en fonds propres d’un portefeuille de trois actifs de stockage par batteries raccordes au reseau iberique, sous contrats de capacite indexes. Mise en service echelonnee sur dix-huit mois. Profil de rendement contractuel, avec une composante marche sur les services systeme.',
+      summaryEn:
+        'Battery storage infrastructure connected to the Iberian grid.',
+      descriptionEn:
+        'Equity financing of a portfolio of three battery storage assets connected to the Iberian grid, under indexed capacity contracts. Commissioning is staged over eighteen months. A contractual return profile, with a market component on ancillary services.',
       sector: 'Infrastructure energetique',
+      sectorEn: 'Energy infrastructure',
       geography: 'Espagne, Portugal',
+      geographyEn: 'Spain, Portugal',
       status: DealStatus.OPEN,
       targetAmount: 60_000_000,
       raisedAmount: 38_700_000,

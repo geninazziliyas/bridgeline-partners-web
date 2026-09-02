@@ -1,47 +1,81 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-/** Fusionne des classes Tailwind en resolvant les conflits. */
+import { localeTags, type Locale } from '@/lib/i18n/config';
+
+/** Fusionne des classes Tailwind en résolvant les conflits. */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const currencyFormatter = new Intl.NumberFormat('fr-FR', {
-  style: 'currency',
-  currency: 'EUR',
-  maximumFractionDigits: 0,
-});
+/**
+ * Formatage des montants, dates et pourcentages.
+ *
+ * Toutes ces fonctions prennent la langue courante : le français écrit
+ * « 1 200 000 € » et « 28/11/2026 », l'anglais « €1,200,000 » et « 28/11/2026 »
+ * avec des séparateurs différents. Un formatage figé trahirait la traduction.
+ */
 
-/** Montant en euros, sans decimales. Exemple : 27 350 000 EUR. */
-export function formatCurrency(value: number) {
-  return currencyFormatter.format(value);
+export function formatCurrency(value: number, locale: Locale) {
+  return new Intl.NumberFormat(localeTags[locale], {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
-/**
- * Montant abrege pour les tuiles de synthese.
- * Exemple : 27,4 M EUR / 750 k EUR.
- */
-export function formatCompactCurrency(value: number) {
+/** Montant abrégé pour les tuiles de synthèse. Exemple : 27,4 M EUR. */
+export function formatCompactCurrency(value: number, locale: Locale) {
+  const tag = localeTags[locale];
+
   if (Math.abs(value) >= 1_000_000) {
-    return `${(value / 1_000_000).toLocaleString('fr-FR', {
+    return `${(value / 1_000_000).toLocaleString(tag, {
       maximumFractionDigits: 1,
     })} M EUR`;
   }
   if (Math.abs(value) >= 1_000) {
-    return `${(value / 1_000).toLocaleString('fr-FR', {
+    return `${(value / 1_000).toLocaleString(tag, {
       maximumFractionDigits: 0,
     })} k EUR`;
   }
-  return formatCurrency(value);
+  return formatCurrency(value, locale);
 }
 
-/** Performance signee, en pourcentage. Exemple : +8,3 %. */
-export function formatPercent(value: number) {
-  const formatted = value.toLocaleString('fr-FR', {
+/** Performance signée, en pourcentage. Exemple : +8,3 %. */
+export function formatPercent(value: number, locale: Locale) {
+  const formatted = value.toLocaleString(localeTags[locale], {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   });
   return `${value > 0 ? '+' : ''}${formatted} %`;
+}
+
+/** Date longue. Exemple : 28 novembre 2026 / 28 November 2026. */
+export function formatDate(date: Date | string, locale: Locale) {
+  return new Date(date).toLocaleDateString(localeTags[locale], {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+/** Date courte. Exemple : 28/11/2026. */
+export function formatShortDate(date: Date | string, locale: Locale) {
+  return new Date(date).toLocaleDateString(localeTags[locale]);
+}
+
+/** Taille de fichier lisible. Exemple : 1,2 Mo / 1.2 MB. */
+export function formatBytes(bytes: number | null | undefined, locale: Locale) {
+  if (!bytes) return null;
+  const tag = localeTags[locale];
+  const unit = locale === 'fr' ? { mega: 'Mo', kilo: 'ko' } : { mega: 'MB', kilo: 'kB' };
+
+  if (bytes >= 1_000_000) {
+    return `${(bytes / 1_000_000).toLocaleString(tag, {
+      maximumFractionDigits: 1,
+    })} ${unit.mega}`;
+  }
+  return `${Math.round(bytes / 1000)} ${unit.kilo}`;
 }
 
 /** Performance d'une participation, en pourcentage. */
@@ -50,32 +84,7 @@ export function performance(invested: number, current: number) {
   return ((current - invested) / invested) * 100;
 }
 
-/** Date longue en francais. Exemple : 28 novembre 2026. */
-export function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString('fr-FR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-}
-
-/** Date courte en francais. Exemple : 28/11/2026. */
-export function formatShortDate(date: Date | string) {
-  return new Date(date).toLocaleDateString('fr-FR');
-}
-
-/** Taille de fichier lisible. Exemple : 1,2 Mo. */
-export function formatBytes(bytes: number | null | undefined) {
-  if (!bytes) return null;
-  if (bytes >= 1_000_000) {
-    return `${(bytes / 1_000_000).toLocaleString('fr-FR', {
-      maximumFractionDigits: 1,
-    })} Mo`;
-  }
-  return `${Math.round(bytes / 1000)} ko`;
-}
-
-/** Nombre de jours restants avant une date. Negatif si la date est passee. */
+/** Nombre de jours restants avant une date. Négatif si la date est passée. */
 export function daysUntil(date: Date | string) {
   const diff = new Date(date).getTime() - Date.now();
   return Math.ceil(diff / (1000 * 60 * 60 * 24));

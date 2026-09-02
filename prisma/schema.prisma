@@ -72,6 +72,13 @@ model Deal {
   description  String
   sector       String
   geography    String
+  /// Traductions anglaises, facultatives. Quand un champ est vide, l'affichage
+  /// retombe sur la version francaise : l'equipe n'est jamais contrainte de
+  /// saisir deux langues pour publier une operation.
+  summaryEn     String?
+  descriptionEn String?
+  sectorEn      String?
+  geographyEn   String?
   currency     String     @default("EUR")
   status       DealStatus @default(OPEN)
   targetAmount Decimal    @db.Decimal(14, 2)

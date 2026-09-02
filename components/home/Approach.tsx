@@ -1,21 +1,21 @@
 import { Container } from '@/components/ui/Container';
-import { approach } from '@/lib/site';
+import type { Dictionary } from '@/lib/i18n';
 
 /**
- * Notre approche. Rail de numeros en monospace a gauche, contenu a droite,
- * separes par des filets : une famille de mise en page distincte des grilles de
- * cartes utilisees ailleurs sur la page.
+ * Notre approche. Rail de numéros en monospace à gauche, contenu à droite,
+ * séparés par des filets : une famille de mise en page distincte des grilles de
+ * cartes utilisées ailleurs sur la page.
  */
-export function Approach() {
+export function Approach({ dict }: { dict: Dictionary }) {
   return (
     <section className="border-b border-hairline bg-white py-20 lg:py-28">
       <Container>
         <h2 className="max-w-2xl font-display text-3xl font-bold text-navy md:text-4xl">
-          Comment une operation arrive jusqu’a vous
+          {dict.home.approach.title}
         </h2>
 
         <ol className="mt-12 divide-y divide-hairline border-y border-hairline">
-          {approach.map((step, index) => (
+          {dict.approach.map((step, index) => (
             <li
               key={step.title}
               className="grid gap-4 py-8 md:grid-cols-12 md:items-baseline md:gap-8 lg:py-10"

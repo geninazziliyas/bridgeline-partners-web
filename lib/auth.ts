@@ -8,6 +8,7 @@ import { compare } from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { sendMagicLinkEmail } from '@/lib/email';
 import { loginSchema } from '@/lib/validations';
+import { defaultLocale } from '@/lib/i18n/config';
 
 /**
  * Hash bcrypt d'une valeur arbitraire, compare lorsqu'aucun compte ne
@@ -26,10 +27,17 @@ export const authOptions: NextAuthOptions = {
     maxAge: 60 * 60 * 8, // 8 heures
   },
 
+  /**
+   * Pages de NextAuth. Elles portent la langue par défaut : ce sont des
+   * redirections internes de la librairie (lien magique expiré, erreur de
+   * provider), pour lesquelles NextAuth ne connaît pas la langue de la page
+   * d'origine. Les redirections déclenchées par une navigation, elles, sont
+   * gérées par le middleware, qui conserve la langue courante.
+   */
   pages: {
-    signIn: '/room/login',
-    verifyRequest: '/room/login?verify=1',
-    error: '/room/login',
+    signIn: `/${defaultLocale}/room/login`,
+    verifyRequest: `/${defaultLocale}/room/login?verify=1`,
+    error: `/${defaultLocale}/room/login`,
   },
 
   providers: [

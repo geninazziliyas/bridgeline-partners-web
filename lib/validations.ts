@@ -1,63 +1,78 @@
 import { z } from 'zod';
 
+import type { Dictionary } from '@/lib/i18n/dictionaries/fr';
+
 /**
- * Schemas de validation partages entre les server actions et l'affichage des
- * erreurs de formulaire. La validation cote serveur fait foi : le navigateur
- * peut toujours contourner les attributs HTML.
+ * Schémas de validation, construits à partir du dictionnaire de la langue
+ * courante : les messages d'erreur s'affichent dans la langue de la page.
+ *
+ * La validation côté serveur fait foi : le navigateur peut toujours contourner
+ * les attributs HTML.
  */
+export function buildSchemas(dict: Dictionary) {
+  const errors = dict.forms.errors;
 
-const name = z
-  .string()
-  .trim()
-  .min(2, 'Indiquez votre nom.')
-  .max(120, 'Nom trop long.');
-
-const email = z
-  .string()
-  .trim()
-  .min(1, 'Indiquez votre adresse email.')
-  .email('Adresse email invalide.')
-  .max(200, 'Adresse email trop longue.');
-
-const company = z
-  .string()
-  .trim()
-  .max(160, 'Nom de societe trop long.')
-  .optional()
-  .transform((value) => (value ? value : undefined));
-
-export const contactSchema = z.object({
-  name,
-  email,
-  company,
-  message: z
+  const name = z
     .string()
     .trim()
-    .min(20, 'Detaillez votre demande en 20 caracteres au minimum.')
-    .max(4000, 'Message trop long.'),
-});
+    .min(2, errors.nameRequired)
+    .max(120, errors.nameTooLong);
 
-export const accessRequestSchema = z.object({
-  name,
-  email,
-  company,
-  message: z
+  const email = z
     .string()
     .trim()
-    .max(4000, 'Message trop long.')
+    .min(1, errors.emailRequired)
+    .email(errors.emailInvalid)
+    .max(200, errors.emailTooLong);
+
+  const company = z
+    .string()
+    .trim()
+    .max(160, errors.companyTooLong)
     .optional()
-    .transform((value) => (value ? value : undefined)),
-});
+    .transform((value) => (value ? value : undefined));
 
+  return {
+    contact: z.object({
+      name,
+      email,
+      company,
+      message: z
+        .string()
+        .trim()
+        .min(20, errors.messageTooShort)
+        .max(4000, errors.messageTooLong),
+    }),
+
+    accessRequest: z.object({
+      name,
+      email,
+      company,
+      message: z
+        .string()
+        .trim()
+        .max(4000, errors.messageTooLong)
+        .optional()
+        .transform((value) => (value ? value : undefined)),
+    }),
+  };
+}
+
+/**
+ * Schéma de connexion. Indépendant du dictionnaire : ses messages ne sont
+ * jamais affichés, NextAuth se contente de rejeter la tentative.
+ */
 export const loginSchema = z.object({
-  email,
-  password: z.string().min(1, 'Indiquez votre mot de passe.'),
+  email: z.string().trim().email().max(200),
+  password: z.string().min(1),
 });
 
-export type ContactInput = z.infer<typeof contactSchema>;
-export type AccessRequestInput = z.infer<typeof accessRequestSchema>;
+export type ContactInput = z.infer<ReturnType<typeof buildSchemas>['contact']>;
+export type AccessRequestInput = z.infer<
+  ReturnType<typeof buildSchemas>['accessRequest']
+>;
 
-/** Etat renvoye par les server actions de formulaire vers le client. */
+/** État renvoyé par les server actions de formulaire vers le client. */
 export type FormState = {
   status: 'idle' | 'success' | 'error';
   message?: string;

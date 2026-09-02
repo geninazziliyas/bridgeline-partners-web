@@ -1,9 +1,13 @@
-/** Entrees du menu lateral de la Bridgeline Room. */
+/**
+ * Entrées du menu latéral de la Bridgeline Room.
+ * `href` est un chemin interne sans préfixe de langue ; `key` désigne le
+ * libellé dans le dictionnaire.
+ */
 export const roomNavigation = [
-  { href: '/room/dashboard', label: 'Vue d’ensemble', icon: 'overview' },
-  { href: '/room/opportunities', label: 'Opportunites', icon: 'deals' },
-  { href: '/room/portfolio', label: 'Mon portefeuille', icon: 'portfolio' },
-  { href: '/room/documents', label: 'Documents', icon: 'documents' },
+  { href: '/room/dashboard', key: 'overview', icon: 'overview' },
+  { href: '/room/opportunities', key: 'opportunities', icon: 'deals' },
+  { href: '/room/portfolio', key: 'portfolio', icon: 'portfolio' },
+  { href: '/room/documents', key: 'documents', icon: 'documents' },
 ] as const;
 
 export type RoomNavItem = (typeof roomNavigation)[number];

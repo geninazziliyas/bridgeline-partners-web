@@ -5,40 +5,50 @@ import { Container } from '@/components/ui/Container';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { getPublicDeals } from '@/lib/deals';
 import { formatShortDate } from '@/lib/utils';
+import { localizedPath, type Locale } from '@/lib/i18n/config';
+import type { Dictionary } from '@/lib/i18n';
 
 /**
- * Apercu des operations en cours.
+ * Aperçu des opérations en cours.
  *
- * Le site public annonce l'existence des operations et leur calendrier, jamais
- * leurs montants : la donnee chiffree reste derriere l'authentification de la
+ * Le site public annonce l'existence des opérations et leur calendrier, jamais
+ * leurs montants : la donnée chiffrée reste derrière l'authentification de la
  * Room.
  */
-export async function OpportunitiesPreview() {
-  const deals = await getPublicDeals(4);
+export async function OpportunitiesPreview({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const deals = await getPublicDeals(locale, 4);
 
   return (
     <section className="border-b border-hairline bg-canvas py-20 lg:py-28">
       <Container>
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="max-w-xl font-display text-3xl font-bold text-navy md:text-4xl">
-              Operations en cours
-            </h2>
-            <p className="mt-3 max-w-[56ch] text-[16px] leading-relaxed text-ink-muted">
-              Les montants cibles, tickets minimums et documents sont accessibles
-              apres connexion.
-            </p>
-          </div>
+        <div>
+          <h2 className="max-w-xl font-display text-3xl font-bold text-navy md:text-4xl">
+            {dict.home.opportunities.title}
+          </h2>
+          <p className="mt-3 max-w-[56ch] text-[16px] leading-relaxed text-ink-muted">
+            {dict.home.opportunities.lead}
+          </p>
         </div>
 
         {deals.length === 0 ? (
-          // Etat vide : aucune operation ouverte, ou base momentanement injoignable.
+          // État vide : aucune opération ouverte, ou base momentanément injoignable.
           <div className="mt-10 rounded-card border border-dashed border-hairline bg-white p-10 text-center">
             <p className="text-[16px] text-ink-muted">
-              Aucune operation n’est ouverte a la souscription pour le moment.
+              {dict.home.opportunities.emptyBody}
             </p>
-            <ButtonLink href="/contact" variant="secondary" size="md" className="mt-6">
-              Nous contacter
+            <ButtonLink
+              href={localizedPath(locale, '/contact')}
+              variant="secondary"
+              size="md"
+              className="mt-6"
+            >
+              {dict.common.contact}
             </ButtonLink>
           </div>
         ) : (
@@ -58,10 +68,10 @@ export async function OpportunitiesPreview() {
                     {deal.sector}
                   </p>
                   <p className="tabular font-mono text-[14px] text-ink-muted md:col-span-2">
-                    {formatShortDate(deal.closingDate)}
+                    {formatShortDate(deal.closingDate, locale)}
                   </p>
                   <div className="md:col-span-2 md:justify-self-end">
-                    <StatusBadge status={deal.status} />
+                    <StatusBadge status={deal.status} dict={dict} />
                   </div>
                 </div>
               </li>
@@ -69,8 +79,13 @@ export async function OpportunitiesPreview() {
           </ul>
         )}
 
-        <ButtonLink href="/room" variant="ghost" size="md" className="mt-8 -ml-3">
-          Bridgeline Room
+        <ButtonLink
+          href={localizedPath(locale, '/room')}
+          variant="ghost"
+          size="md"
+          className="mt-8 -ml-3"
+        >
+          {dict.common.room}
           <ArrowRight size={16} weight="bold" />
         </ButtonLink>
       </Container>

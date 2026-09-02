@@ -9,13 +9,20 @@ import { Button } from '@/components/ui/Button';
 import { Field, Input } from '@/components/ui/Field';
 import { FormFeedback } from '@/components/forms/FormFeedback';
 import type { FormState } from '@/lib/validations';
+import type { Dictionary } from '@/lib/i18n';
 
 /**
- * Connexion a la Room. Deux chemins pour un meme compte :
+ * Connexion à la Room. Deux chemins pour un même compte :
  * mot de passe (provider Credentials) ou lien de connexion par email
- * (provider Email). Les deux exigent un compte deja provisionne.
+ * (provider Email). Les deux exigent un compte déjà provisionné.
  */
-export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
+export function LoginForm({
+  callbackUrl,
+  dict,
+}: {
+  callbackUrl: string;
+  dict: Dictionary;
+}) {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
@@ -39,10 +46,10 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
 
     if (!result || result.error) {
       // Message volontairement identique quel que soit le motif : il ne doit
-      // pas permettre de determiner si un compte existe.
+      // pas permettre de déterminer si un compte existe.
       setState({
         status: 'error',
-        message: 'Identifiants invalides, ou compte sans acces a la Room.',
+        message: dict.login.errors.CredentialsSignin,
       });
       return;
     }
@@ -53,10 +60,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
 
   async function handleMagicLink() {
     if (!email.trim()) {
-      setState({
-        status: 'error',
-        message: 'Indiquez votre adresse email pour recevoir un lien.',
-      });
+      setState({ status: 'error', message: dict.login.magicLinkNeedsEmail });
       return;
     }
 
@@ -69,15 +73,8 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
 
     setState(
       result?.error
-        ? {
-            status: 'error',
-            message: 'Envoi impossible pour le moment. Reessayez dans un instant.',
-          }
-        : {
-            status: 'success',
-            message:
-              'Si un compte existe pour cette adresse, un lien de connexion vient d’etre envoye.',
-          },
+        ? { status: 'error', message: dict.login.magicLinkFailed }
+        : { status: 'success', message: dict.login.magicLinkSent },
     );
   }
 
@@ -86,7 +83,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
       <FormFeedback state={state} />
 
       <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-5" noValidate>
-        <Field id="login-email" label="Email">
+        <Field id="login-email" label={dict.login.email}>
           <Input
             id="login-email"
             name="email"
@@ -98,7 +95,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
           />
         </Field>
 
-        <Field id="login-password" label="Mot de passe">
+        <Field id="login-password" label={dict.login.password}>
           <Input
             id="login-password"
             name="password"
@@ -114,17 +111,17 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
           {pending === 'password' ? (
             <>
               <CircleNotch size={17} weight="bold" className="animate-spin" />
-              Connexion
+              {dict.login.signingIn}
             </>
           ) : (
-            'Se connecter'
+            dict.common.signIn
           )}
         </Button>
       </form>
 
       <div className="flex items-center gap-4">
         <span className="h-px flex-1 bg-hairline" />
-        <span className="text-[13px] text-ink-faint">ou</span>
+        <span className="text-[13px] text-ink-faint">{dict.login.or}</span>
         <span className="h-px flex-1 bg-hairline" />
       </div>
 
@@ -138,12 +135,12 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
         {pending === 'link' ? (
           <>
             <CircleNotch size={17} weight="bold" className="animate-spin" />
-            Envoi du lien
+            {dict.login.sendingLink}
           </>
         ) : (
           <>
             <EnvelopeSimple size={17} weight="regular" />
-            Recevoir un lien de connexion
+            {dict.login.magicLink}
           </>
         )}
       </Button>

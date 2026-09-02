@@ -6,10 +6,18 @@ import { Field, Input, Textarea } from '@/components/ui/Field';
 import { FormFeedback } from '@/components/forms/FormFeedback';
 import { SubmitButton } from '@/components/forms/SubmitButton';
 import { initialFormState } from '@/lib/validations';
-import { submitAccessRequest } from '@/app/room/(public)/actions';
+import { submitAccessRequest } from '@/app/[locale]/room/(public)/actions';
+import type { Dictionary } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n/config';
 
-/** Formulaire de demande d'acces a la Room. Ne cree jamais de compte. */
-export function AccessRequestForm() {
+/** Formulaire de demande d'accès à la Room. Ne crée jamais de compte. */
+export function AccessRequestForm({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
   const [state, formAction] = useFormState(submitAccessRequest, initialFormState);
 
   if (state.status === 'success') {
@@ -18,10 +26,12 @@ export function AccessRequestForm() {
 
   return (
     <form action={formAction} className="flex flex-col gap-6" noValidate>
+      <input type="hidden" name="locale" value={locale} />
+
       <FormFeedback state={state} />
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field id="ar-name" label="Nom et prenom" errors={state.fieldErrors?.name}>
+        <Field id="ar-name" label={dict.forms.name} errors={state.fieldErrors?.name}>
           <Input
             id="ar-name"
             name="name"
@@ -31,11 +41,7 @@ export function AccessRequestForm() {
           />
         </Field>
 
-        <Field
-          id="ar-email"
-          label="Email professionnel"
-          errors={state.fieldErrors?.email}
-        >
+        <Field id="ar-email" label={dict.forms.email} errors={state.fieldErrors?.email}>
           <Input
             id="ar-email"
             name="email"
@@ -47,27 +53,31 @@ export function AccessRequestForm() {
         </Field>
       </div>
 
-      <Field id="ar-company" label="Societe" errors={state.fieldErrors?.company}>
+      <Field
+        id="ar-company"
+        label={dict.forms.company}
+        errors={state.fieldErrors?.company}
+      >
         <Input id="ar-company" name="company" autoComplete="organization" />
       </Field>
 
       <Field
         id="ar-message"
-        label="Votre profil d’investisseur"
-        hint="Facultatif. Type de structure, classes d’actifs suivies, taille de ticket habituelle."
+        label={dict.forms.accessProfile}
+        hint={dict.forms.accessProfileHint}
         errors={state.fieldErrors?.message}
       >
         <Textarea id="ar-message" name="message" rows={5} />
       </Field>
 
       <div>
-        <SubmitButton pendingLabel="Envoi">Demander l’acces</SubmitButton>
+        <SubmitButton pendingLabel={dict.forms.sending}>
+          {dict.forms.accessSubmit}
+        </SubmitButton>
       </div>
 
       <p className="text-[13px] leading-relaxed text-ink-faint">
-        L’acces est reserve aux investisseurs professionnels. Une demande ne cree
-        pas de compte : notre equipe verifie votre eligibilite avant tout
-        provisionnement.
+        {dict.forms.accessNotice}
       </p>
     </form>
   );

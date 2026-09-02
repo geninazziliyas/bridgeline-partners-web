@@ -1,6 +1,7 @@
 import type { DealStatus, DocumentType } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
+import type { Locale } from '@/lib/i18n/config';
 
 /**
  * Lectures propres a un investisseur connecte.
@@ -24,12 +25,22 @@ export type PositionView = {
 };
 
 /** Participations de l'investisseur, de la plus recente a la plus ancienne. */
-export async function getPositions(userId: string): Promise<PositionView[]> {
+export async function getPositions(
+  userId: string,
+  locale: Locale,
+): Promise<PositionView[]> {
   const investments = await prisma.investment.findMany({
     where: { userId },
     include: {
       deal: {
-        select: { id: true, name: true, slug: true, sector: true, status: true },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          sector: true,
+          sectorEn: true,
+          status: true,
+        },
       },
     },
     orderBy: { investedAt: 'desc' },
@@ -44,7 +55,11 @@ export async function getPositions(userId: string): Promise<PositionView[]> {
       dealId: investment.deal.id,
       dealName: investment.deal.name,
       dealSlug: investment.deal.slug,
-      sector: investment.deal.sector,
+      // Repli sur le francais quand la traduction anglaise n'est pas saisie.
+      sector:
+        locale === 'en' && investment.deal.sectorEn?.trim()
+          ? investment.deal.sectorEn
+          : investment.deal.sector,
       status: investment.deal.status,
       amountInvested,
       currentValue,
@@ -72,9 +87,10 @@ export type PortfolioSummary = {
 /** Chiffres de la vue d'ensemble. */
 export async function getPortfolioSummary(
   userId: string,
+  locale: Locale,
 ): Promise<PortfolioSummary> {
   const [positions, nextClosing] = await Promise.all([
-    getPositions(userId),
+    getPositions(userId, locale),
     prisma.deal.findFirst({
       where: { status: { in: ['OPEN', 'CLOSING_SOON'] }, closingDate: { gte: new Date() } },
       orderBy: { closingDate: 'asc' },

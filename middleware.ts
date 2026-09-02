@@ -1,28 +1,86 @@
-import { withAuth } from 'next-auth/middleware';
+import { NextResponse, type NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+
+import { defaultLocale, isLocale, locales } from '@/lib/i18n/config';
 
 /**
- * Premiere barriere d'authentification : toute requete vers une route de la
- * Room sans jeton de session valide est redirigee vers /room/login, avec la
- * destination initiale en callbackUrl.
+ * Un seul middleware pour deux responsabilités, dans cet ordre :
  *
- * La verification de session est refaite cote serveur dans le layout du
- * segment protege : le middleware filtre, le layout garantit.
+ * 1. Langue. Toute URL sans préfixe de langue est redirigée vers la version
+ *    correspondante, choisie d'après le cookie de préférence puis d'après
+ *    l'en-tête Accept-Language du navigateur.
+ * 2. Authentification. Les pages de la Room situées derrière la connexion sont
+ *    refusées sans jeton de session valide, avec retour vers /[locale]/room/login
+ *    et la destination d'origine en callbackUrl.
+ *
+ * La vérification de session est refaite côté serveur dans le layout du segment
+ * protégé : le middleware filtre, le layout garantit.
  */
-export default withAuth({
-  pages: {
-    signIn: '/room/login',
-  },
-});
+
+const LOCALE_COOKIE = 'bridgeline_locale';
+
+/** Segments protégés, exprimés sans le préfixe de langue. */
+const protectedSegments = ['/room/dashboard', '/room/opportunities', '/room/portfolio', '/room/documents'];
+
+/** Langue déduite du cookie de préférence, sinon du navigateur, sinon défaut. */
+function resolveLocale(request: NextRequest) {
+  const fromCookie = request.cookies.get(LOCALE_COOKIE)?.value;
+  if (fromCookie && isLocale(fromCookie)) return fromCookie;
+
+  const header = request.headers.get('accept-language');
+  if (header) {
+    // « fr-CH,fr;q=0.9,en;q=0.8 » : on prend la première langue reconnue.
+    const preferred = header
+      .split(',')
+      .map((part) => part.split(';')[0].trim().slice(0, 2).toLowerCase());
+    const match = preferred.find((code) => isLocale(code));
+    if (match && isLocale(match)) return match;
+  }
+
+  return defaultLocale;
+}
+
+export async function middleware(request: NextRequest) {
+  const { pathname, search } = request.nextUrl;
+
+  const hasLocale = locales.some(
+    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
+  );
+
+  // 1. Aucune langue dans l'URL : on redirige vers la version adéquate.
+  if (!hasLocale) {
+    const locale = resolveLocale(request);
+    const target = new URL(
+      `/${locale}${pathname === '/' ? '' : pathname}${search}`,
+      request.url,
+    );
+    return NextResponse.redirect(target);
+  }
+
+  // 2. Page protégée : il faut un jeton de session.
+  const locale = pathname.split('/')[1];
+  const withoutLocale = pathname.slice(locale.length + 1) || '/';
+
+  if (protectedSegments.some((segment) => withoutLocale.startsWith(segment))) {
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    if (!token) {
+      const login = new URL(`/${locale}/room/login`, request.url);
+      login.searchParams.set('callbackUrl', `${pathname}${search}`);
+      return NextResponse.redirect(login);
+    }
+  }
+
+  return NextResponse.next();
+}
 
 /**
- * Les pages publiques de la Room (/room et /room/login) sont volontairement
- * absentes de ce matcher.
+ * Exclut les routes techniques : API (dont NextAuth), fichiers internes de
+ * Next, et tout chemin comportant une extension de fichier (images, PDF...).
  */
 export const config = {
-  matcher: [
-    '/room/dashboard/:path*',
-    '/room/opportunities/:path*',
-    '/room/portfolio/:path*',
-    '/room/documents/:path*',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)'],
 };
