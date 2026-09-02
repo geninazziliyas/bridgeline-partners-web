@@ -1,0 +1,198 @@
+// Schema Prisma - Bridgeline Partners
+//
+// Quatre tables metier (User, Deal, Investment, Document) plus la table des
+// demandes d'acces a la Room, et les tables techniques exigees par l'adapter
+// Prisma de NextAuth (Account, Session, VerificationToken).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  INVESTOR
+  ADMIN
+}
+
+enum DealStatus {
+  OPEN // Ouvert
+  CLOSING_SOON // Cloture proche
+  INVITE_ONLY // Sur invitation
+  CLOSED // Cloture
+}
+
+enum DocumentType {
+  REPORT // Rapport periodique
+  TERM_SHEET // Term sheet
+  STATEMENT // Releve de participation
+  OTHER
+}
+
+enum AccessRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+/// Investisseur de la Bridgeline Room, ou membre de l'equipe (ADMIN).
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  /// Hash bcrypt. Null pour un compte qui ne se connecte que par lien magique.
+  passwordHash  String?
+  role          UserRole  @default(INVESTOR)
+  company       String?
+  /// Pays ou juridiction de residence, affiche dans l'entete de la Room.
+  jurisdiction  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  investments Investment[]
+  documents   Document[]
+  accounts    Account[]
+  sessions    Session[]
+
+  @@index([role])
+}
+
+/// Opportunite d'investissement presentee dans la Room.
+model Deal {
+  id           String     @id @default(cuid())
+  name         String
+  slug         String     @unique
+  /// Accroche d'une ligne, affichee dans les listes.
+  summary      String
+  /// Description longue, affichee sur la fiche du deal.
+  description  String
+  sector       String
+  geography    String
+  currency     String     @default("EUR")
+  status       DealStatus @default(OPEN)
+  targetAmount Decimal    @db.Decimal(14, 2)
+  raisedAmount Decimal    @default(0) @db.Decimal(14, 2)
+  minTicket    Decimal    @db.Decimal(14, 2)
+  closingDate  DateTime
+  /// Mis en avant sur la vue d'ensemble de la Room.
+  featured     Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  investments Investment[]
+  documents   Document[]
+
+  @@index([status])
+  @@index([closingDate])
+}
+
+/// Participation d'un investisseur dans un deal.
+model Investment {
+  id             String   @id @default(cuid())
+  userId         String
+  dealId         String
+  amountInvested Decimal  @db.Decimal(14, 2)
+  /// Derniere valorisation connue de la participation.
+  currentValue   Decimal  @db.Decimal(14, 2)
+  investedAt     DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deal Deal @relation(fields: [dealId], references: [id], onDelete: Restrict)
+
+  /// Une seule ligne de participation par couple investisseur / deal.
+  @@unique([userId, dealId])
+  @@index([userId])
+}
+
+/// Document consultable dans la Room.
+///
+/// userId null = document rattache au deal, visible par tous ses souscripteurs.
+/// dealId null = document propre au compte (releve annuel, KYC...).
+model Document {
+  id        String       @id @default(cuid())
+  userId    String?
+  dealId    String?
+  title     String
+  type      DocumentType @default(REPORT)
+  /// URL du fichier (stockage objet). Voir README, section "Documents".
+  fileUrl   String
+  /// Taille en octets, affichee a cote du lien de telechargement.
+  sizeBytes Int?
+  createdAt DateTime     @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deal Deal? @relation(fields: [dealId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([dealId])
+}
+
+/// Demande d'acces a la Room deposee depuis le site public.
+/// Volontairement sans relation vers User : une demande ne cree jamais de compte,
+/// l'equipe qualifie puis provisionne manuellement.
+model AccessRequest {
+  id        String              @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  message   String?
+  status    AccessRequestStatus @default(PENDING)
+  createdAt DateTime            @default(now())
+
+  @@index([status])
+}
+
+/// Message envoye depuis le formulaire de contact public.
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  message   String
+  createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Tables techniques NextAuth (adapter Prisma)
+// ---------------------------------------------------------------------------
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

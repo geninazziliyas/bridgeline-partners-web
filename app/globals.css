@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Le site est verrouille en theme clair : la palette de marque est
+       construite autour du navy sur fond clair. Declare explicitement pour que
+       les controles natifs (selects, scrollbars) suivent. */
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Les titres utilisent la display geometrique, resserree. */
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
+  }
+
+  /* Focus clavier visible sur tout element focusable, y compris les liens. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent-ring ring-offset-2 ring-offset-canvas;
+  }
+
+  ::selection {
+    @apply bg-accent-soft text-navy;
+  }
+
+  /* Les chiffres sont tabulaires partout : les colonnes de montants restent
+     alignees d'une ligne a l'autre. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* Defilement horizontal du bandeau de track record. Une seule animation sur
+     l'ensemble du site, et elle sert a montrer la longueur de la liste. */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 42s linear infinite;
+  }
+}
+
+/* Toute animation se desactive si l'utilisateur le demande. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
