@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Container';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContactForm } from '@/components/forms/ContactForm';
-import { offices } from '@/lib/site';
+import { offices, site } from '@/lib/site';
 import { getDictionary, type Locale } from '@/lib/i18n';
 
 export async function generateMetadata({
@@ -13,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const dict = getDictionary(params.locale);
   return {
-    title: dict.contact.title,
+    title: dict.nav.contact,
     description: dict.contact.lead,
     alternates: { canonical: `/${params.locale}/contact` },
   };
@@ -46,32 +46,28 @@ export default function ContactPage({ params }: { params: { locale: Locale } }) 
                     {office.city}
                   </dt>
                   <dd className="mt-2 space-y-1.5 text-[15px] leading-relaxed text-ink-muted">
-                    <p>{dict.offices[office.id].country}</p>
-                    {/* Adresse et téléphone restent masqués tant qu'ils ne sont
-                        pas renseignés dans lib/site.ts. */}
-                    {office.address ? <p>{office.address}</p> : null}
-                    {office.phone ? (
-                      <p>
-                        <a
-                          href={`tel:${office.phone.replace(/\s/g, '')}`}
-                          className="font-mono text-[14px] text-accent underline-offset-4 hover:underline"
-                        >
-                          {office.phone}
-                        </a>
-                      </p>
-                    ) : null}
+                    <p>{office.address}</p>
                     <p>
                       <a
-                        href={`mailto:${office.email}`}
+                        href={`tel:${office.phone.replace(/\s/g, '')}`}
                         className="font-mono text-[14px] text-accent underline-offset-4 hover:underline"
                       >
-                        {office.email}
+                        {office.phone}
                       </a>
                     </p>
                   </dd>
                 </div>
               ))}
             </dl>
+
+            <p className="mt-6">
+              <a
+                href={`mailto:${site.email}`}
+                className="font-mono text-[15px] text-accent underline-offset-4 hover:underline"
+              >
+                {site.email}
+              </a>
+            </p>
 
             <p className="mt-6 text-[14px] leading-relaxed text-ink-muted">
               {dict.contact.existingInvestor}

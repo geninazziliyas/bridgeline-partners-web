@@ -43,12 +43,12 @@ export default function AboutPage({ params }: { params: { locale: Locale } }) {
           <aside className="lg:col-span-4 lg:col-start-9">
             <div className="rounded-card border border-hairline bg-white p-8">
               <h3 className="font-display text-lg font-bold text-navy">
-                {dict.about.notDoing.title}
+                {dict.home.advantages.eyebrow}
               </h3>
               <ul className="mt-5 space-y-4 text-[15px] leading-relaxed text-ink-muted">
-                {dict.about.notDoing.items.map((item) => (
-                  <li key={item} className="border-l-2 border-hairline pl-4">
-                    {item}
+                {dict.advantages.map((item) => (
+                  <li key={item.title} className="border-l-2 border-hairline pl-4">
+                    {item.title}
                   </li>
                 ))}
               </ul>
@@ -57,7 +57,43 @@ export default function AboutPage({ params }: { params: { locale: Locale } }) {
         </Container>
       </section>
 
-      <section className="bg-white py-20 lg:py-24">
+      {/* Les deux publics du site, chacun avec son argumentaire complet.
+          Alternance des colonnes pour éviter deux blocs identiques d'affilée. */}
+      <section className="border-b border-hairline bg-white py-20 lg:py-24">
+        <Container className="space-y-16">
+          <article className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <h2 className="font-display text-2xl font-bold text-navy md:text-3xl">
+                {dict.about.seeking.title}
+              </h2>
+              <p className="mt-4 text-[17px] leading-relaxed text-accent">
+                {dict.about.seeking.lead}
+              </p>
+            </div>
+            <div className="space-y-4 text-[16px] leading-relaxed text-ink-muted lg:col-span-6 lg:col-start-7">
+              <p>{dict.about.seeking.body1}</p>
+              <p>{dict.about.seeking.body2}</p>
+            </div>
+          </article>
+
+          <article className="grid gap-8 border-t border-hairline pt-16 lg:grid-cols-12 lg:gap-16">
+            <div className="space-y-4 text-[16px] leading-relaxed text-ink-muted lg:col-span-6 lg:row-start-1">
+              <p>{dict.about.investing.body1}</p>
+              <p>{dict.about.investing.body2}</p>
+            </div>
+            <div className="lg:col-span-5 lg:col-start-8 lg:row-start-1">
+              <h2 className="font-display text-2xl font-bold text-navy md:text-3xl">
+                {dict.about.investing.title}
+              </h2>
+              <p className="mt-4 text-[17px] leading-relaxed text-accent">
+                {dict.about.investing.lead}
+              </p>
+            </div>
+          </article>
+        </Container>
+      </section>
+
+      <section className="bg-canvas py-20 lg:py-24">
         <Container>
           <h2 className="font-display text-2xl font-bold text-navy md:text-3xl">
             {dict.about.offices.title}
@@ -90,14 +126,22 @@ export default function AboutPage({ params }: { params: { locale: Locale } }) {
                     {dict.offices[office.id].country}
                   </p>
                   <p className="mt-4 text-[15px] leading-relaxed text-ink-muted">
-                    {dict.offices[office.id].role}
+                    {office.address}
                   </p>
-                  <a
-                    href={`mailto:${office.email}`}
-                    className="mt-5 inline-block font-mono text-[14px] text-accent underline-offset-4 hover:underline"
-                  >
-                    {office.email}
-                  </a>
+                  <p className="mt-3 space-x-4">
+                    <a
+                      href={`tel:${office.phone.replace(/\s/g, '')}`}
+                      className="font-mono text-[14px] text-accent underline-offset-4 hover:underline"
+                    >
+                      {office.phone}
+                    </a>
+                    <a
+                      href={`mailto:${office.email}`}
+                      className="font-mono text-[14px] text-accent underline-offset-4 hover:underline"
+                    >
+                      {office.email}
+                    </a>
+                  </p>
                 </div>
               </article>
             ))}

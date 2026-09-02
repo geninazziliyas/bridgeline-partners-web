@@ -22,20 +22,17 @@ const LOCALE_COOKIE = 'bridgeline_locale';
 /** Segments protégés, exprimés sans le préfixe de langue. */
 const protectedSegments = ['/room/dashboard', '/room/opportunities', '/room/portfolio', '/room/documents'];
 
-/** Langue déduite du cookie de préférence, sinon du navigateur, sinon défaut. */
+/**
+ * Langue à servir pour une URL sans préfixe.
+ *
+ * Seul le choix explicite du visiteur, mémorisé en cookie, écarte l'anglais.
+ * La langue du navigateur n'est volontairement pas consultée : l'anglais est la
+ * version d'arrivée du site. Pour revenir à une détection automatique, il
+ * suffirait de lire l'en-tête Accept-Language avant ce repli.
+ */
 function resolveLocale(request: NextRequest) {
   const fromCookie = request.cookies.get(LOCALE_COOKIE)?.value;
   if (fromCookie && isLocale(fromCookie)) return fromCookie;
-
-  const header = request.headers.get('accept-language');
-  if (header) {
-    // « fr-CH,fr;q=0.9,en;q=0.8 » : on prend la première langue reconnue.
-    const preferred = header
-      .split(',')
-      .map((part) => part.split(';')[0].trim().slice(0, 2).toLowerCase());
-    const match = preferred.find((code) => isLocale(code));
-    if (match && isLocale(match)) return match;
-  }
 
   return defaultLocale;
 }

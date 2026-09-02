@@ -6,12 +6,18 @@
  * servir la bonne selon la requete.
  */
 
-export const locales = ['fr', 'en'] as const;
+export const locales = ['en', 'fr'] as const;
 
 export type Locale = (typeof locales)[number];
 
-/** Langue servie a la racine du site et quand aucune preference n'est lisible. */
-export const defaultLocale: Locale = 'fr';
+/**
+ * Langue servie a l'arrivee sur le site.
+ *
+ * L'anglais est prioritaire : un visiteur qui n'a jamais choisi voit la version
+ * anglaise, quelle que soit la langue de son navigateur. Le francais reste a un
+ * clic, et le choix est ensuite memorise.
+ */
+export const defaultLocale: Locale = 'en';
 
 /** Libelles du selecteur de langue, dans leur propre langue. */
 export const localeNames: Record<Locale, string> = {

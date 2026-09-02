@@ -1,10 +1,15 @@
 # Bridgeline Partners
 
-Site vitrine et espace investisseurs ("Bridgeline Room") de Bridgeline Partners.
+Site vitrine et espace investisseurs de Bridgeline Partners, en anglais et en
+francais.
 
-- **Site public** : accueil, a propos, equipe, contact.
-- **Bridgeline Room** : page de presentation publique, authentification, puis
+- **Site public** : accueil, a propos, services, equipe, contact.
+- **Espace investisseur** : page de presentation publique, authentification, puis
   vue d'ensemble, opportunites, portefeuille et documents derriere la session.
+
+Le contenu editorial reprend celui publie sur bridgelinepartners.com. La version
+anglaise en est une traduction : si un texte anglais officiel existe, il doit
+remplacer `lib/i18n/dictionaries/en.ts`.
 
 ---
 
@@ -138,20 +143,20 @@ incompatible avec le provider Credentials de NextAuth 4).
 
 Deux barrieres :
 
-- `middleware.ts` intercepte `/room/dashboard`, `/room/opportunities`,
-  `/room/portfolio` et `/room/documents` et redirige vers `/room/login` avec la
+- `middleware.ts` intercepte `/[locale]/room/dashboard`, `/[locale]/room/opportunities`,
+  `/[locale]/room/portfolio` et `/[locale]/room/documents`, et redirige vers `/[locale]/room/login` avec la
   destination d'origine en `callbackUrl`.
-- `app/room/(dashboard)/layout.tsx` re-verifie la session cote serveur avant
+- `app/[locale]/room/(dashboard)/layout.tsx` re-verifie la session cote serveur avant
   toute lecture en base.
 
-`/room` et `/room/login` restent publiques.
+`/[locale]/room` et `/[locale]/room/login` restent publiques.
 
 ---
 
 ## Langues
 
-Le site est bilingue francais / anglais, avec une URL par langue :
-`/fr/...` et `/en/...`. Le francais est la langue par defaut.
+Le site est bilingue anglais / francais, avec une URL par langue :
+`/en/...` et `/fr/...`. **L'anglais est la langue d'arrivee** : un visiteur qui n'a jamais choisi voit la version anglaise, quelle que soit la langue de son navigateur. Le francais reste a un clic, et le choix est ensuite memorise dans le cookie `bridgeline_locale`.
 
 - **Textes de l'interface** : `lib/i18n/dictionaries/fr.ts` et `en.ts`. Le
   dictionnaire anglais est type d'apres le francais : une cle manquante ou mal
@@ -162,9 +167,11 @@ Le site est bilingue francais / anglais, avec une URL par langue :
   facultatives (`summaryEn`, `descriptionEn`, `sectorEn`, `geographyEn`). Quand
   un champ est vide, l'affichage anglais retombe sur le francais : l'equipe peut
   publier une operation sans la traduire.
-- **Choix de la langue** : le middleware redirige toute URL sans prefixe vers la
-  bonne version, d'apres le cookie `bridgeline_locale` puis l'en-tete
-  `Accept-Language`. Le selecteur de l'entete pose ce cookie.
+- **Choix de la langue** : le middleware redirige toute URL sans prefixe vers
+  l'anglais, sauf si le cookie `bridgeline_locale` porte un choix explicite. La
+  langue du navigateur n'est volontairement pas consultee. Pour revenir a une
+  detection automatique, lire `Accept-Language` dans `resolveLocale`
+  (`middleware.ts`) avant le repli sur la langue par defaut.
 - **Formatage** : montants, dates et pourcentages suivent la langue
   (`lib/utils.ts`).
 - **Referencement** : chaque page declare ses alternates `hreflang`.
@@ -178,13 +185,13 @@ dictionnaire correspondant, et TypeScript signalera tout ce qui manque.
 
 ```
 app/
-├── [locale]/                  # /fr/... et /en/...
+├── [locale]/                  # /en/... et /fr/...
 │   ├── layout.tsx             # balise html, polices, providers
 │   ├── (public)/              # site vitrine (entete + pied de page publics)
 │   │   ├── page.tsx           # accueil
-│   │   └── about/ team/ contact/
+│   │   └── about/ services/ team/ contact/
 │   ├── room/
-│   │   ├── (public)/          # /room : presentation + demande d'acces
+│   │   ├── (public)/          # /room : presentation + demande d’acces
 │   │   ├── login/             # /room/login
 │   │   └── (dashboard)/       # routes protegees, menu lateral
 │   │       └── dashboard/ opportunities/ portfolio/ documents/
@@ -243,12 +250,12 @@ Le code est complet ; ces elements editoriaux sont a remplacer.
 
 | Element | Ou | Etat |
 | --- | --- | --- |
-| Adresses postales et telephones des bureaux | `lib/site.ts`, `offices` | `null`, les champs ne s'affichent pas tant qu'ils sont vides |
-| Biographies des associes | `lib/i18n/dictionaries/*.ts`, `team_members` | Descriptives du role exerce, sans parcours anterieur : a valider et completer par chaque associe, dans les deux langues |
+| Adresses, telephones, email | `lib/site.ts` | Repris de bridgelinepartners.com. Le rattachement de chaque numero a un bureau reste a confirmer |
+| Biographies des associes | `lib/i18n/dictionaries/*.ts`, `team_members` | Reprises de bridgelinepartners.com en francais, traduites en anglais |
 | Portraits de l'equipe | `lib/site.ts`, champ `photo` | Placeholders `picsum.photos` |
 | Photographies (accueil, bureaux, Room) | `components/home/Hero.tsx`, `app/(public)/about/page.tsx`, `app/room/(public)/page.tsx` | Placeholders `picsum.photos` |
 | Logo vectoriel | `components/layout/Wordmark.tsx` | Marque nominale + glyphe geometrique provisoire |
-| Track record (operations passees) | `lib/site.ts`, `trackRecord` | Noms et annees a confirmer |
+| Track record (operations passees) | `lib/site.ts`, `trackRecord` | **Provisoire.** Les operations affichees sur bridgelinepartners.com le sont sous forme de logos : les noms reels n'ont pas pu etre recuperes et doivent remplacer cette liste |
 | Traductions anglaises des operations | colonnes `*En` de `Deal` | Renseignees pour les 5 operations de demonstration |
 | Mentions legales et politique de confidentialite | a creer | Absentes |
 

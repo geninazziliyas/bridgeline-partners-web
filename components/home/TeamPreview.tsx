@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { ButtonLink } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
-import { offices, team } from '@/lib/site';
+import { team } from '@/lib/site';
 import { localizedPath, type Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -35,8 +35,6 @@ export function TeamPreview({
 
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {team.map((member) => {
-            const office = offices.find((item) => item.id === member.office);
-
             return (
               <li key={member.id}>
                 <article className="group h-full overflow-hidden rounded-card border border-hairline bg-white">
@@ -57,7 +55,11 @@ export function TeamPreview({
                     <p className="mt-1 text-[15px] text-accent">
                       {dict.team_members[member.id].role}
                     </p>
-                    <p className="mt-1 text-[14px] text-ink-faint">{office?.city}</p>
+                    {/* Première ligne de la biographie : donne un repère de
+                        parcours sans reprendre le texte complet de la page équipe. */}
+                    <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-ink-muted">
+                      {dict.team_members[member.id].bio[0]}
+                    </p>
                   </div>
                 </article>
               </li>

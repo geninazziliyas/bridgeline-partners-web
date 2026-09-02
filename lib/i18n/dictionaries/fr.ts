@@ -1,27 +1,32 @@
 /**
- * Textes français du site. Référence pour la structure : le dictionnaire
- * anglais doit exposer exactement les mêmes clés, ce que TypeScript vérifie.
+ * Textes français du site.
+ *
+ * Le contenu éditorial reprend celui publié sur bridgelinepartners.com.
+ * Référence de structure pour le dictionnaire anglais, que TypeScript vérifie.
  */
 export const fr = {
   meta: {
-    tagline: 'Marchés privés, investisseurs professionnels.',
+    tagline: 'Investissements dans les actifs privés',
     description:
-      'Bridgeline Partners structure et distribue des opportunités de marchés privés à des investisseurs professionnels, depuis Luxembourg et Genève.',
+      'Nous utilisons notre expertise pour trouver des opportunités d’investissement prometteuses. Bureaux au Luxembourg et en Suisse.',
   },
 
   common: {
     contact: 'Nous contacter',
-    room: 'Bridgeline Room',
+    room: 'Espace investisseur',
     signIn: 'Se connecter',
     requestAccess: 'Demander l’accès',
     backHome: 'Retour à l’accueil',
     optional: 'Facultatif.',
     languageLabel: 'Langue',
+    learnMore: 'Plus d’informations',
+    investWithUs: 'Investir avec nous',
   },
 
   nav: {
     about: 'À propos',
-    team: 'Équipe',
+    services: 'Services',
+    team: 'L’équipe',
     contact: 'Nous contacter',
     openMenu: 'Ouvrir le menu',
     closeMenu: 'Fermer le menu',
@@ -31,7 +36,11 @@ export const fr = {
 
   footer: {
     navigation: 'Navigation',
+    services: 'Services',
     offices: 'Bureaux',
+    contact: 'Nous contacter',
+    tagline:
+      'Nous utiliserons nos meilleures pratiques pour trouver des opportunités d’investissement prometteuses.',
     rights: 'Tous droits réservés.',
     disclaimer:
       'Ce site s’adresse à des investisseurs professionnels. Il ne constitue ni une offre ni une sollicitation d’investissement.',
@@ -40,85 +49,111 @@ export const fr = {
 
   home: {
     hero: {
-      title: 'Le capital institutionnel, connecté aux marchés privés.',
-      lead: 'Bridgeline Partners structure et distribue des opérations privées sélectionnées à des investisseurs professionnels, depuis Luxembourg et Genève.',
+      title: 'Investissements dans les actifs privés',
+      lead: 'Nous utilisons notre expertise pour trouver des opportunités d’investissement prometteuses.',
       imageAlt: 'Façade d’un immeuble de bureaux, quartier financier',
     },
     about: {
-      title: 'Une maison de placement, deux juridictions',
+      eyebrow: 'Qui sommes-nous ?',
+      title: 'Une équipe au cœur de l’industrie financière',
       body1:
-        'Nous relions des investisseurs professionnels à des opérations de marchés privés auxquelles ils n’auraient pas accès autrement : secondaires, co-investissements, financements adossés à des actifs réels. Chaque dossier est structuré dans un véhicule dédié, avec la documentation et les prestataires qui vont avec.',
+        'L’équipe de Bridgeline Capital Partners est fière de servir des investisseurs institutionnels exigeants en identifiant soigneusement les meilleures opportunités d’investissement dans le domaine des actifs privés.',
       body2:
-        'Notre taille est un choix. Nous traitons un nombre limité d’opérations par an pour rester en mesure de les suivre jusqu’à la sortie.',
-      link: 'En savoir plus sur notre positionnement',
+        'Avec des bureaux au Luxembourg et en Suisse, notre vaste réseau de contacts nous positionne au cœur de l’industrie financière. Nos succès passés témoignent de notre engagement à fournir les meilleures performances aux investisseurs qui nous font confiance.',
+      link: 'Investir avec nous',
     },
     entries: {
-      investTitle: 'Je veux investir',
+      investTitle:
+        'Vous êtes à la recherche de votre prochaine opportunité d’investissement en actifs privés ?',
       investBody:
-        'Accédez aux opérations ouvertes, à leur documentation et au suivi de vos participations dans la Bridgeline Room.',
-      investAction: 'Découvrir la Room',
-      raiseTitle: 'Je cherche du capital',
+        'Nous utilisons notre expertise pour trouver les meilleures opportunités d’investissement.',
+      investAction: 'Plus d’informations',
+      raiseTitle: 'Vous cherchez comment investir dans votre prochain actif privé ?',
       raiseBody:
-        'Présentez votre opération. Nous revenons vers vous après une première lecture du dossier, sous dix jours ouvrés.',
-      raiseAction: 'Présenter une opération',
+        'Nous vous offrons le moyen le plus polyvalent et le plus facile d’investir dans l’investissement privé de votre choix.',
+      raiseAction: 'Plus d’informations',
     },
-    approach: {
-      title: 'Comment une opération arrive jusqu’à vous',
+    services: {
+      title: 'Investissement direct, trading et expertise analytique',
+      lead: 'Investissements dans des sociétés non quotées, dans la dette privée, dans l’immobilier.',
     },
     advantages: {
-      eyebrow: 'Ce que nous apportons',
-      title: 'Un accès, une structuration, un suivi',
+      eyebrow: 'Nos avantages',
+      title: 'Ce qui nous distingue',
     },
     team: {
-      title: 'Trois associés, un interlocuteur par dossier',
+      title: 'Notre équipe',
       action: 'Voir l’équipe',
     },
     opportunities: {
       title: 'Opérations en cours',
       lead: 'Les montants cibles, tickets minimums et documents sont accessibles après connexion.',
-      emptyBody:
-        'Aucune opération n’est ouverte à la souscription pour le moment.',
+      emptyBody: 'Aucune opération n’est ouverte à la souscription pour le moment.',
     },
     trackRecord: {
-      title: 'Opérations menées depuis 2019',
+      title: 'Aperçu de nos précédents investissements',
     },
     cta: {
-      title: 'Vos opérations et votre portefeuille, au même endroit',
-      body: 'La Bridgeline Room réunit les opérations ouvertes, leur documentation et le suivi de vos participations. L’accès est réservé aux investisseurs professionnels.',
+      title: 'Voulez-vous nous contacter ?',
+      body: 'Restez informés et accédez aux opportunités que nous vous proposons.',
     },
   },
 
   about: {
-    title: 'Relier le capital institutionnel aux marchés privés',
-    lead: 'Nous sélectionnons un nombre limité d’opérations par an, nous les structurons dans des véhicules dédiés, et nous les suivons jusqu’à la sortie.',
+    title: 'Investissements dans les actifs privés',
+    lead: 'Nous utilisons notre expertise pour trouver des opportunités d’investissement prometteuses.',
     positioning: {
-      title: 'Notre positionnement',
+      title: 'Qui sommes-nous ?',
       body1:
-        'Les marchés privés concentrent une part croissante de la création de valeur, mais leur accès reste organisé autour de tickets et de réseaux qui excluent de fait une grande partie des investisseurs professionnels : family offices, gérants indépendants, holdings patrimoniales.',
+        'L’équipe de Bridgeline Capital Partners est fière de servir des investisseurs institutionnels exigeants en identifiant soigneusement les meilleures opportunités d’investissement dans le domaine des actifs privés.',
       body2:
-        'Bridgeline Partners se place à cette jonction. Nous sourçons des opérations auprès de gérants, de conseils et de co-investisseurs, nous vérifions ce qui peut l’être, puis nous construisons le véhicule qui permet à nos investisseurs d’y participer dans un cadre réglementaire clair.',
+        'Avec des bureaux au Luxembourg et en Suisse, notre vaste réseau de contacts nous positionne au cœur de l’industrie financière. Nos succès passés témoignent de notre engagement à fournir les meilleures performances aux investisseurs qui nous font confiance.',
       body3:
-        'Nous ne prétendons pas couvrir toutes les classes d’actifs. Nous intervenons là où nous savons documenter le risque : trade finance adossée à des actifs, secondaires sur des sociétés établies, co-investissements aux côtés d’un chef de file, infrastructures sous contrat.',
+        'Nous proposons un véhicule d’investissement qui détient pour votre compte les titres ciblés de manière totalement séparée.',
     },
-    notDoing: {
-      title: 'Ce que nous ne faisons pas',
-      items: [
-        'Nous ne gérons pas de mandat discrétionnaire.',
-        'Nous ne distribuons pas d’opération que nous n’avons pas structurée ou co-structurée.',
-        'Nous ne nous adressons pas aux investisseurs non professionnels.',
-      ],
+    seeking: {
+      title:
+        'Vous êtes à la recherche de votre prochaine opportunité d’investissement en actifs privés ?',
+      lead: 'Nous utilisons notre expertise pour trouver les meilleures opportunités d’investissement.',
+      body1:
+        'Les flux de capitaux sont toujours aussi élevés. Le nombre de sociétés financières actives dans les marchés privés augmente et il est toujours plus difficile d’accéder à de nouvelles opportunités. Les marchés de capitaux étant de plus en plus saturés et concurrentiels, les investisseurs ont besoin de trouver des sources de placement fiables.',
+      body2:
+        'Nous utilisons les données du marché et notre vaste réseau pour servir votre stratégie d’investissement, trouver les entreprises que vous ciblez et qui sont prêtes à être financées, acquises ou introduites en bourse, et nous vous aidons à évaluer avec précision leur potentiel de croissance.',
+    },
+    investing: {
+      title: 'Vous cherchez comment investir dans votre prochain actif privé ?',
+      lead: 'Nous vous offrons le moyen le plus polyvalent et le plus facile d’investir dans l’investissement privé de votre choix.',
+      body1:
+        'L’accès direct aux marchés privés est presque impossible pour vos clients, à moins que vous ne vous engagiez dans un processus de recherche long, coûteux et ardu. Vos clients demandent de plus en plus d’avoir accès à des transactions et aux rendements attractifs qu’ils offrent.',
+      body2:
+        'Nous avons mis en place une structure efficace pour investir dans ces actifs privés, en utilisant les solutions les plus fiables, combinant transparence et sécurité dans un cadre bien réglementé.',
     },
     offices: {
       title: 'Luxembourg et Genève',
-      lead: 'Deux bureaux, deux fonctions distinctes. La structuration se fait au Luxembourg, où sont domiciliés les véhicules. La relation investisseurs et l’origination sont menées depuis Genève.',
+      lead: 'Deux bureaux, un vaste réseau de contacts au cœur de l’industrie financière.',
       photoAlt: 'Bureau de',
     },
   },
 
+  services: {
+    title: 'Investissement direct, trading et expertise analytique',
+    lead: 'Investissements dans des sociétés non quotées, dans la dette privée, dans l’immobilier.',
+    intro: {
+      body1:
+        'Nous recherchons des investissements directs dans des sociétés non publiques soutenues par les investisseurs les plus importants du marché.',
+      body2:
+        'Les actions ou les dettes des sociétés privées ne sont pas négociées sur les marchés publics et n’ont pas encore été émises dans le cadre d’un premier appel public à l’épargne.',
+      body3:
+        'Les entreprises privées émettent des titres par le biais de placements privés ou procèdent à des rachats de capital. Pour investir dans des titres privés, vous pouvez procéder à un placement privé, traiter directement avec la société ou participer à des offres publiques d’achat.',
+      body4:
+        'Nous proposons un véhicule d’investissement qui détient pour votre compte les titres ciblés de manière totalement séparée.',
+    },
+    listTitle: 'Nos services',
+  },
+
   team: {
-    title: 'L’équipe',
-    lead: 'Une équipe restreinte, où chaque dossier a un responsable identifié du premier échange jusqu’à la sortie.',
-    officePrefix: 'Bureau de',
+    title: 'Notre équipe',
+    lead: 'Une équipe totalement indépendante et engagée, présente au Luxembourg et en Suisse.',
     portraitAlt: 'Portrait de',
     cta: {
       title: 'Vous souhaitez échanger avec l’un d’entre nous',
@@ -127,20 +162,20 @@ export const fr = {
   },
 
   contact: {
-    title: 'Nous contacter',
-    lead: 'Que vous cherchiez à investir ou à lever du capital, décrivez votre situation. Nous répondons sous deux jours ouvrés.',
+    title: 'Voulez-vous nous contacter ?',
+    lead: 'Restez informés et accédez aux opportunités que nous vous proposons.',
     officesTitle: 'Nos bureaux',
     existingInvestor:
-      'Vous êtes déjà investisseur chez nous ? Vos questions de suivi passent par la Bridgeline Room, où vos documents sont disponibles.',
+      'Vous êtes déjà investisseur chez nous ? Vos questions de suivi passent par l’espace investisseur, où vos documents sont disponibles.',
   },
 
   roomLanding: {
-    title: 'La Bridgeline Room',
+    title: 'L’espace investisseur',
     lead: 'L’espace où nos investisseurs consultent les opérations ouvertes, souscrivent et suivent leurs participations.',
     imageAlt: 'Salle de réunion, quartier d’affaires',
     request: {
       title: 'Demander l’accès',
-      body: 'La Room n’est pas ouverte à l’inscription libre. Transmettez-nous votre profil : nous vérifions votre éligibilité en tant qu’investisseur professionnel, puis nous ouvrons votre accès.',
+      body: 'L’espace investisseur n’est pas ouvert à l’inscription libre. Transmettez-nous votre profil : nous vérifions votre éligibilité en tant qu’investisseur professionnel, puis nous ouvrons votre accès.',
       hasAccount: 'Vous avez déjà un compte ?',
     },
   },
@@ -151,7 +186,7 @@ export const fr = {
     back: 'Retour à la présentation',
     brandTitle: 'Vos opérations et votre portefeuille, au même endroit.',
     brandBody:
-      'L’accès à la Bridgeline Room est réservé aux investisseurs professionnels dont le compte a été ouvert par notre équipe.',
+      'L’accès à l’espace investisseur est réservé aux investisseurs professionnels dont le compte a été ouvert par notre équipe.',
     offices: 'Luxembourg et Genève.',
     email: 'Email',
     password: 'Mot de passe',
@@ -164,14 +199,13 @@ export const fr = {
       'Consultez votre boîte email : le lien de connexion vient d’être envoyé.',
     magicLinkSent:
       'Si un compte existe pour cette adresse, un lien de connexion vient d’être envoyé.',
-    magicLinkFailed:
-      'Envoi impossible pour le moment. Réessayez dans un instant.',
-    magicLinkNeedsEmail:
-      'Indiquez votre adresse email pour recevoir un lien.',
+    magicLinkFailed: 'Envoi impossible pour le moment. Réessayez dans un instant.',
+    magicLinkNeedsEmail: 'Indiquez votre adresse email pour recevoir un lien.',
     errors: {
-      CredentialsSignin: 'Identifiants invalides, ou compte sans accès à la Room.',
+      CredentialsSignin:
+        'Identifiants invalides, ou compte sans accès à l’espace investisseur.',
       AccessDenied:
-        'Cette adresse n’est associée à aucun compte. Demandez un accès depuis la page de la Room.',
+        'Cette adresse n’est associée à aucun compte. Demandez un accès depuis la page de l’espace investisseur.',
       Verification: 'Ce lien de connexion a expiré ou a déjà été utilisé.',
     },
   },
@@ -181,7 +215,7 @@ export const fr = {
     opportunities: 'Opportunités',
     portfolio: 'Mon portefeuille',
     documents: 'Documents',
-    ariaLabel: 'Navigation de la Room',
+    ariaLabel: 'Navigation de l’espace investisseur',
     signOut: 'Se déconnecter',
   },
 
@@ -265,9 +299,9 @@ export const fr = {
   },
 
   forms: {
-    name: 'Nom et prénom',
-    email: 'Email professionnel',
-    company: 'Société',
+    name: 'Votre nom',
+    email: 'Email',
+    company: 'Entreprise',
     message: 'Message',
     contactHint:
       'Décrivez votre demande, votre horizon et le type d’opération qui vous intéresse.',
@@ -289,9 +323,8 @@ export const fr = {
       emailRequired: 'Indiquez votre adresse email.',
       emailInvalid: 'Adresse email invalide.',
       emailTooLong: 'Adresse email trop longue.',
-      companyTooLong: 'Nom de société trop long.',
-      messageTooShort:
-        'Détaillez votre demande en 20 caractères au minimum.',
+      companyTooLong: 'Nom d’entreprise trop long.',
+      messageTooShort: 'Détaillez votre demande en 20 caractères au minimum.',
       messageTooLong: 'Message trop long.',
       passwordRequired: 'Indiquez votre mot de passe.',
     },
@@ -329,65 +362,92 @@ export const fr = {
     body: 'Cette adresse ne correspond à aucune page du site. Elle a peut-être été déplacée, ou le lien qui vous a amené ici est incomplet.',
   },
 
-  /** Rôles des bureaux, indexés par identifiant dans lib/site.ts. */
+  /** Pays des bureaux, indexés par identifiant dans lib/site.ts. */
   offices: {
-    luxembourg: {
-      country: 'Grand-Duché de Luxembourg',
-      role: 'Structuration des véhicules et administration des fonds.',
-    },
-    geneva: {
-      country: 'Suisse',
-      role: 'Relation investisseurs et origination des opérations.',
-    },
+    luxembourg: { country: 'Luxembourg' },
+    geneva: { country: 'Suisse' },
   },
 
   /** Fonctions et biographies, indexées par identifiant dans lib/site.ts. */
   team_members: {
     croset: {
       role: 'Co-fondateur',
-      bio: 'Co-fondateur de Bridgeline Partners. Il supervise la structuration des véhicules d’investissement et les relations avec les dépositaires, administrateurs et conseils juridiques du groupe.',
+      bio: [
+        'Hervé Croset a travaillé dans différents pays et cultures (New York, Londres, Hong Kong, Koweït) pour les plus grandes sociétés financières telles que UBS, CS First Boston et HSBC.',
+        'Chez HSBC, il a géré un portefeuille de plus de 17 milliards de dollars de fonds de tiers.',
+        'Il a été élu parmi les 100 gestionnaires de patrimoine les plus influents en 2015 par le magazine WN Wealth Manager.',
+        'Hervé est titulaire d’une charte CFA et d’un Master en gestion bancaire de la SFI, d’un BSc en économie politique de l’Université de Genève, ainsi que d’un diplôme d’ingénieur.',
+      ],
     },
     pal: {
       role: 'Co-fondateur',
-      bio: 'Co-fondateur de Bridgeline Partners. Il dirige l’origination des opérations et la relation avec les family offices, gérants de fortune et investisseurs institutionnels du réseau.',
+      bio: [
+        'George Pal est un professionnel expérimenté de l’investissement qui a commencé sa carrière chez HSBC en se concentrant sur les titres à revenu fixe.',
+        'En 2009, il a fondé OakHill Asset Management SA, une société de conseil, de gestion de patrimoine et de multi-family office.',
+        'Il est co-gestionnaire du fonds à revenu fixe à rendement total de la société, qui a surperformé l’indice obligataire Barclays Capital Aggregate de 130,5 % depuis juillet 2011 (date de création du fonds).',
+        'George est titulaire d’une licence en économie d’entreprise de l’Université de Londres.',
+      ],
     },
     tavares: {
-      role: 'Investment Principal',
-      bio: 'Investment principal. Il conduit l’analyse des dossiers, la due diligence et le suivi des participations en portefeuille jusqu’à leur sortie.',
+      role: 'Directeur investissement',
+      bio: [
+        'John Tavares a 16 ans d’expérience dans le domaine des services transactionnels chez PwC.',
+        'Il possède une vaste expérience dans les domaines de la due diligence côté achat, de l’assistance côté vente, de l’aide à la transaction et à la négociation et de l’intégration après la transaction dans une grande variété de secteurs et de circonstances (investissement dans des sociétés cotées en bourse, cessions, carve-outs, etc.).',
+        'Spécialisé dans le soutien aux clients privés et aux entreprises dans le cadre d’opérations de fusion et d’acquisition transfrontalières et nationales.',
+        'John est titulaire d’une maîtrise en gestion internationale de l’ESC Grenoble et d’un diplôme de troisième cycle en finance d’entreprise.',
+      ],
     },
   },
 
-  approach: [
+  /** Services, repris du pied de page de bridgelinepartners.com. */
+  servicesList: [
     {
-      title: 'Origination',
-      body: 'Les opérations arrivent par notre réseau de gérants, de conseils et de co-investisseurs. Nous écartons ce que nous ne pouvons pas documenter.',
+      title: 'Levée de fonds',
+      body: 'Nous mobilisons notre réseau pour financer les sociétés que vous ciblez et qui sont prêtes à être financées, acquises ou introduites en bourse.',
     },
     {
-      title: 'Structuration',
-      body: 'Chaque opération retenue est logée dans un véhicule dédié, avec un dépositaire, un administrateur et une documentation juridique complète.',
+      title: 'Capital-investissement',
+      body: 'Investissements directs dans des sociétés non quotées, soutenues par les investisseurs les plus importants du marché.',
     },
     {
-      title: 'Suivi',
-      body: 'Reporting périodique, valorisations et documents disponibles dans la Bridgeline Room pendant toute la durée de détention.',
+      title: 'Dette privée',
+      body: 'Financements dont les titres ne sont pas négociés sur les marchés publics, accessibles par placement privé.',
+    },
+    {
+      title: 'Co-investissements',
+      body: 'Participations aux côtés d’investisseurs de premier plan, sur des opérations que nous avons instruites.',
+    },
+    {
+      title: 'Structuration de SPV',
+      body: 'Un véhicule d’investissement qui détient pour votre compte les titres ciblés de manière totalement séparée.',
     },
   ],
 
+  /** Nos avantages, repris de bridgelinepartners.com. */
   advantages: [
     {
-      title: 'Accès à des opérations fermées',
-      body: 'Secondaires, co-investissements et clubs deals qui ne sont pas distribués publiquement.',
+      title: 'Expertise en matière de levée de fonds',
+      body: 'Une pratique éprouvée du financement de sociétés privées, du premier contact jusqu’au closing.',
     },
     {
-      title: 'Deux juridictions, un interlocuteur',
-      body: 'Structuration luxembourgeoise, relation investisseurs à Genève. Un seul point de contact pour les deux.',
+      title: 'Capacités de sourcing',
+      body: 'Nous utilisons les données du marché et notre réseau pour identifier les opportunités avant qu’elles ne soient largement diffusées.',
     },
     {
-      title: 'Tickets calibrés',
-      body: 'Des seuils d’entrée pensés pour les family offices et les gérants indépendants, pas seulement pour les institutionnels.',
+      title: 'Accès à un vaste réseau sur les marchés privés',
+      body: 'Des bureaux au Luxembourg et en Suisse, et un réseau de contacts au cœur de l’industrie financière.',
     },
     {
-      title: 'Suivi après la souscription',
-      body: 'La relation ne s’arrête pas au closing : valorisations, rapports et documents restent accessibles en ligne.',
+      title: 'De solides capacités de recherche',
+      body: 'Nous vous aidons à évaluer avec précision le potentiel de croissance des sociétés que vous ciblez.',
+    },
+    {
+      title: 'Une équipe totalement indépendante et engagée',
+      body: 'Aucune affiliation susceptible d’orienter nos recommandations.',
+    },
+    {
+      title: 'Des performances historiques remarquables',
+      body: 'Nos succès passés témoignent de notre engagement à fournir les meilleures performances aux investisseurs qui nous font confiance.',
     },
   ],
 

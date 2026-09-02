@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Container } from '@/components/ui/Container';
 import { Wordmark } from '@/components/layout/Wordmark';
-import { navigation, offices, site } from '@/lib/site';
+import { navigation, offices, phones, site } from '@/lib/site';
 import { localizedPath, type Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -21,11 +21,11 @@ export function PublicFooter({
 
   return (
     <footer className="bg-navy text-white">
-      <Container className="grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-16">
+      <Container className="grid gap-12 py-16 lg:grid-cols-4 lg:gap-10">
         <div>
           <Wordmark tone="white" />
-          <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-white/70">
-            {dict.meta.description}
+          <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-white/70">
+            {dict.footer.tagline}
           </p>
         </div>
 
@@ -57,18 +57,49 @@ export function PublicFooter({
 
         <div>
           <h2 className="font-display text-sm font-semibold text-white">
+            {dict.footer.services}
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {dict.servicesList.map((service) => (
+              <li key={service.title} className="text-[15px] text-white/70">
+                {service.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="font-display text-sm font-semibold text-white">
+            {dict.footer.contact}
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {phones.map((phone) => (
+              <li key={phone}>
+                <a
+                  href={`tel:${phone.replace(/\s/g, '')}`}
+                  className="font-mono text-[14px] text-white/70 transition-colors hover:text-white"
+                >
+                  {phone}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href={`mailto:${site.email}`}
+                className="font-mono text-[14px] text-white/70 transition-colors hover:text-white"
+              >
+                {site.email}
+              </a>
+            </li>
+          </ul>
+
+          <h2 className="mt-8 font-display text-sm font-semibold text-white">
             {dict.footer.offices}
           </h2>
-          <ul className="mt-4 space-y-4">
+          <ul className="mt-4 space-y-3">
             {offices.map((office) => (
-              <li key={office.id}>
-                <p className="text-[15px] text-white">{office.city}</p>
-                <a
-                  href={`mailto:${office.email}`}
-                  className="font-mono text-[13px] text-white/60 transition-colors hover:text-white"
-                >
-                  {office.email}
-                </a>
+              <li key={office.id} className="text-[14px] leading-relaxed text-white/70">
+                {office.address}
               </li>
             ))}
           </ul>

@@ -5,8 +5,9 @@ import { localizedPath, type Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/i18n';
 
 /**
- * Section À propos de la page d'accueil. Texte à gauche, bureaux à droite en
- * blocs séparés par des filets : pas de cartes, l'élévation n'apporte rien ici.
+ * Section « Qui sommes-nous » de la page d'accueil. Texte à gauche, bureaux à
+ * droite en blocs séparés par des filets : pas de cartes, l'élévation
+ * n'apporte rien ici.
  */
 export function AboutIntro({
   locale,
@@ -19,7 +20,10 @@ export function AboutIntro({
     <section className="border-b border-hairline bg-canvas py-20 lg:py-28">
       <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
-          <h2 className="font-display text-3xl font-bold text-navy md:text-4xl">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint">
+            {dict.home.about.eyebrow}
+          </p>
+          <h2 className="mt-4 font-display text-3xl font-bold text-navy md:text-4xl">
             {dict.home.about.title}
           </h2>
           <p className="mt-6 text-[17px] leading-relaxed text-ink-muted">
@@ -28,12 +32,7 @@ export function AboutIntro({
           <p className="mt-4 text-[17px] leading-relaxed text-ink-muted">
             {dict.home.about.body2}
           </p>
-          <ButtonLink
-            href={localizedPath(locale, '/about')}
-            variant="ghost"
-            size="md"
-            className="mt-8 -ml-3"
-          >
+          <ButtonLink href={localizedPath(locale, '/about')} size="lg" className="mt-8">
             {dict.home.about.link}
           </ButtonLink>
         </div>
@@ -45,8 +44,16 @@ export function AboutIntro({
                 <dt className="font-display text-xl font-bold text-navy">
                   {office.city}
                 </dt>
-                <dd className="mt-2 text-[15px] leading-relaxed text-ink-muted">
-                  {dict.offices[office.id].role}
+                <dd className="mt-2 space-y-1 text-[15px] leading-relaxed text-ink-muted">
+                  <p>{office.address}</p>
+                  <p>
+                    <a
+                      href={`tel:${office.phone.replace(/\s/g, '')}`}
+                      className="font-mono text-[14px] text-accent underline-offset-4 hover:underline"
+                    >
+                      {office.phone}
+                    </a>
+                  </p>
                 </dd>
               </div>
             ))}

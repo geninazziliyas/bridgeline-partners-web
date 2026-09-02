@@ -1,7 +1,7 @@
 import { Hero } from '@/components/home/Hero';
 import { AboutIntro } from '@/components/home/AboutIntro';
 import { TwoEntries } from '@/components/home/TwoEntries';
-import { Approach } from '@/components/home/Approach';
+import { Services } from '@/components/home/Services';
 import { Advantages } from '@/components/home/Advantages';
 import { TeamPreview } from '@/components/home/TeamPreview';
 import { OpportunitiesPreview } from '@/components/home/OpportunitiesPreview';
@@ -26,7 +26,7 @@ export default function HomePage({ params }: { params: { locale: Locale } }) {
       <Hero locale={locale} dict={dict} />
       <AboutIntro locale={locale} dict={dict} />
       <TwoEntries locale={locale} dict={dict} />
-      <Approach dict={dict} />
+      <Services locale={locale} dict={dict} />
       <Advantages dict={dict} />
       <TeamPreview locale={locale} dict={dict} />
       <OpportunitiesPreview locale={locale} dict={dict} />

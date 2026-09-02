@@ -5,12 +5,22 @@ import type { Dictionary } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
 /**
- * Grille asymétrique à quatre cellules, une par avantage : autant de cellules
- * que de contenus, jamais de tuile vide pour compléter une rangée. Deux
- * cellules portent un traitement visuel (aplat navy, photographie) pour éviter
- * une grille uniformément blanche.
+ * Grille asymétrique : autant de cellules que d'avantages, jamais de tuile vide
+ * pour compléter une rangée. Trois rangées de largeurs alternées donnent du
+ * rythme, et deux cellules portent un traitement visuel (aplat navy,
+ * photographie) pour éviter une grille uniformément blanche.
+ *
+ * Les largeurs sont cycliques : la grille reste correcte si l'équipe ajoute ou
+ * retire un avantage.
  */
-const spans = ['lg:col-span-4', 'lg:col-span-2', 'lg:col-span-2', 'lg:col-span-4'];
+const spanCycle = [
+  'lg:col-span-4',
+  'lg:col-span-2',
+  'lg:col-span-2',
+  'lg:col-span-4',
+  'lg:col-span-3',
+  'lg:col-span-3',
+];
 
 export function Advantages({ dict }: { dict: Dictionary }) {
   return (
@@ -33,7 +43,7 @@ export function Advantages({ dict }: { dict: Dictionary }) {
                 key={item.title}
                 className={cn(
                   'relative overflow-hidden rounded-card border p-8 lg:p-10',
-                  spans[index],
+                  spanCycle[index % spanCycle.length],
                   isNavy ? 'border-navy bg-navy text-white' : 'border-hairline bg-white',
                   hasPhoto && 'flex min-h-[280px] flex-col justify-end text-white',
                 )}
