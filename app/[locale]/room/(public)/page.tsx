@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ChartLineUp, FileText, Lock } from '@phosphor-icons/react/dist/ssr';
 
 import { Container } from '@/components/ui/Container';
@@ -105,28 +104,33 @@ export default function RoomLandingPage({
         </Container>
       </section>
 
-      <section id="demander-l-acces" className="scroll-mt-20 bg-canvas py-20 lg:py-24">
-        <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <h2 className="font-display text-3xl font-bold text-navy md:text-4xl">
+      {/* Deux voies, dans l'ordre : se connecter si le compte existe, demander
+          l'accès sinon. Le formulaire reste sur fond clair, la saisie de dix
+          champs sur aplat sombre étant nettement moins confortable. */}
+      <section id="demander-l-acces" className="scroll-mt-20 bg-navy py-20 lg:py-24">
+        <Container>
+          <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+            <ButtonLink
+              href={localizedPath(params.locale, '/room/login')}
+              variant="onNavy"
+              size="lg"
+            >
+              {dict.roomLanding.request.signInCta}
+            </ButtonLink>
+
+            <p className="mt-8 text-[15px] text-white/60">
+              {dict.roomLanding.request.or}
+            </p>
+
+            <h2 className="mt-6 font-display text-4xl font-extrabold text-white md:text-5xl">
               {dict.roomLanding.request.title}
             </h2>
-            <p className="mt-5 max-w-[52ch] text-[17px] leading-relaxed text-ink-muted">
+            <p className="mt-5 text-[17px] leading-relaxed text-white/75">
               {dict.roomLanding.request.body}
-            </p>
-            <p className="mt-5 text-[15px] leading-relaxed text-ink-muted">
-              {dict.roomLanding.request.hasAccount}{' '}
-              <Link
-                href={localizedPath(params.locale, '/room/login')}
-                className="font-medium text-accent underline-offset-4 hover:underline"
-              >
-                {dict.common.signIn}
-              </Link>
-              .
             </p>
           </div>
 
-          <div className="lg:col-span-6 lg:col-start-7">
+          <div className="mx-auto mt-12 max-w-3xl">
             <div className="rounded-card border border-hairline bg-white p-8 lg:p-10">
               <AccessRequestForm locale={params.locale} dict={dict} />
             </div>

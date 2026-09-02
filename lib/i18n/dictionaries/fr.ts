@@ -175,8 +175,10 @@ export const fr = {
     imageAlt: 'Salle de réunion, quartier d’affaires',
     request: {
       title: 'Demander l’accès',
-      body: 'L’espace investisseur n’est pas ouvert à l’inscription libre. Transmettez-nous votre profil : nous vérifions votre éligibilité en tant qu’investisseur professionnel, puis nous ouvrons votre accès.',
+      body: 'Si vous êtes un investisseur professionnel et souhaitez rejoindre la plateforme Bridgeline, remplissez le formulaire ci-dessous. Notre équipe examine votre demande et revient vers vous.',
       hasAccount: 'Vous avez déjà un compte ?',
+      signInCta: 'Se connecter à l’espace investisseur',
+      or: 'Ou',
     },
   },
 
@@ -311,21 +313,37 @@ export const fr = {
     sending: 'Envoi',
     privacy:
       'Les informations transmises servent uniquement à traiter votre demande.',
-    accessProfile: 'Votre profil d’investisseur',
-    accessProfileHint:
-      'Facultatif. Type de structure, classes d’actifs suivies, taille de ticket habituelle.',
-    accessSubmit: 'Demander l’accès',
+    accessSubmit: 'Envoyer la demande',
     accessNotice:
       'L’accès est réservé aux investisseurs professionnels. Une demande ne crée pas de compte : notre équipe vérifie votre éligibilité avant tout provisionnement.',
+
+    /** Champs propres au formulaire de demande d'accès. */
+    firstName: 'Prénom',
+    lastName: 'Nom',
+    organisation: 'Organisation',
+    investorType: 'Type d’investisseur',
+    investorTypePlaceholder: 'Sélectionnez une option',
+    yourMessage: 'Votre message',
+    consent: 'Consentement',
+    consentPrivacy: 'J’accepte la politique de confidentialité.',
+    consentPrivacyLink: 'politique de confidentialité',
+    consentProfessional:
+      'Je confirme être un investisseur professionnel au sens de la réglementation applicable, et demander l’accès à des informations destinées exclusivement à ces investisseurs.',
 
     /** Messages de validation, renvoyés par les server actions. */
     errors: {
       nameRequired: 'Indiquez votre nom.',
+      firstNameRequired: 'Indiquez votre prénom.',
+      lastNameRequired: 'Indiquez votre nom.',
+      privacyRequired:
+        'Vous devez accepter la politique de confidentialité pour envoyer votre demande.',
+      professionalRequired:
+        'Vous devez confirmer votre qualité d’investisseur professionnel.',
       nameTooLong: 'Nom trop long.',
       emailRequired: 'Indiquez votre adresse email.',
       emailInvalid: 'Adresse email invalide.',
       emailTooLong: 'Adresse email trop longue.',
-      companyTooLong: 'Nom d’entreprise trop long.',
+      companyTooLong: 'Nom d’organisation trop long.',
       messageTooShort: 'Détaillez votre demande en 20 caractères au minimum.',
       messageTooLong: 'Message trop long.',
       passwordRequired: 'Indiquez votre mot de passe.',
@@ -350,6 +368,15 @@ export const fr = {
     CLOSING_SOON: 'Clôture proche',
     INVITE_ONLY: 'Sur invitation',
     CLOSED: 'Clôturé',
+  },
+
+  /** Options du select « type d'investisseur ». */
+  investorType: {
+    FAMILY_OFFICE: 'Family office',
+    WEALTH_MANAGER: 'Gérant de fortune ou conseiller indépendant',
+    INSTITUTIONAL: 'Investisseur institutionnel',
+    PRIVATE_INVESTOR: 'Investisseur privé qualifié',
+    OTHER: 'Autre',
   },
 
   documentType: {

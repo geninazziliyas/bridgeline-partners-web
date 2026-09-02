@@ -45,15 +45,38 @@ export function buildSchemas(dict: Dictionary) {
     }),
 
     accessRequest: z.object({
-      name,
+      firstName: z
+        .string()
+        .trim()
+        .min(1, errors.firstNameRequired)
+        .max(80, errors.nameTooLong),
+      lastName: z
+        .string()
+        .trim()
+        .min(1, errors.lastNameRequired)
+        .max(80, errors.nameTooLong),
       email,
-      company,
+      organisation: company,
+      /**
+       * Le select est facultatif, mais une valeur envoyée doit appartenir à
+       * l'énumération : un champ trafiqué ne doit pas atteindre la base.
+       */
+      investorType: z
+        .enum(['FAMILY_OFFICE', 'WEALTH_MANAGER', 'INSTITUTIONAL', 'PRIVATE_INVESTOR', 'OTHER'])
+        .optional(),
       message: z
         .string()
         .trim()
         .max(4000, errors.messageTooLong)
         .optional()
         .transform((value) => (value ? value : undefined)),
+      /** Les deux cases sont obligatoires : littéral true, pas un booléen libre. */
+      privacy: z.literal(true, {
+        errorMap: () => ({ message: errors.privacyRequired }),
+      }),
+      professional: z.literal(true, {
+        errorMap: () => ({ message: errors.professionalRequired }),
+      }),
     }),
   };
 }

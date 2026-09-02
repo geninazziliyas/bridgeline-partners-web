@@ -179,8 +179,10 @@ export const en: Dictionary = {
     imageAlt: 'Meeting room in a business district',
     request: {
       title: 'Request access',
-      body: 'The investor area is not open to self-registration. Send us your profile: we verify your eligibility as a professional investor, then we open your access.',
+      body: 'If you are a professional investor and would like to join the Bridgeline platform, complete the form below. Our team will review your request and be in touch.',
       hasAccount: 'Already have an account?',
+      signInCta: 'Sign in to the investor area',
+      or: 'Or',
     },
   },
 
@@ -310,20 +312,34 @@ export const en: Dictionary = {
     send: 'Send message',
     sending: 'Sending',
     privacy: 'The information you provide is used solely to handle your enquiry.',
-    accessProfile: 'Your investor profile',
-    accessProfileHint:
-      'Optional. Type of structure, asset classes followed, usual ticket size.',
-    accessSubmit: 'Request access',
+    accessSubmit: 'Submit request',
     accessNotice:
       'Access is reserved for professional investors. A request does not create an account: our team verifies your eligibility before any provisioning.',
 
+    firstName: 'First name',
+    lastName: 'Last name',
+    organisation: 'Organisation',
+    investorType: 'Investor type',
+    investorTypePlaceholder: 'Select an option',
+    yourMessage: 'Your message',
+    consent: 'Consent',
+    consentPrivacy: 'Yes, I agree with the privacy policy.',
+    consentPrivacyLink: 'privacy policy',
+    consentProfessional:
+      'I confirm that I am a professional investor as defined under applicable regulation and that I am requesting access to information intended solely for such investors.',
+
     errors: {
       nameRequired: 'Enter your name.',
+      firstNameRequired: 'Enter your first name.',
+      lastNameRequired: 'Enter your last name.',
+      privacyRequired: 'You must accept the privacy policy to submit your request.',
+      professionalRequired:
+        'You must confirm that you are a professional investor.',
       nameTooLong: 'Name too long.',
       emailRequired: 'Enter your email address.',
       emailInvalid: 'Invalid email address.',
       emailTooLong: 'Email address too long.',
-      companyTooLong: 'Company name too long.',
+      companyTooLong: 'Organisation name too long.',
       messageTooShort: 'Describe your enquiry in at least 20 characters.',
       messageTooLong: 'Message too long.',
       passwordRequired: 'Enter your password.',
@@ -346,6 +362,14 @@ export const en: Dictionary = {
     CLOSING_SOON: 'Closing soon',
     INVITE_ONLY: 'By invitation',
     CLOSED: 'Closed',
+  },
+
+  investorType: {
+    FAMILY_OFFICE: 'Family office',
+    WEALTH_MANAGER: 'Wealth manager or independent adviser',
+    INSTITUTIONAL: 'Institutional investor',
+    PRIVATE_INVESTOR: 'Qualified private investor',
+    OTHER: 'Other',
   },
 
   documentType: {

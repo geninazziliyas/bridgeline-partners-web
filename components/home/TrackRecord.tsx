@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { Container } from '@/components/ui/Container';
 import { trackRecord } from '@/lib/site';
 import type { Dictionary } from '@/lib/i18n';
@@ -10,6 +12,9 @@ import type { Dictionary } from '@/lib/i18n';
  * dupliquée une fois pour que la boucle soit sans raccord, et la copie est
  * masquée aux lecteurs d'écran. L'animation s'arrête sous prefers-reduced-motion
  * (voir globals.css) et au survol.
+ *
+ * Chaque entrée affiche son logo s'il est fourni, sinon son nom en typographie
+ * display. Le mélange des deux reste lisible : la hauteur des blocs est fixe.
  */
 export function TrackRecord({ dict }: { dict: Dictionary }) {
   return (
@@ -37,14 +42,21 @@ export function TrackRecord({ dict }: { dict: Dictionary }) {
               {trackRecord.map((entry) => (
                 <li
                   key={`${copy}-${entry.name}`}
-                  className="flex items-baseline gap-3 border-r border-hairline px-8 py-2"
+                  className="flex h-10 items-center border-r border-hairline px-9"
                 >
-                  <span className="whitespace-nowrap font-display text-lg font-semibold text-navy">
-                    {entry.name}
-                  </span>
-                  <span className="tabular font-mono text-[13px] text-ink-faint">
-                    {entry.year}
-                  </span>
+                  {entry.logo ? (
+                    <Image
+                      src={entry.logo}
+                      alt={entry.name}
+                      width={120}
+                      height={32}
+                      className="h-7 w-auto object-contain"
+                    />
+                  ) : (
+                    <span className="whitespace-nowrap font-display text-xl font-semibold tracking-tight text-navy">
+                      {entry.name}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>

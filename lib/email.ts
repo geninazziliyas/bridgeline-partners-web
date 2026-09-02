@@ -118,9 +118,12 @@ export async function sendContactNotification(payload: ContactPayload) {
 }
 
 export type AccessRequestPayload = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  company?: string | null;
+  organisation?: string | null;
+  /** Type d'investisseur, déjà traduit pour l'affichage. */
+  investorType?: string | null;
   message?: string | null;
 };
 
@@ -129,34 +132,41 @@ export type AccessRequestPayload = {
  * au demandeur. Aucun compte n'est cree a ce stade.
  */
 export async function sendAccessRequestEmails(payload: AccessRequestPayload) {
+  const fullName = `${payload.firstName} ${payload.lastName}`;
+
   await sendEmail({
     to: INBOX,
     replyTo: payload.email,
-    subject: `Demande d’acces Bridgeline Room : ${payload.name}`,
+    subject: `Demande d’acces espace investisseur : ${fullName}`,
     html: layout(
-      'Nouvelle demande d’acces a la Room',
+      'Nouvelle demande d’acces',
       [
-        field('Nom', payload.name),
+        field('Nom', fullName),
         field('Email', payload.email),
-        field('Societe', payload.company || 'Non renseignee'),
+        field('Organisation', payload.organisation || 'Non renseignee'),
+        field('Type d’investisseur', payload.investorType || 'Non renseigne'),
         field('Message', payload.message || 'Aucun message'),
-        `<p style="margin:16px 0 0;font-size:13px;color:#5a6b85;">Qualifier la demande avant de provisionner un acces.</p>`,
+        `<p style="margin:16px 0 0;font-size:13px;color:#5a6b85;">
+           Le demandeur a accepte la politique de confidentialite et confirme sa
+           qualite d’investisseur professionnel. Qualifier la demande avant de
+           provisionner un acces.
+         </p>`,
       ].join(''),
     ),
   });
 
   await sendEmail({
     to: payload.email,
-    subject: 'Votre demande d’acces a la Bridgeline Room',
+    subject: 'Votre demande d’acces a l’espace investisseur',
     html: layout(
       'Demande bien recue',
       `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#10203a;">
-         Bonjour ${escapeHtml(payload.name)},
+         Bonjour ${escapeHtml(payload.firstName)},
        </p>
        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#10203a;">
-         Nous avons bien recu votre demande d’acces a la Bridgeline Room. Notre equipe
-         revient vers vous apres verification de votre eligibilite en tant qu’investisseur
-         professionnel.
+         Nous avons bien recu votre demande d’acces a notre espace investisseur.
+         Notre equipe revient vers vous apres verification de votre eligibilite en
+         tant qu’investisseur professionnel.
        </p>
        <p style="margin:0;font-size:14px;line-height:1.6;color:#5a6b85;">
          Bridgeline Partners

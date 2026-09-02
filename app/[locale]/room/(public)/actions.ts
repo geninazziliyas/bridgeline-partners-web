@@ -6,7 +6,7 @@ import { buildSchemas, type FormState } from '@/lib/validations';
 import { getDictionary } from '@/lib/i18n';
 
 /**
- * Demande d'accès à la Bridgeline Room.
+ * Demande d'accès à l'espace investisseur.
  *
  * La demande est enregistrée avec le statut PENDING et notifiée à l'équipe.
  * Aucun compte n'est créé ici : le provisionnement reste manuel, après
@@ -16,13 +16,19 @@ export async function submitAccessRequest(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  const dict = getDictionary(String(formData.get('locale') ?? 'fr'));
+  const dict = getDictionary(String(formData.get('locale') ?? 'en'));
 
   const parsed = buildSchemas(dict).accessRequest.safeParse({
-    name: formData.get('name'),
+    firstName: formData.get('firstName'),
+    lastName: formData.get('lastName'),
     email: formData.get('email'),
-    company: formData.get('company'),
+    organisation: formData.get('organisation'),
+    // Un select vide envoie une chaîne vide, que zod doit voir comme absente.
+    investorType: formData.get('investorType') || undefined,
     message: formData.get('message'),
+    // Une case non cochée n'est pas envoyée du tout : absente vaut false.
+    privacy: formData.get('privacy') === 'true',
+    professional: formData.get('professional') === 'true',
   });
 
   if (!parsed.success) {
@@ -33,20 +39,51 @@ export async function submitAccessRequest(
     };
   }
 
+  const now = new Date();
+
+  // L'enregistrement fait foi : lui seul décide de ce que voit le demandeur.
   try {
     await prisma.accessRequest.create({
       data: {
-        name: parsed.data.name,
+        firstName: parsed.data.firstName,
+        lastName: parsed.data.lastName,
         email: parsed.data.email.toLowerCase(),
-        company: parsed.data.company ?? null,
+        organisation: parsed.data.organisation ?? null,
+        investorType: parsed.data.investorType ?? null,
         message: parsed.data.message ?? null,
+        privacyAcceptedAt: now,
+        professionalConfirmedAt: now,
       },
     });
-
-    await sendAccessRequestEmails(parsed.data);
   } catch (error) {
-    console.error('[room] demande d’accès non traitée', error);
+    console.error('[room] demande d’accès non enregistrée', error);
     return { status: 'error', message: dict.forms.feedback.accessFailure };
+  }
+
+  /**
+   * L'envoi des emails est volontairement hors du bloc précédent.
+   *
+   * La demande est déjà en base : annoncer un échec au demandeur le pousserait
+   * à renvoyer le formulaire, créant des doublons pour une demande que
+   * l'équipe possède déjà. L'incident est journalisé pour être traité côté
+   * exploitation, pas reporté sur le visiteur.
+   */
+  try {
+    await sendAccessRequestEmails({
+      firstName: parsed.data.firstName,
+      lastName: parsed.data.lastName,
+      email: parsed.data.email,
+      organisation: parsed.data.organisation ?? null,
+      investorType: parsed.data.investorType
+        ? dict.investorType[parsed.data.investorType]
+        : null,
+      message: parsed.data.message ?? null,
+    });
+  } catch (error) {
+    console.error(
+      '[room] demande enregistrée mais notification email non envoyée',
+      error,
+    );
   }
 
   return { status: 'success', message: dict.forms.feedback.accessSuccess };

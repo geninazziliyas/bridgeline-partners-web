@@ -65,3 +65,41 @@ export function Select({ className, children, ...props }: ComponentProps<'select
     </select>
   );
 }
+
+/**
+ * Case à cocher avec libellé cliquable.
+ *
+ * La case reste un input natif : les technologies d'assistance l'annoncent
+ * correctement, et le clic sur le texte la coche, la zone de clic étant sinon
+ * trop petite pour un usage au doigt.
+ */
+export function Checkbox({
+  id,
+  errors,
+  children,
+  ...props
+}: ComponentProps<'input'> & { id: string; errors?: string[]; children: ReactNode }) {
+  return (
+    <div>
+      <div className="flex items-start gap-3">
+        <input
+          id={id}
+          type="checkbox"
+          className={cn(
+            'mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded-[4px] border-hairline text-accent',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ring focus-visible:ring-offset-2',
+            errors?.length && 'border-red-500',
+          )}
+          aria-invalid={Boolean(errors?.length)}
+          {...props}
+        />
+        <label htmlFor={id} className="cursor-pointer text-[14px] leading-relaxed text-ink-muted">
+          {children}
+        </label>
+      </div>
+      {errors?.length ? (
+        <p className="ml-7 mt-1.5 text-[13px] font-medium text-red-700">{errors[0]}</p>
+      ) : null}
+    </div>
+  );
+}

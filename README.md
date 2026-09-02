@@ -95,7 +95,7 @@ Commandes utiles :
 | `Deal` | Operations : statut, montant cible, montant leve, ticket minimum, cloture |
 | `Investment` | Participation d'un investisseur dans une operation |
 | `Document` | Rapports, term sheets, releves (rattaches a un compte ou a une operation) |
-| `AccessRequest` | Demandes d'acces a la Room, sans creation de compte |
+| `AccessRequest` | Demandes d'acces a l'espace investisseur, sans creation de compte. Les deux consentements sont horodates (`privacyAcceptedAt`, `professionalConfirmedAt`) : c'est la date qui fait preuve, pas un booleen |
 | `ContactMessage` | Messages du formulaire de contact |
 | `Account`, `Session`, `VerificationToken` | Tables techniques de NextAuth |
 
@@ -255,7 +255,8 @@ Le code est complet ; ces elements editoriaux sont a remplacer.
 | Portraits de l'equipe | `lib/site.ts`, champ `photo` | Placeholders `picsum.photos` |
 | Photographies (accueil, bureaux, Room) | `components/home/Hero.tsx`, `app/(public)/about/page.tsx`, `app/room/(public)/page.tsx` | Placeholders `picsum.photos` |
 | Logo vectoriel | `components/layout/Wordmark.tsx` | Marque nominale + glyphe geometrique provisoire |
-| Track record (operations passees) | `lib/site.ts`, `trackRecord` | **Provisoire.** Les operations affichees sur bridgelinepartners.com le sont sous forme de logos : les noms reels n'ont pas pu etre recuperes et doivent remplacer cette liste |
+| Logos des investissements passes | `public/logos/` + `lib/site.ts`, `trackRecord` | Les noms sont affiches en typographie. Pour passer aux logos : deposer un SVG monochrome blanc par societe, puis renseigner son chemin dans le champ `logo`. Ces logos appartiennent aux societes concernees et doivent etre obtenus de sources autorisees |
+| Politique de confidentialite | `lib/site.ts`, `privacyPolicyUrl` | `null`. La case de consentement affiche son texte sans lien tant que la page n'existe pas |
 | Traductions anglaises des operations | colonnes `*En` de `Deal` | Renseignees pour les 5 operations de demonstration |
 | Mentions legales et politique de confidentialite | a creer | Absentes |
 

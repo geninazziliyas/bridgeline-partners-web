@@ -38,6 +38,15 @@ enum AccessRequestStatus {
   REJECTED
 }
 
+/// Type d'investisseur déclaré dans le formulaire de demande d'accès.
+enum InvestorType {
+  FAMILY_OFFICE
+  WEALTH_MANAGER
+  INSTITUTIONAL
+  PRIVATE_INVESTOR
+  OTHER
+}
+
 /// Investisseur de la Bridgeline Room, ou membre de l'equipe (ADMIN).
 model User {
   id            String    @id @default(cuid())
@@ -143,13 +152,21 @@ model Document {
 /// Volontairement sans relation vers User : une demande ne cree jamais de compte,
 /// l'equipe qualifie puis provisionne manuellement.
 model AccessRequest {
-  id        String              @id @default(cuid())
-  name      String
-  email     String
-  company   String?
-  message   String?
-  status    AccessRequestStatus @default(PENDING)
-  createdAt DateTime            @default(now())
+  id           String              @id @default(cuid())
+  firstName    String
+  lastName     String
+  email        String
+  organisation String?
+  investorType InvestorType?
+  message      String?
+  status       AccessRequestStatus @default(PENDING)
+  createdAt    DateTime            @default(now())
+
+  /// Horodatage des deux consentements, plutot que de simples booleens : c'est
+  /// la date du consentement qui fait preuve, et une case decochee laisse la
+  /// colonne nulle.
+  privacyAcceptedAt       DateTime?
+  professionalConfirmedAt DateTime?
 
   @@index([status])
 }

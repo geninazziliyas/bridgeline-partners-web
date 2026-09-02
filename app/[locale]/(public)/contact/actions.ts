@@ -36,6 +36,7 @@ export async function submitContact(
     };
   }
 
+  // L'enregistrement fait foi : lui seul décide de ce que voit le visiteur.
   try {
     await prisma.contactMessage.create({
       data: {
@@ -45,11 +46,20 @@ export async function submitContact(
         message: parsed.data.message,
       },
     });
+  } catch (error) {
+    console.error('[contact] message non enregistré', error);
+    return { status: 'error', message: dict.forms.feedback.contactFailure };
+  }
 
+  /**
+   * Notification hors du bloc précédent : le message est déjà archivé, et
+   * annoncer un échec pousserait le visiteur à le renvoyer alors que l'équipe
+   * le possède déjà. L'incident est journalisé, pas reporté sur le visiteur.
+   */
+  try {
     await sendContactNotification(parsed.data);
   } catch (error) {
-    console.error('[contact] traitement du formulaire impossible', error);
-    return { status: 'error', message: dict.forms.feedback.contactFailure };
+    console.error('[contact] message archivé mais notification non envoyée', error);
   }
 
   return { status: 'success', message: dict.forms.feedback.contactSuccess };

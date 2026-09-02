@@ -10,6 +10,12 @@ export const site = {
   name: 'Bridgeline Partners',
   domain: 'bridgelinepartners.com',
   email: 'contact@bridgelinepartners.com',
+  /**
+   * Politique de confidentialité. Tant qu'elle vaut null, la case de
+   * consentement affiche son texte sans lien : un lien mort serait pire.
+   * A renseigner dès la page publiée (chemin interne ou URL complète).
+   */
+  privacyPolicyUrl: null as string | null,
 } as const;
 
 /** Chemins internes, sans préfixe de langue. */
@@ -86,19 +92,37 @@ export const team: TeamMember[] = [
   },
 ];
 
+export type TrackRecordEntry = {
+  name: string;
+  /**
+   * Logo de la société, servi depuis /public/logos.
+   *
+   * Tant qu'il vaut null, le bandeau affiche le nom en typographie display.
+   * Pour passer au logo : déposer un SVG monochrome blanc dans
+   * public/logos/, puis renseigner son chemin ici. Aucun autre changement
+   * n'est nécessaire, le composant bascule tout seul.
+   */
+  logo: string | null;
+};
+
 /**
  * Bandeau des investissements passés.
  *
- * A COMPLÉTER : les opérations affichées sur bridgelinepartners.com le sont
- * sous forme de logos, dont les noms n'ont pas pu être récupérés. Les entrées
- * ci-dessous sont provisoires et doivent être remplacées par la liste réelle.
+ * Les logos officiels appartiennent à ces sociétés : ils doivent être obtenus
+ * de sources autorisées (kit de presse, accord de la société) avant d'être
+ * publiés, d'où l'affichage typographique par défaut.
  */
-export const trackRecord = [
-  { name: 'Helvetia Metals', year: '2019' },
-  { name: 'Nordkapp Logistics', year: '2020' },
-  { name: 'Caldera Renewables', year: '2021' },
-  { name: 'Atlas Bioscience', year: '2022' },
-  { name: 'Verdaline Foods', year: '2023' },
-  { name: 'Sable Data Centres', year: '2024' },
-  { name: 'Pontis Marine', year: '2025' },
-] as const;
+export const trackRecord: TrackRecordEntry[] = [
+  { name: 'Palantir', logo: null },
+  { name: 'Forward', logo: null },
+  { name: 'Impossible', logo: null },
+  { name: 'SpaceX', logo: null },
+  { name: 'wefox', logo: null },
+  { name: 'Airbnb', logo: null },
+  { name: 'Stripe', logo: null },
+  { name: 'Grab', logo: null },
+  { name: 'Revolut', logo: null },
+  { name: 'Ripple', logo: null },
+  { name: 'Kodiak', logo: null },
+  { name: 'Uber', logo: null },
+];

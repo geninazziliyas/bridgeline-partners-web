@@ -1,16 +1,27 @@
 'use client';
 
+import Link from 'next/link';
 import { useFormState } from 'react-dom';
 
-import { Field, Input, Textarea } from '@/components/ui/Field';
+import { Field, Input, Select, Textarea, Checkbox } from '@/components/ui/Field';
 import { FormFeedback } from '@/components/forms/FormFeedback';
 import { SubmitButton } from '@/components/forms/SubmitButton';
 import { initialFormState } from '@/lib/validations';
 import { submitAccessRequest } from '@/app/[locale]/room/(public)/actions';
+import { site } from '@/lib/site';
 import type { Dictionary } from '@/lib/i18n';
 import type { Locale } from '@/lib/i18n/config';
 
-/** Formulaire de demande d'accès à la Room. Ne crée jamais de compte. */
+/** Ordre d'affichage des types d'investisseur dans le select. */
+const investorTypes = [
+  'FAMILY_OFFICE',
+  'WEALTH_MANAGER',
+  'INSTITUTIONAL',
+  'PRIVATE_INVESTOR',
+  'OTHER',
+] as const;
+
+/** Formulaire de demande d'accès. Ne crée jamais de compte. */
 export function AccessRequestForm({
   locale,
   dict,
@@ -31,44 +42,116 @@ export function AccessRequestForm({
       <FormFeedback state={state} />
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field id="ar-name" label={dict.forms.name} errors={state.fieldErrors?.name}>
+        <Field
+          id="ar-first-name"
+          label={dict.forms.firstName}
+          errors={state.fieldErrors?.firstName}
+        >
           <Input
-            id="ar-name"
-            name="name"
-            autoComplete="name"
+            id="ar-first-name"
+            name="firstName"
+            autoComplete="given-name"
             required
-            aria-invalid={Boolean(state.fieldErrors?.name)}
+            aria-invalid={Boolean(state.fieldErrors?.firstName)}
           />
         </Field>
 
-        <Field id="ar-email" label={dict.forms.email} errors={state.fieldErrors?.email}>
+        <Field
+          id="ar-last-name"
+          label={dict.forms.lastName}
+          errors={state.fieldErrors?.lastName}
+        >
           <Input
-            id="ar-email"
-            name="email"
-            type="email"
-            autoComplete="email"
+            id="ar-last-name"
+            name="lastName"
+            autoComplete="family-name"
             required
-            aria-invalid={Boolean(state.fieldErrors?.email)}
+            aria-invalid={Boolean(state.fieldErrors?.lastName)}
           />
         </Field>
       </div>
 
+      <Field id="ar-email" label={dict.forms.email} errors={state.fieldErrors?.email}>
+        <Input
+          id="ar-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          aria-invalid={Boolean(state.fieldErrors?.email)}
+        />
+      </Field>
+
       <Field
-        id="ar-company"
-        label={dict.forms.company}
-        errors={state.fieldErrors?.company}
+        id="ar-organisation"
+        label={dict.forms.organisation}
+        errors={state.fieldErrors?.organisation}
       >
-        <Input id="ar-company" name="company" autoComplete="organization" />
+        <Input id="ar-organisation" name="organisation" autoComplete="organization" />
+      </Field>
+
+      <Field
+        id="ar-investor-type"
+        label={dict.forms.investorType}
+        errors={state.fieldErrors?.investorType}
+      >
+        <Select id="ar-investor-type" name="investorType" defaultValue="">
+          <option value="">{dict.forms.investorTypePlaceholder}</option>
+          {investorTypes.map((value) => (
+            <option key={value} value={value}>
+              {dict.investorType[value]}
+            </option>
+          ))}
+        </Select>
       </Field>
 
       <Field
         id="ar-message"
-        label={dict.forms.accessProfile}
-        hint={dict.forms.accessProfileHint}
+        label={dict.forms.yourMessage}
         errors={state.fieldErrors?.message}
       >
         <Textarea id="ar-message" name="message" rows={5} />
       </Field>
+
+      <fieldset className="flex flex-col gap-3">
+        <legend className="mb-1 text-sm font-medium text-ink">
+          {dict.forms.consent} <span aria-hidden="true">*</span>
+        </legend>
+
+        <Checkbox
+          id="ar-privacy"
+          name="privacy"
+          value="true"
+          required
+          errors={state.fieldErrors?.privacy}
+        >
+          {/* Le lien n'apparaît que lorsqu'une politique est publiée : un lien
+              mort vaudrait moins qu'un texte simple. */}
+          {site.privacyPolicyUrl ? (
+            <>
+              {dict.forms.consentPrivacy.replace(dict.forms.consentPrivacyLink, '')}
+              <Link
+                href={site.privacyPolicyUrl}
+                className="text-accent underline underline-offset-2"
+              >
+                {dict.forms.consentPrivacyLink}
+              </Link>
+            </>
+          ) : (
+            dict.forms.consentPrivacy
+          )}
+        </Checkbox>
+
+        <Checkbox
+          id="ar-professional"
+          name="professional"
+          value="true"
+          required
+          errors={state.fieldErrors?.professional}
+        >
+          {dict.forms.consentProfessional}
+        </Checkbox>
+      </fieldset>
 
       <div>
         <SubmitButton pendingLabel={dict.forms.sending}>
