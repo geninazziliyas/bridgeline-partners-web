@@ -9,7 +9,7 @@
 export const site = {
   name: 'Bridgeline Partners',
   domain: 'bridgelinepartners.com',
-  email: 'contact@bridgelinepartners.com',
+  email: 'info@bridgeline.ch',
   /**
    * Politique de confidentialité. Tant qu'elle vaut null, la case de
    * consentement affiche son texte sans lien : un lien mort serait pire.
@@ -45,7 +45,7 @@ export const offices: Office[] = [
     city: 'Luxembourg',
     address: '2 place de Strasbourg, 2562 Luxembourg',
     phone: '+41 78 743 60 76',
-    email: 'contact@bridgelinepartners.com',
+    email: 'info@bridgeline.ch',
     photo: 'https://picsum.photos/seed/bridgeline-office-luxembourg/1200/900',
   },
   {
@@ -53,7 +53,7 @@ export const offices: Office[] = [
     city: 'Genève',
     address: '11 rue Verdaine, 1204 Genève, Suisse',
     phone: '+41 79 345 77 08',
-    email: 'contact@bridgelinepartners.com',
+    email: 'info@bridgeline.ch',
     photo: 'https://picsum.photos/seed/bridgeline-office-geneve/1200/900',
   },
 ];
@@ -70,26 +70,22 @@ export type TeamMemberId = 'croset' | 'pal' | 'tavares';
 export type TeamMember = {
   id: TeamMemberId;
   name: string;
-  /** Portrait de placeholder, à remplacer par la photographie officielle. */
-  photo: string;
+  /**
+   * Portrait officiel, servi depuis /public/team.
+   *
+   * A null, l'affichage retombe sur les initiales sur aplat navy : pointer un
+   * fichier absent afficherait une image cassee sur le site en ligne.
+   *
+   * Pour activer : deposer le fichier dans public/team/ puis renseigner son
+   * chemin ici. Voir public/team/README.md.
+   */
+  photo: string | null;
 };
 
 export const team: TeamMember[] = [
-  {
-    id: 'croset',
-    name: 'Hervé Croset',
-    photo: 'https://picsum.photos/seed/bridgeline-portrait-croset/640/800',
-  },
-  {
-    id: 'pal',
-    name: 'George Pal',
-    photo: 'https://picsum.photos/seed/bridgeline-portrait-pal/640/800',
-  },
-  {
-    id: 'tavares',
-    name: 'John Tavares',
-    photo: 'https://picsum.photos/seed/bridgeline-portrait-tavares/640/800',
-  },
+  { id: 'croset', name: 'Hervé Croset', photo: null },
+  { id: 'pal', name: 'George Pal', photo: null },
+  { id: 'tavares', name: 'John Tavares', photo: null },
 ];
 
 export type TrackRecordEntry = {
@@ -113,16 +109,16 @@ export type TrackRecordEntry = {
  * publiés, d'où l'affichage typographique par défaut.
  */
 export const trackRecord: TrackRecordEntry[] = [
-  { name: 'Palantir', logo: null },
+  { name: 'Palantir', logo: '/logos/palantir.svg' },
   { name: 'Forward', logo: null },
   { name: 'Impossible', logo: null },
-  { name: 'SpaceX', logo: null },
+  { name: 'SpaceX', logo: '/logos/spacex.svg' },
   { name: 'wefox', logo: null },
-  { name: 'Airbnb', logo: null },
-  { name: 'Stripe', logo: null },
-  { name: 'Grab', logo: null },
-  { name: 'Revolut', logo: null },
-  { name: 'Ripple', logo: null },
+  { name: 'Airbnb', logo: '/logos/airbnb.svg' },
+  { name: 'Stripe', logo: '/logos/stripe.svg' },
+  { name: 'Grab', logo: '/logos/grab.svg' },
+  { name: 'Revolut', logo: '/logos/revolut.svg' },
+  { name: 'Ripple', logo: '/logos/ripple.svg' },
   { name: 'Kodiak', logo: null },
-  { name: 'Uber', logo: null },
+  { name: 'Uber', logo: '/logos/uber.svg' },
 ];

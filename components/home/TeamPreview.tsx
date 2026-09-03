@@ -1,14 +1,16 @@
-import Image from 'next/image';
-
 import { ButtonLink } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { Portrait } from '@/components/ui/Portrait';
 import { team } from '@/lib/site';
 import { localizedPath, type Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/i18n';
 
 /**
- * Aperçu de l'équipe. Grille menée par l'image, distincte des blocs de texte
- * qui l'entourent.
+ * Aperçu de l'équipe.
+ *
+ * Portrait à taille fixe en tête de carte, pas d'image pleine largeur : sur
+ * mobile, une photo étirée occuperait tout l'écran et repousserait le nom hors
+ * du champ.
  */
 export function TeamPreview({
   locale,
@@ -34,37 +36,29 @@ export function TeamPreview({
         </div>
 
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {team.map((member) => {
-            return (
-              <li key={member.id}>
-                <article className="group h-full overflow-hidden rounded-card border border-hairline bg-white">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-canvas">
-                    {/* Portrait de placeholder, à remplacer par la photographie officielle. */}
-                    <Image
-                      src={member.photo}
-                      alt={`${dict.team.portraitAlt} ${member.name}`}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-display text-lg font-bold text-navy">
-                      {member.name}
-                    </h3>
-                    <p className="mt-1 text-[15px] text-accent">
-                      {dict.team_members[member.id].role}
-                    </p>
-                    {/* Première ligne de la biographie : donne un repère de
-                        parcours sans reprendre le texte complet de la page équipe. */}
-                    <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-ink-muted">
-                      {dict.team_members[member.id].bio[0]}
-                    </p>
-                  </div>
-                </article>
-              </li>
-            );
-          })}
+          {team.map((member) => (
+            <li key={member.id}>
+              <article className="flex h-full flex-col rounded-card border border-hairline bg-white p-6">
+                <Portrait
+                  name={member.name}
+                  photo={member.photo}
+                  alt={`${dict.team.portraitAlt} ${member.name}`}
+                  size="sm"
+                />
+                <h3 className="mt-5 font-display text-lg font-bold text-navy">
+                  {member.name}
+                </h3>
+                <p className="mt-1 text-[15px] text-accent">
+                  {dict.team_members[member.id].role}
+                </p>
+                {/* Première ligne de la biographie : un repère de parcours,
+                    sans reprendre le texte complet de la page équipe. */}
+                <p className="mt-3 text-[14px] leading-relaxed text-ink-muted">
+                  {dict.team_members[member.id].bio[0]}
+                </p>
+              </article>
+            </li>
+          ))}
         </ul>
       </Container>
     </section>

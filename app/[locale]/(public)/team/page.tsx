@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
+
 
 import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/Button';
 import { PageHeader } from '@/components/layout/PageHeader';
+import { Portrait } from '@/components/ui/Portrait';
 import { team } from '@/lib/site';
 import { getDictionary, localizedPath, type Locale } from '@/lib/i18n';
 
@@ -32,21 +33,19 @@ export default function TeamPage({ params }: { params: { locale: Locale } }) {
           <ul className="space-y-6">
             {team.map((member) => (
               <li key={member.id}>
-                {/* Portrait à gauche, biographie à droite : la lecture reste
-                    horizontale au-delà de md, empilée en dessous. */}
-                <article className="grid overflow-hidden rounded-card border border-hairline bg-white md:grid-cols-12">
-                  <div className="relative aspect-[4/5] w-full bg-canvas md:col-span-4 md:aspect-auto md:min-h-[360px] lg:col-span-3">
-                    {/* Portrait de placeholder, à remplacer par la photographie officielle. */}
-                    <Image
-                      src={member.photo}
-                      alt={`${dict.team.portraitAlt} ${member.name}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      className="object-cover"
-                    />
-                  </div>
+                {/* Portrait à taille fixe, en tête de fiche puis à gauche du
+                    texte au-delà de sm. Une colonne d'image pleine hauteur
+                    déséquilibrait la fiche : la biographie est le contenu
+                    principal, le portrait l'accompagne. */}
+                <article className="flex flex-col gap-6 rounded-card border border-hairline bg-white p-8 sm:flex-row sm:gap-8 lg:p-10">
+                  <Portrait
+                    name={member.name}
+                    photo={member.photo}
+                    alt={`${dict.team.portraitAlt} ${member.name}`}
+                    size="md"
+                  />
 
-                  <div className="p-8 md:col-span-8 md:p-10 lg:col-span-9">
+                  <div className="min-w-0">
                     <h2 className="font-display text-2xl font-bold text-navy">
                       {member.name}
                     </h2>

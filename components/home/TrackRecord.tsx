@@ -45,15 +45,21 @@ export function TrackRecord({ dict }: { dict: Dictionary }) {
                   className="flex h-10 items-center border-r border-hairline px-9"
                 >
                   {entry.logo ? (
+                    // unoptimized : l'optimiseur d'images de Next refuse les SVG
+                    // par defaut, et un vectoriel n'a de toute facon rien a
+                    // gagner d'un redimensionnement.
                     <Image
                       src={entry.logo}
                       alt={entry.name}
                       width={120}
-                      height={32}
-                      className="h-7 w-auto object-contain"
+                      height={28}
+                      unoptimized
+                      className="h-6 w-auto object-contain"
                     />
                   ) : (
-                    <span className="whitespace-nowrap font-display text-xl font-semibold tracking-tight text-navy">
+                    // Meme couleur et meme hauteur optique que les logos, pour
+                    // que la bande se lise comme un seul ensemble.
+                    <span className="whitespace-nowrap font-display text-lg font-bold tracking-tight text-navy">
                       {entry.name}
                     </span>
                   )}
