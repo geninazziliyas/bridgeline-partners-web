@@ -24,7 +24,7 @@ export const site = {
    * renseigner son chemin ici : Wordmark bascule tout seul, y compris sur
    * fond navy, où le logo est rendu en blanc par filtre CSS.
    */
-  logo: null as string | null,
+  logo: '/brand/bridgeline-logo.png' as string | null,
 } as const;
 
 /** Chemins internes, sans préfixe de langue. */
