@@ -42,19 +42,19 @@ export function TrackRecord({ dict }: { dict: Dictionary }) {
               {trackRecord.map((entry) => (
                 <li
                   key={`${copy}-${entry.name}`}
-                  className="flex h-10 items-center border-r border-hairline px-9"
+                  className="flex h-12 items-center border-r border-hairline px-9"
                 >
                   {entry.logo ? (
-                    // unoptimized : l'optimiseur d'images de Next refuse les SVG
-                    // par defaut, et un vectoriel n'a de toute facon rien a
-                    // gagner d'un redimensionnement.
+                    // Logos officiels en couleurs réelles : c'est ce qui se
+                    // fait sur un mur de logos "trusted by", pas de teinte
+                    // monochrome imposée. width/height ne fixent que le ratio
+                    // transmis à Next, w-auto pilote la taille affichée.
                     <Image
                       src={entry.logo}
                       alt={entry.name}
-                      width={120}
-                      height={28}
-                      unoptimized
-                      className="h-6 w-auto object-contain"
+                      width={160}
+                      height={40}
+                      className="h-7 w-auto object-contain"
                     />
                   ) : (
                     // Meme couleur et meme hauteur optique que les logos, pour

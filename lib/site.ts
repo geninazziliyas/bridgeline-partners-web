@@ -16,6 +16,15 @@ export const site = {
    * A renseigner dès la page publiée (chemin interne ou URL complète).
    */
   privacyPolicyUrl: null as string | null,
+  /**
+   * Logo officiel, servi depuis /public/brand/bridgeline-logo.png.
+   *
+   * Tant qu'il vaut null, l'entête et le pied de page affichent la marque
+   * nominale dessinée à la main (Wordmark). Une fois le fichier déposé,
+   * renseigner son chemin ici : Wordmark bascule tout seul, y compris sur
+   * fond navy, où le logo est rendu en blanc par filtre CSS.
+   */
+  logo: null as string | null,
 } as const;
 
 /** Chemins internes, sans préfixe de langue. */
@@ -91,34 +100,28 @@ export const team: TeamMember[] = [
 export type TrackRecordEntry = {
   name: string;
   /**
-   * Logo de la société, servi depuis /public/logos.
+   * Logo officiel de la société, servi depuis /public/logos.
    *
    * Tant qu'il vaut null, le bandeau affiche le nom en typographie display.
-   * Pour passer au logo : déposer un SVG monochrome blanc dans
-   * public/logos/, puis renseigner son chemin ici. Aucun autre changement
-   * n'est nécessaire, le composant bascule tout seul.
+   * Ces logos appartiennent aux sociétés concernées : ils doivent venir
+   * d'une source autorisée (kit de presse, accord de la société) avant
+   * d'être publiés.
    */
   logo: string | null;
 };
 
-/**
- * Bandeau des investissements passés.
- *
- * Les logos officiels appartiennent à ces sociétés : ils doivent être obtenus
- * de sources autorisées (kit de presse, accord de la société) avant d'être
- * publiés, d'où l'affichage typographique par défaut.
- */
+/** Bandeau des investissements passés. */
 export const trackRecord: TrackRecordEntry[] = [
-  { name: 'Palantir', logo: '/logos/palantir.svg' },
-  { name: 'Forward', logo: null },
-  { name: 'Impossible', logo: null },
-  { name: 'SpaceX', logo: '/logos/spacex.svg' },
-  { name: 'wefox', logo: null },
-  { name: 'Airbnb', logo: '/logos/airbnb.svg' },
-  { name: 'Stripe', logo: '/logos/stripe.svg' },
-  { name: 'Grab', logo: '/logos/grab.svg' },
-  { name: 'Revolut', logo: '/logos/revolut.svg' },
-  { name: 'Ripple', logo: '/logos/ripple.svg' },
-  { name: 'Kodiak', logo: null },
-  { name: 'Uber', logo: '/logos/uber.svg' },
+  { name: 'Palantir', logo: '/logos/palantir.png' },
+  { name: 'Forward', logo: '/logos/forward.png' },
+  { name: 'Impossible', logo: '/logos/impossible.png' },
+  { name: 'SpaceX', logo: '/logos/spacex.png' },
+  { name: 'wefox', logo: '/logos/wefox.png' },
+  { name: 'Airbnb', logo: '/logos/airbnb.png' },
+  { name: 'Stripe', logo: '/logos/stripe.png' },
+  { name: 'Grab', logo: '/logos/grab.png' },
+  { name: 'Revolut', logo: '/logos/revolut.png' },
+  { name: 'Ripple', logo: '/logos/ripple.png' },
+  { name: 'Kodiak', logo: '/logos/kodiak.png' },
+  { name: 'Uber', logo: '/logos/uber.png' },
 ];
