@@ -83,9 +83,9 @@ export type TeamMember = {
 };
 
 export const team: TeamMember[] = [
-  { id: 'croset', name: 'Hervé Croset', photo: null },
-  { id: 'pal', name: 'George Pal', photo: null },
-  { id: 'tavares', name: 'John Tavares', photo: null },
+  { id: 'croset', name: 'Hervé Croset', photo: '/team/croset.jpg' },
+  { id: 'pal', name: 'George Pal', photo: '/team/pal.jpg' },
+  { id: 'tavares', name: 'John Tavares', photo: '/team/tavares.webp' },
 ];
 
 export type TrackRecordEntry = {
