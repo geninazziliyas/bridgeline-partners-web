@@ -117,6 +117,27 @@ export async function sendContactNotification(payload: ContactPayload) {
   });
 }
 
+/** Formulaire de contact du site public : accusé de réception à l'expéditeur. */
+export async function sendContactConfirmation(payload: ContactPayload) {
+  await sendEmail({
+    to: payload.email,
+    subject: 'Votre message a bien été reçu',
+    html: layout(
+      'Message bien reçu',
+      `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#10203a;">
+         Bonjour ${escapeHtml(payload.name)},
+       </p>
+       <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#10203a;">
+         Nous avons bien reçu votre message et reviendrons vers vous dans les
+         meilleurs délais.
+       </p>
+       <p style="margin:0;font-size:14px;line-height:1.6;color:#5a6b85;">
+         Bridgeline Partners
+       </p>`,
+    ),
+  });
+}
+
 export type AccessRequestPayload = {
   firstName: string;
   lastName: string;

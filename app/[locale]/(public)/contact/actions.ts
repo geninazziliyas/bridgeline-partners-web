@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
-import { sendContactNotification } from '@/lib/email';
+import { sendContactConfirmation, sendContactNotification } from '@/lib/email';
 import { buildSchemas, type FormState } from '@/lib/validations';
 import { getDictionary } from '@/lib/i18n';
 
@@ -60,6 +60,12 @@ export async function submitContact(
     await sendContactNotification(parsed.data);
   } catch (error) {
     console.error('[contact] message archivé mais notification non envoyée', error);
+  }
+
+  try {
+    await sendContactConfirmation(parsed.data);
+  } catch (error) {
+    console.error('[contact] message archivé mais accusé de réception non envoyé', error);
   }
 
   return { status: 'success', message: dict.forms.feedback.contactSuccess };
