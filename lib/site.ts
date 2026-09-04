@@ -8,8 +8,8 @@
 
 export const site = {
   name: 'Bridgeline Partners',
-  domain: 'bridgeline.ch',
-  email: 'info@bridgeline.ch',
+  domain: 'bridgelinepartners.ch',
+  email: 'info@bridgelinepartners.ch',
   /**
    * Politique de confidentialité, servie par app/[locale]/(public)/privacy.
    * Chemin interne (localisé automatiquement) ou URL complète.
@@ -53,7 +53,7 @@ export const offices: Office[] = [
     city: 'Luxembourg',
     address: '2 place de Strasbourg, 2562 Luxembourg',
     phone: '+41 78 743 60 76',
-    email: 'info@bridgeline.ch',
+    email: 'info@bridgelinepartners.ch',
     photo: 'https://picsum.photos/seed/bridgeline-office-luxembourg/1200/900',
   },
   {
@@ -61,7 +61,7 @@ export const offices: Office[] = [
     city: 'Genève',
     address: '11 rue Verdaine, 1204 Genève, Suisse',
     phone: '+41 79 345 77 08',
-    email: 'info@bridgeline.ch',
+    email: 'info@bridgelinepartners.ch',
     photo: 'https://picsum.photos/seed/bridgeline-office-geneve/1200/900',
   },
 ];
