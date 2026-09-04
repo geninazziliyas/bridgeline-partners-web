@@ -15,7 +15,7 @@ const apiKey = process.env.RESEND_API_KEY;
 const resend = apiKey ? new Resend(apiKey) : null;
 
 const FROM = process.env.EMAIL_FROM ?? 'Bridgeline Partners <onboarding@resend.dev>';
-const INBOX = process.env.CONTACT_INBOX ?? 'info@bridgelinepartners.com';
+const INBOX = process.env.CONTACT_INBOX ?? 'info@bridgeline.ch';
 
 type SendEmailInput = {
   to: string | string[];
