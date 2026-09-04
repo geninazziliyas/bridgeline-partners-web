@@ -51,6 +51,7 @@ export const en: Dictionary = {
     disclaimer:
       'This website is intended for professional investors. It constitutes neither an offer nor a solicitation to invest.',
     ariaLabel: 'Footer',
+    cookiePolicy: 'Cookie policy',
   },
 
   home: {
@@ -483,4 +484,31 @@ export const en: Dictionary = {
       body: 'Committed capital, current valuation and performance of each holding, with the associated reports.',
     },
   ],
+
+  cookies: {
+    title: 'Cookie policy',
+    lead: 'This site uses only what is strictly necessary for it to work, nothing more.',
+    intro:
+      'Bridgeline Partners does not use advertising cookies, audience-measurement tools, or third-party cookies. The only two cookies used by this site are strictly necessary for it to function, described below.',
+    table: {
+      name: 'Cookie',
+      purpose: 'Purpose',
+      duration: 'Duration',
+      rows: [
+        {
+          name: 'bridgeline_locale',
+          purpose: 'Remembers your language choice (French or English) between visits.',
+          duration: '1 year',
+        },
+        {
+          name: 'next-auth.session-token',
+          purpose:
+            'Keeps you signed in after logging into the investor area (Bridgeline Room). Only set if you sign in.',
+          duration: '8 hours, or until you sign out',
+        },
+      ],
+    },
+    none: 'No audience-measurement, advertising, or cross-site tracking cookies are used on this site.',
+    contact: 'For any question about this policy, contact us at',
+  },
 };

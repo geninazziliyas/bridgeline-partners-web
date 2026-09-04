@@ -45,6 +45,7 @@ export const fr = {
     disclaimer:
       'Ce site s’adresse à des investisseurs professionnels. Il ne constitue ni une offre ni une sollicitation d’investissement.',
     ariaLabel: 'Pied de page',
+    cookiePolicy: 'Politique de cookies',
   },
 
   home: {
@@ -494,6 +495,33 @@ export const fr = {
       body: 'Capital engagé, valorisation courante et performance de chaque participation, avec les rapports associés.',
     },
   ],
+
+  cookies: {
+    title: 'Politique de cookies',
+    lead: 'Ce site utilise le strict nécessaire à son fonctionnement, rien de plus.',
+    intro:
+      'Bridgeline Partners ne dépose aucun cookie publicitaire, aucun outil de mesure d’audience, et aucun cookie tiers. Les deux seuls cookies utilisés par ce site sont strictement nécessaires à son fonctionnement, décrits ci-dessous.',
+    table: {
+      name: 'Cookie',
+      purpose: 'Finalité',
+      duration: 'Durée',
+      rows: [
+        {
+          name: 'bridgeline_locale',
+          purpose: 'Mémorise votre choix de langue (français ou anglais) d’une visite à l’autre.',
+          duration: '1 an',
+        },
+        {
+          name: 'next-auth.session-token',
+          purpose:
+            'Maintient votre session ouverte après connexion à l’espace investisseur (Bridgeline Room). Déposé uniquement si vous vous connectez.',
+          duration: '8 heures, ou jusqu’à déconnexion',
+        },
+      ],
+    },
+    none: 'Aucun cookie de mesure d’audience, de publicité ou de traçage entre sites n’est utilisé sur ce site.',
+    contact: 'Pour toute question relative à cette politique, contactez-nous à',
+  },
 };
 
 /**

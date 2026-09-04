@@ -109,7 +109,13 @@ export function PublicFooter({
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-3 py-6 text-[13px] text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            {year} {site.name}. {dict.footer.rights}
+            {year} {site.name}. {dict.footer.rights}{' '}
+            <Link
+              href={localizedPath(locale, '/cookies')}
+              className="underline-offset-4 hover:underline"
+            >
+              {dict.footer.cookiePolicy}
+            </Link>
           </p>
           <p className="max-w-xl sm:text-right">{dict.footer.disclaimer}</p>
         </Container>
