@@ -10,7 +10,7 @@ import { initialFormState } from '@/lib/validations';
 import { submitAccessRequest } from '@/app/[locale]/room/(public)/actions';
 import { site } from '@/lib/site';
 import type { Dictionary } from '@/lib/i18n';
-import type { Locale } from '@/lib/i18n/config';
+import { localizedPath, type Locale } from '@/lib/i18n/config';
 
 /** Ordre d'affichage des types d'investisseur dans le select. */
 const investorTypes = [
@@ -131,7 +131,11 @@ export function AccessRequestForm({
             <>
               {dict.forms.consentPrivacy.replace(dict.forms.consentPrivacyLink, '')}
               <Link
-                href={site.privacyPolicyUrl}
+                href={
+                  site.privacyPolicyUrl?.startsWith('http')
+                    ? site.privacyPolicyUrl
+                    : localizedPath(locale, site.privacyPolicyUrl ?? '/privacy')
+                }
                 className="text-accent underline underline-offset-2"
               >
                 {dict.forms.consentPrivacyLink}

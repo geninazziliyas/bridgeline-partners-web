@@ -111,6 +111,13 @@ export function PublicFooter({
           <p>
             {year} {site.name}. {dict.footer.rights}{' '}
             <Link
+              href={localizedPath(locale, '/privacy')}
+              className="underline-offset-4 hover:underline"
+            >
+              {dict.footer.privacyPolicy}
+            </Link>{' '}
+            ·{' '}
+            <Link
               href={localizedPath(locale, '/cookies')}
               className="underline-offset-4 hover:underline"
             >

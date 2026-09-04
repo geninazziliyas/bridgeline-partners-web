@@ -46,6 +46,7 @@ export const fr = {
       'Ce site s’adresse à des investisseurs professionnels. Il ne constitue ni une offre ni une sollicitation d’investissement.',
     ariaLabel: 'Pied de page',
     cookiePolicy: 'Politique de cookies',
+    privacyPolicy: 'Politique de confidentialité',
   },
 
   home: {
@@ -521,6 +522,48 @@ export const fr = {
     },
     none: 'Aucun cookie de mesure d’audience, de publicité ou de traçage entre sites n’est utilisé sur ce site.',
     contact: 'Pour toute question relative à cette politique, contactez-nous à',
+  },
+
+  privacy: {
+    title: 'Politique de confidentialité',
+    lead: 'Comment Bridgeline Partners collecte, utilise et protège vos données personnelles.',
+    controller: {
+      title: 'Responsable du traitement',
+      body: 'Bridgeline Partners, avec des bureaux à Luxembourg et à Genève, est responsable du traitement des données personnelles collectées via ce site.',
+    },
+    collect: {
+      title: 'Données que nous collectons',
+      items: [
+        'Coordonnées transmises via les formulaires du site (nom, email, société, message), à travers le formulaire de contact et la demande d’accès à l’espace investisseur.',
+        'Type d’investisseur déclaré dans le formulaire de demande d’accès.',
+        'Si l’accès à la Bridgeline Room vous est accordé : nom, email, société et juridiction associés à votre compte.',
+        'Si vous êtes client : les positions d’investissement et documents liés à votre compte dans la Bridgeline Room.',
+        'Données techniques standard (adresse IP, type de navigateur) enregistrées par notre hébergeur dans le cadre normal du fonctionnement du site.',
+      ],
+    },
+    use: {
+      title: 'Comment nous utilisons ces données',
+      items: [
+        'Répondre à vos demandes de contact ou d’accès.',
+        'Créer et gérer votre accès à la Bridgeline Room si votre demande est approuvée.',
+        'Respecter nos obligations légales et réglementaires, notamment en matière de connaissance client.',
+      ],
+    },
+    basis: {
+      title: 'Base légale',
+      body: 'Nous traitons vos données sur la base de votre consentement (formulaire de demande d’accès), des mesures précontractuelles nécessaires avant l’ouverture d’un compte, et de nos obligations légales en tant qu’acteur du secteur financier.',
+    },
+    retention: {
+      title: 'Conservation et sécurité',
+      body: 'Nous conservons vos données personnelles uniquement le temps nécessaire aux finalités décrites ci-dessus, ou aussi longtemps que la loi l’exige. Nous recourons à des prestataires techniques (hébergement, base de données, envoi d’emails) qui traitent des données pour notre compte, dans le cadre d’accords appropriés.',
+    },
+    rights: {
+      title: 'Vos droits',
+      body: 'Sous réserve du droit applicable, vous pouvez demander l’accès, la rectification, l’effacement ou la limitation du traitement de vos données, leur portabilité, ou vous opposer à certains traitements. Vous pouvez également introduire une réclamation auprès de l’autorité de protection des données compétente.',
+    },
+    cookiesNote: 'Pour le détail des cookies utilisés par ce site, consultez notre',
+    cookiesNoteLink: 'politique de cookies',
+    contact: 'Pour toute question ou demande relative à vos données, contactez-nous à',
   },
 };
 

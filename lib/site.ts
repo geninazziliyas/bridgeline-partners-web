@@ -11,11 +11,10 @@ export const site = {
   domain: 'bridgelinepartners.com',
   email: 'info@bridgelinepartners.com',
   /**
-   * Politique de confidentialité. Tant qu'elle vaut null, la case de
-   * consentement affiche son texte sans lien : un lien mort serait pire.
-   * A renseigner dès la page publiée (chemin interne ou URL complète).
+   * Politique de confidentialité, servie par app/[locale]/(public)/privacy.
+   * Chemin interne (localisé automatiquement) ou URL complète.
    */
-  privacyPolicyUrl: null as string | null,
+  privacyPolicyUrl: '/privacy' as string | null,
   /**
    * Logo officiel, servi depuis /public/brand/bridgeline-logo.png.
    *

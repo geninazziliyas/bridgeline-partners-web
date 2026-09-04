@@ -52,6 +52,7 @@ export const en: Dictionary = {
       'This website is intended for professional investors. It constitutes neither an offer nor a solicitation to invest.',
     ariaLabel: 'Footer',
     cookiePolicy: 'Cookie policy',
+    privacyPolicy: 'Privacy policy',
   },
 
   home: {
@@ -510,5 +511,47 @@ export const en: Dictionary = {
     },
     none: 'No audience-measurement, advertising, or cross-site tracking cookies are used on this site.',
     contact: 'For any question about this policy, contact us at',
+  },
+
+  privacy: {
+    title: 'Privacy policy',
+    lead: 'How Bridgeline Partners collects, uses, and protects your personal data.',
+    controller: {
+      title: 'Data controller',
+      body: 'Bridgeline Partners, with offices in Luxembourg and Geneva, is the controller responsible for the personal data collected through this website.',
+    },
+    collect: {
+      title: 'Data we collect',
+      items: [
+        'Contact details submitted through this site’s forms (name, email, company, message), via the contact form and the investor-area access request.',
+        'Investor type declared in the access request form.',
+        'If you are granted access to the Bridgeline Room: the name, email, company, and jurisdiction associated with your account.',
+        'If you are a client: the investment positions and documents linked to your Bridgeline Room account.',
+        'Standard technical data (IP address, browser type) logged by our hosting provider as part of the site’s normal operation.',
+      ],
+    },
+    use: {
+      title: 'How we use this data',
+      items: [
+        'To respond to your contact or access requests.',
+        'To create and manage your access to the Bridgeline Room if your request is approved.',
+        'To meet our legal and regulatory obligations, including know-your-client requirements.',
+      ],
+    },
+    basis: {
+      title: 'Legal basis',
+      body: 'We process your data based on your consent (access request form), pre-contractual steps necessary before opening an account, and our legal obligations as a financial services firm.',
+    },
+    retention: {
+      title: 'Retention and security',
+      body: 'We retain your personal data only for as long as necessary for the purposes described above, or as required by law. We rely on technical service providers (hosting, database, email delivery) who process data on our behalf, under appropriate agreements.',
+    },
+    rights: {
+      title: 'Your rights',
+      body: 'Subject to applicable law, you may request access, correction, deletion, or restriction of the processing of your data, its portability, or object to certain processing. You may also lodge a complaint with the competent data protection authority.',
+    },
+    cookiesNote: 'For details on the cookies used by this site, see our',
+    cookiesNoteLink: 'cookie policy',
+    contact: 'For any question or request about your data, contact us at',
   },
 };
