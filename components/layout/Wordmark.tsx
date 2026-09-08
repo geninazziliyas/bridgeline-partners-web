@@ -33,11 +33,12 @@ export function Wordmark({
         alt={site.name}
         width={220}
         height={52}
+        quality={100}
         priority
         // w-auto conserve les proportions réelles du fichier : width/height
         // ci-dessus ne servent qu'à Next, pas au rendu final.
         className={cn(
-          'h-7 w-auto object-contain',
+          'h-9 w-auto object-contain',
           tone === 'white' && 'brightness-0 invert',
           className,
         )}

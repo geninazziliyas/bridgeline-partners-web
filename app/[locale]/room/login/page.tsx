@@ -61,7 +61,7 @@ export default async function LoginPage({
           href={localizedPath(params.locale, '/')}
           aria-label={dict.nav.homeAria}
         >
-          <Wordmark tone="white" />
+          <Wordmark tone="white" className="h-11" />
         </Link>
         <div>
           <p className="max-w-md font-display text-3xl font-bold leading-tight">
