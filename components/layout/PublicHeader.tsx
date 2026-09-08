@@ -15,7 +15,7 @@ import type { Dictionary } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
 /**
- * Entête du site public. Hauteur fixe de 68px, navigation sur une seule ligne
+ * Entête du site public. Hauteur fixe de 84px, navigation sur une seule ligne
  * au-delà de lg, repliée en panneau sous ce seuil.
  *
  * Client Component : dépend de la route active et de l'état du menu mobile.
@@ -44,12 +44,12 @@ export function PublicHeader({
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-navy text-white">
-      <Container className="flex h-[68px] items-center justify-between gap-6">
+      <Container className="flex h-[84px] items-center justify-between gap-6">
         <Link href={localizedPath(locale, '/')} aria-label={dict.nav.homeAria}>
-          <Wordmark tone="white" />
+          <Wordmark tone="white" className="h-11" />
         </Link>
 
-        <nav aria-label={dict.nav.primary} className="hidden items-center gap-8 lg:flex">
+        <nav aria-label={dict.nav.primary} className="hidden items-center gap-9 lg:flex">
           {items.map((item) => {
             const active = pathname === item.href;
             return (
@@ -58,7 +58,7 @@ export function PublicHeader({
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'text-[15px] transition-colors duration-200',
+                  'text-[16px] transition-colors duration-200',
                   active ? 'text-white' : 'text-white/70 hover:text-white',
                 )}
               >
