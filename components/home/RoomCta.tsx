@@ -9,8 +9,14 @@ import type { Dictionary } from '@/lib/i18n';
  */
 export function RoomCta({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section className="bg-navy py-20 text-white lg:py-24">
-      <Container className="grid gap-10 lg:grid-cols-12 lg:items-center">
+    <section className="relative overflow-hidden bg-navy py-20 text-white lg:py-24">
+      {/* Meme lueur turquoise que le hero, en bien plus discret : la page se
+          referme sur la meme touche de couleur qu'elle a ouverte. */}
+      <div
+        aria-hidden="true"
+        className="animate-drift-glow pointer-events-none absolute right-[-10%] top-1/2 -z-0 h-64 w-64 -translate-y-1/2 rounded-full bg-teal/20 blur-3xl"
+      />
+      <Container className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-7">
           <h2 className="max-w-xl font-display text-3xl font-bold md:text-4xl">
             {dict.home.cta.title}

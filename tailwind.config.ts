@@ -31,6 +31,16 @@ const config: Config = {
           soft: '#e8f0fb', // fond de badge / surface teintee
           ring: '#4a86dd',
         },
+        /**
+         * Second accent, turquoise vif. Reserve a de tres petites touches de
+         * mouvement (lueur ambiante, pastille "en direct") : jamais de texte
+         * ni de fond plein dans cette teinte, l'accent bleu reste la couleur
+         * d'action du site.
+         */
+        teal: {
+          DEFAULT: '#1fe8c9',
+          glow: 'rgba(31, 232, 201, 0.35)',
+        },
         canvas: '#f3f6fb', // fond de page
         ink: {
           DEFAULT: '#10203a', // texte principal

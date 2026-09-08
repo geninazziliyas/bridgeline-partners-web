@@ -28,8 +28,21 @@ export async function OpportunitiesPreview({
     <section className="border-b border-hairline bg-canvas py-20 lg:py-28">
       <Container>
         <div>
-          <h2 className="max-w-xl font-display text-3xl font-bold text-navy md:text-4xl">
+          <h2 className="flex max-w-xl items-center gap-3 font-display text-3xl font-bold text-navy md:text-4xl">
             {dict.home.opportunities.title}
+            {deals.length > 0 ? (
+              // Pastille "en direct" : le contenu de cette section vient de
+              // la base et change reellement, contrairement au reste de la
+              // page. N'apparait que s'il y a effectivement une operation a
+              // annoncer.
+              <span
+                aria-hidden="true"
+                className="relative inline-flex h-2.5 w-2.5 shrink-0"
+              >
+                <span className="animate-pulse-ring absolute inset-0 rounded-full bg-teal" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-teal" />
+              </span>
+            ) : null}
           </h2>
           <p className="mt-3 max-w-[56ch] text-[16px] leading-relaxed text-ink-muted">
             {dict.home.opportunities.lead}

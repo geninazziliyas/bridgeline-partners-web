@@ -58,6 +58,41 @@
   .animate-marquee {
     animation: marquee 22s linear infinite;
   }
+
+  /* Lueur ambiante turquoise : derriere le visuel du hero et le bandeau
+     Room, un mouvement lent qui ne demande aucune interaction. */
+  @keyframes drift-glow {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(3%, -4%) scale(1.08);
+    }
+  }
+
+  .animate-drift-glow {
+    animation: drift-glow 10s ease-in-out infinite;
+  }
+
+  /* Pastille "en direct" : anneau qui se dilate et s'efface en boucle
+     autour d'un point plein, a cote d'un titre annoncant du contenu vivant
+     (operations en cours). */
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.6;
+    }
+    75%,
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }
 
 /* Toute animation se desactive si l'utilisateur le demande. */

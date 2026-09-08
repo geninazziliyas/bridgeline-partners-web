@@ -38,7 +38,14 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           </div>
         </div>
 
-        <div className="lg:col-span-5">
+        <div className="relative lg:col-span-5">
+          {/* Touche de couleur secondaire : une lueur turquoise qui derive
+              lentement derriere le cadre, seule tache de mouvement continu
+              hors interaction sur cette page. */}
+          <div
+            aria-hidden="true"
+            className="animate-drift-glow pointer-events-none absolute -inset-6 -z-10 rounded-full bg-teal/40 blur-3xl"
+          />
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-card border border-hairline bg-canvas">
             {site.heroVideo ? (
               <video
