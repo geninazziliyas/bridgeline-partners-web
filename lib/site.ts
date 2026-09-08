@@ -32,7 +32,7 @@ export const site = {
    * renseigner son chemin ici : Hero bascule tout seul, en boucle et muet,
    * avec heroImage comme image de secours le temps du chargement.
    */
-  heroVideo: null as string | null,
+  heroVideo: '/home/hero.mp4' as string | null,
   heroImage: '/home/hero.jpg',
 } as const;
 
