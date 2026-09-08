@@ -88,10 +88,6 @@ export const en: Dictionary = {
       eyebrow: 'Our advantages',
       title: 'What sets us apart',
     },
-    team: {
-      title: 'Our team',
-      action: 'Meet the team',
-    },
     opportunities: {
       title: 'Current transactions',
       lead: 'Target amounts, minimum tickets and documents are available once you are signed in.',

@@ -83,10 +83,6 @@ export const fr = {
       eyebrow: 'Nos avantages',
       title: 'Ce qui nous distingue',
     },
-    team: {
-      title: 'Notre équipe',
-      action: 'Voir l’équipe',
-    },
     opportunities: {
       title: 'Opérations en cours',
       lead: 'Les montants cibles, tickets minimums et documents sont accessibles après connexion.',

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 
 import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/Button';
@@ -109,13 +108,12 @@ export default function AboutPage({ params }: { params: { locale: Locale } }) {
                 className="overflow-hidden rounded-card border border-hairline bg-white"
               >
                 <div className="relative aspect-[4/3] w-full bg-canvas">
-                  {/* Placeholder photographique, à remplacer par le visuel du bureau. */}
-                  <Image
-                    src={office.photo}
-                    alt={`${dict.about.offices.photoAlt} ${office.city}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
+                  <iframe
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(office.address)}&output=embed`}
+                    title={`${dict.about.offices.photoAlt} ${office.city}`}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="absolute inset-0 h-full w-full border-0"
                   />
                 </div>
                 <div className="p-8">

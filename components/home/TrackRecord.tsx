@@ -40,26 +40,22 @@ export function TrackRecord({ dict }: { dict: Dictionary }) {
           {[0, 1].map((copy) => (
             <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center">
               {trackRecord.map((entry) => (
-                <li
-                  key={`${copy}-${entry.name}`}
-                  className="flex h-12 items-center border-r border-hairline px-9"
-                >
+                <li key={`${copy}-${entry.name}`} className="flex h-14 items-center px-11">
                   {entry.logo ? (
-                    // Logos officiels en couleurs réelles : c'est ce qui se
-                    // fait sur un mur de logos "trusted by", pas de teinte
-                    // monochrome imposée. width/height ne fixent que le ratio
-                    // transmis à Next, w-auto pilote la taille affichée.
+                    // Niveaux de gris au repos, couleurs réelles au survol :
+                    // le traitement classique d'un mur de logos "trusted by",
+                    // plus sobre qu'un aplat de couleurs disparates en continu.
                     <Image
                       src={entry.logo}
                       alt={entry.name}
                       width={160}
                       height={40}
-                      className="h-7 w-auto object-contain"
+                      className="h-8 w-auto object-contain opacity-70 grayscale transition duration-300 ease-out hover:opacity-100 hover:grayscale-0"
                     />
                   ) : (
                     // Meme couleur et meme hauteur optique que les logos, pour
                     // que la bande se lise comme un seul ensemble.
-                    <span className="whitespace-nowrap font-display text-lg font-bold tracking-tight text-navy">
+                    <span className="whitespace-nowrap font-display text-lg font-bold tracking-tight text-navy/70 transition-colors duration-300 hover:text-navy">
                       {entry.name}
                     </span>
                   )}

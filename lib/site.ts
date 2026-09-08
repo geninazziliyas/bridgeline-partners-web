@@ -24,6 +24,16 @@ export const site = {
    * fond navy, où le logo est rendu en blanc par filtre CSS.
    */
   logo: '/brand/bridgeline-logo.png' as string | null,
+  /**
+   * Vidéo de fond du hero, servie depuis /public/home.
+   *
+   * Tant qu'elle vaut null, le hero affiche heroImage à la place. Une fois le
+   * fichier déposé (MP4 compressé, plutôt < 5-10 Mo pour rester fluide),
+   * renseigner son chemin ici : Hero bascule tout seul, en boucle et muet,
+   * avec heroImage comme image de secours le temps du chargement.
+   */
+  heroVideo: null as string | null,
+  heroImage: '/home/hero.jpg',
 } as const;
 
 /** Chemins internes, sans préfixe de langue. */
@@ -43,8 +53,6 @@ export type Office = {
   address: string;
   phone: string;
   email: string;
-  /** Photographie de placeholder, à remplacer par le visuel du bureau. */
-  photo: string;
 };
 
 export const offices: Office[] = [
@@ -54,7 +62,6 @@ export const offices: Office[] = [
     address: '2 place de Strasbourg, 2562 Luxembourg',
     phone: '+41 78 743 60 76',
     email: 'info@bridgeline.ch',
-    photo: 'https://picsum.photos/seed/bridgeline-office-luxembourg/1200/900',
   },
   {
     id: 'geneva',
@@ -62,7 +69,6 @@ export const offices: Office[] = [
     address: '11 rue Verdaine, 1204 Genève, Suisse',
     phone: '+41 79 345 77 08',
     email: 'info@bridgeline.ch',
-    photo: 'https://picsum.photos/seed/bridgeline-office-geneve/1200/900',
   },
 ];
 

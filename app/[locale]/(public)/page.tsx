@@ -3,7 +3,6 @@ import { AboutIntro } from '@/components/home/AboutIntro';
 import { TwoEntries } from '@/components/home/TwoEntries';
 import { Services } from '@/components/home/Services';
 import { Advantages } from '@/components/home/Advantages';
-import { TeamPreview } from '@/components/home/TeamPreview';
 import { OpportunitiesPreview } from '@/components/home/OpportunitiesPreview';
 import { TrackRecord } from '@/components/home/TrackRecord';
 import { RoomCta } from '@/components/home/RoomCta';
@@ -24,12 +23,11 @@ export default function HomePage({ params }: { params: { locale: Locale } }) {
   return (
     <>
       <Hero locale={locale} dict={dict} />
+      <OpportunitiesPreview locale={locale} dict={dict} />
       <AboutIntro locale={locale} dict={dict} />
       <TwoEntries locale={locale} dict={dict} />
       <Services locale={locale} dict={dict} />
       <Advantages dict={dict} />
-      <TeamPreview locale={locale} dict={dict} />
-      <OpportunitiesPreview locale={locale} dict={dict} />
       <TrackRecord dict={dict} />
       <RoomCta locale={locale} dict={dict} />
     </>

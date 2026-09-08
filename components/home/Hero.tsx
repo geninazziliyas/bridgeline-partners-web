@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import { ButtonLink } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { site } from '@/lib/site';
 import { localizedPath, type Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/i18n';
 
@@ -39,14 +40,26 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
         <div className="lg:col-span-5">
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-card border border-hairline bg-canvas">
-            <Image
-              src="/home/hero.jpg"
-              alt={dict.home.hero.imageAlt}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover"
-            />
+            {site.heroVideo ? (
+              <video
+                src={site.heroVideo}
+                poster={site.heroImage}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ) : (
+              <Image
+                src={site.heroImage}
+                alt={dict.home.hero.imageAlt}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
+              />
+            )}
           </div>
         </div>
       </Container>

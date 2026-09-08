@@ -64,9 +64,8 @@ export default function RoomLandingPage({
 
           <div className="lg:col-span-5">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card border border-white/15">
-              {/* Placeholder photographique, à remplacer par une capture de la Room. */}
               <Image
-                src="https://picsum.photos/seed/bridgeline-room-interior/1000/750"
+                src="/home/room.jpg"
                 alt={dict.roomLanding.imageAlt}
                 fill
                 priority
