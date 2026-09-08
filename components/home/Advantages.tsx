@@ -50,9 +50,8 @@ export function Advantages({ dict }: { dict: Dictionary }) {
               >
                 {hasPhoto ? (
                   <>
-                    {/* Placeholder photographique, à remplacer par un visuel de marque. */}
                     <Image
-                      src="https://picsum.photos/seed/bridgeline-advantage-desk/1200/700"
+                      src="/home/advantages.jpg"
                       alt=""
                       fill
                       sizes="(max-width: 1024px) 100vw, 60vw"

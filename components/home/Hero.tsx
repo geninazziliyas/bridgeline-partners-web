@@ -38,10 +38,9 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
 
         <div className="lg:col-span-5">
-          {/* Placeholder photographique. À remplacer par un visuel de marque. */}
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-card border border-hairline bg-canvas">
             <Image
-              src="https://picsum.photos/seed/bridgeline-hero-architecture/1000/1250"
+              src="/home/hero.jpg"
               alt={dict.home.hero.imageAlt}
               fill
               priority
