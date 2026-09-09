@@ -47,16 +47,6 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             className="animate-drift-glow pointer-events-none absolute -inset-6 -z-10 rounded-full bg-teal/40 blur-3xl"
           />
 
-          {/* Anneau en rotation 3D reelle (deux axes), simple detail decoratif
-              en bord de cadre : le seul element de la page qui donne une
-              sensation de profondeur plutot que de mouvement a plat. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-6 -top-6 z-10 hidden h-24 w-24 [perspective:600px] sm:block"
-          >
-            <div className="animate-spin-3d h-full w-full rounded-full border-[3px] border-teal/70" />
-          </div>
-
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-card border border-hairline bg-canvas">
             {site.heroVideo ? (
               <video
