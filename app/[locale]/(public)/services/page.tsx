@@ -38,7 +38,7 @@ export default function ServicesPage({ params }: { params: { locale: Locale } })
           </div>
 
           <aside className="lg:col-span-4 lg:col-start-9">
-            <TiltCard>
+            <TiltCard tone="dark">
               <div className="rounded-card border border-hairline bg-white p-8">
                 <h2 className="font-display text-lg font-bold text-navy">
                   {dict.services.listTitle}
@@ -61,7 +61,7 @@ export default function ServicesPage({ params }: { params: { locale: Locale } })
           <ol className="divide-y divide-hairline border-y border-hairline">
             {dict.servicesList.map((service, index) => (
               <li key={service.title}>
-                <TiltCard revealDelayMs={index * 90}>
+                <TiltCard tone="dark" revealDelayMs={index * 90}>
                   <div className="grid gap-4 py-8 md:grid-cols-12 md:items-baseline md:gap-8">
                     <span className="tabular font-mono text-sm text-ink-faint md:col-span-1">
                       {String(index + 1).padStart(2, '0')}
