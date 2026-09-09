@@ -40,7 +40,12 @@ export function Advantages({ dict }: { dict: Dictionary }) {
             const hasPhoto = index === 3;
 
             return (
-              <TiltCard key={item.title} className={spanCycle[index % spanCycle.length]}>
+              <TiltCard
+                key={item.title}
+                className={spanCycle[index % spanCycle.length]}
+                revealDelayMs={index * 90}
+                tone={isNavy || hasPhoto ? 'light' : 'dark'}
+              >
                 <article
                   className={cn(
                     'relative h-full overflow-hidden rounded-card border p-8 lg:p-10',
