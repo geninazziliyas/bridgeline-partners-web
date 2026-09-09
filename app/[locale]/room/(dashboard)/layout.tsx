@@ -34,6 +34,7 @@ export default async function RoomDashboardLayout({
         name: session.user.name ?? dict.roomNav.fallbackUser,
         email: session.user.email ?? '',
         company: session.user.company,
+        role: session.user.role,
       }}
     >
       {children}

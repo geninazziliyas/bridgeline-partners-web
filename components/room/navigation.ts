@@ -11,3 +11,10 @@ export const roomNavigation = [
 ] as const;
 
 export type RoomNavItem = (typeof roomNavigation)[number];
+
+/** N'apparaît dans le menu que pour un compte ADMIN. Libellé fixe (outil interne, non traduit). */
+export const adminNavItem = {
+  href: '/room/admin',
+  label: 'Administration',
+  icon: 'admin',
+} as const;

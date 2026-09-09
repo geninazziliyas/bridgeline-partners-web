@@ -20,7 +20,13 @@ import { defaultLocale, isLocale, locales } from '@/lib/i18n/config';
 const LOCALE_COOKIE = 'bridgeline_locale';
 
 /** Segments protégés, exprimés sans le préfixe de langue. */
-const protectedSegments = ['/room/dashboard', '/room/opportunities', '/room/portfolio', '/room/documents'];
+const protectedSegments = [
+  '/room/dashboard',
+  '/room/opportunities',
+  '/room/portfolio',
+  '/room/documents',
+  '/room/admin',
+];
 
 /**
  * Langue à servir pour une URL sans préfixe.

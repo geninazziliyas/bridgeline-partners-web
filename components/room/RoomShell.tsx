@@ -8,6 +8,7 @@ import {
   Briefcase,
   ChartPieSlice,
   Files,
+  GearSix,
   List,
   SignOut,
   SquaresFour,
@@ -16,7 +17,7 @@ import {
 
 import { Wordmark } from '@/components/layout/Wordmark';
 import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
-import { roomNavigation } from '@/components/room/navigation';
+import { roomNavigation, adminNavItem } from '@/components/room/navigation';
 import { localizedPath, type Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/i18n';
 import { cn, initials } from '@/lib/utils';
@@ -26,12 +27,13 @@ const icons = {
   deals: Briefcase,
   portfolio: ChartPieSlice,
   documents: Files,
+  admin: GearSix,
 } as const;
 
 type RoomShellProps = {
   locale: Locale;
   dict: Dictionary;
-  user: { name: string; email: string; company: string | null };
+  user: { name: string; email: string; company: string | null; role: 'INVESTOR' | 'ADMIN' };
   children: ReactNode;
 };
 
@@ -49,12 +51,27 @@ export function RoomShell({ locale, dict, user, children }: RoomShellProps) {
     setOpen(false);
   }, [pathname]);
 
+  const items = [
+    ...roomNavigation.map((item) => ({
+      href: item.href,
+      icon: item.icon,
+      label: dict.roomNav[item.key],
+    })),
+    ...(user.role === 'ADMIN'
+      ? [{ href: adminNavItem.href, icon: adminNavItem.icon, label: adminNavItem.label }]
+      : []),
+  ];
+
   const nav = (
     <nav aria-label={dict.roomNav.ariaLabel} className="flex flex-col gap-1">
-      {roomNavigation.map((item) => {
+      {items.map((item) => {
         const Icon = icons[item.icon];
         const href = localizedPath(locale, item.href);
-        const active = pathname === href;
+        // L'admin est sous /room/admin/... : "active" doit couvrir ses sous-pages.
+        const active =
+          item.href === adminNavItem.href
+            ? pathname.startsWith(href)
+            : pathname === href;
 
         return (
           <Link
@@ -69,7 +86,7 @@ export function RoomShell({ locale, dict, user, children }: RoomShellProps) {
             )}
           >
             <Icon size={19} weight={active ? 'fill' : 'regular'} />
-            {dict.roomNav[item.key]}
+            {item.label}
           </Link>
         );
       })}
