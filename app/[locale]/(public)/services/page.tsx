@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/Button';
+import { TiltCard } from '@/components/ui/TiltCard';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { getDictionary, localizedPath, type Locale } from '@/lib/i18n';
 
@@ -37,18 +38,20 @@ export default function ServicesPage({ params }: { params: { locale: Locale } })
           </div>
 
           <aside className="lg:col-span-4 lg:col-start-9">
-            <div className="rounded-card border border-hairline bg-white p-8">
-              <h2 className="font-display text-lg font-bold text-navy">
-                {dict.services.listTitle}
-              </h2>
-              <ul className="mt-5 space-y-4 text-[15px] leading-relaxed text-ink-muted">
-                {dict.servicesList.map((service) => (
-                  <li key={service.title} className="border-l-2 border-hairline pl-4">
-                    <span className="font-medium text-navy">{service.title}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <TiltCard tone="dark">
+              <div className="rounded-card border border-hairline bg-white p-8">
+                <h2 className="font-display text-lg font-bold text-navy">
+                  {dict.services.listTitle}
+                </h2>
+                <ul className="mt-5 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+                  {dict.servicesList.map((service) => (
+                    <li key={service.title} className="border-l-2 border-hairline pl-4">
+                      <span className="font-medium text-navy">{service.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </TiltCard>
           </aside>
         </Container>
       </section>
@@ -57,19 +60,20 @@ export default function ServicesPage({ params }: { params: { locale: Locale } })
         <Container>
           <ol className="divide-y divide-hairline border-y border-hairline">
             {dict.servicesList.map((service, index) => (
-              <li
-                key={service.title}
-                className="grid gap-4 py-8 md:grid-cols-12 md:items-baseline md:gap-8"
-              >
-                <span className="tabular font-mono text-sm text-ink-faint md:col-span-1">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h2 className="font-display text-xl font-bold text-navy md:col-span-4 md:text-2xl">
-                  {service.title}
-                </h2>
-                <p className="max-w-[62ch] text-[16px] leading-relaxed text-ink-muted md:col-span-7">
-                  {service.body}
-                </p>
+              <li key={service.title}>
+                <TiltCard tone="dark" radiusClassName="rounded-none" revealDelayMs={index * 90}>
+                  <div className="grid gap-4 py-8 md:grid-cols-12 md:items-baseline md:gap-8">
+                    <span className="tabular font-mono text-sm text-ink-faint md:col-span-1">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <h2 className="font-display text-xl font-bold text-navy md:col-span-4 md:text-2xl">
+                      {service.title}
+                    </h2>
+                    <p className="max-w-[62ch] text-[16px] leading-relaxed text-ink-muted md:col-span-7">
+                      {service.body}
+                    </p>
+                  </div>
+                </TiltCard>
               </li>
             ))}
           </ol>
