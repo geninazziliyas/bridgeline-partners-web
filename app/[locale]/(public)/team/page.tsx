@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/Button';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Portrait } from '@/components/ui/Portrait';
+import { TiltCard } from '@/components/ui/TiltCard';
 import { team } from '@/lib/site';
 import { getDictionary, localizedPath, type Locale } from '@/lib/i18n';
 
@@ -31,39 +32,41 @@ export default function TeamPage({ params }: { params: { locale: Locale } }) {
       <section className="bg-canvas py-16 lg:py-20">
         <Container>
           <ul className="space-y-6">
-            {team.map((member) => (
+            {team.map((member, index) => (
               <li key={member.id}>
-                {/* Portrait à taille fixe, en tête de fiche puis à gauche du
-                    texte au-delà de sm. Une colonne d'image pleine hauteur
-                    déséquilibrait la fiche : la biographie est le contenu
-                    principal, le portrait l'accompagne. */}
-                <article className="flex flex-col gap-6 rounded-card border border-hairline bg-white p-8 sm:flex-row sm:gap-8 lg:p-10">
-                  <Portrait
-                    name={member.name}
-                    photo={member.photo}
-                    alt={`${dict.team.portraitAlt} ${member.name}`}
-                    size="md"
-                  />
+                <TiltCard tone="dark" revealDelayMs={index * 110}>
+                  {/* Portrait à taille fixe, en tête de fiche puis à gauche du
+                      texte au-delà de sm. Une colonne d'image pleine hauteur
+                      déséquilibrait la fiche : la biographie est le contenu
+                      principal, le portrait l'accompagne. */}
+                  <article className="flex flex-col gap-6 rounded-card border border-hairline bg-white p-8 sm:flex-row sm:gap-8 lg:p-10">
+                    <Portrait
+                      name={member.name}
+                      photo={member.photo}
+                      alt={`${dict.team.portraitAlt} ${member.name}`}
+                      size="md"
+                    />
 
-                  <div className="min-w-0">
-                    <h2 className="font-display text-2xl font-bold text-navy">
-                      {member.name}
-                    </h2>
-                    <p className="mt-1.5 text-[16px] text-accent">
-                      {dict.team_members[member.id].role}
-                    </p>
-                    <div className="mt-5 space-y-3">
-                      {dict.team_members[member.id].bio.map((paragraph) => (
-                        <p
-                          key={paragraph}
-                          className="max-w-[70ch] text-[16px] leading-relaxed text-ink-muted"
-                        >
-                          {paragraph}
-                        </p>
-                      ))}
+                    <div className="min-w-0">
+                      <h2 className="font-display text-2xl font-bold text-navy">
+                        {member.name}
+                      </h2>
+                      <p className="mt-1.5 text-[16px] text-accent">
+                        {dict.team_members[member.id].role}
+                      </p>
+                      <div className="mt-5 space-y-3">
+                        {dict.team_members[member.id].bio.map((paragraph) => (
+                          <p
+                            key={paragraph}
+                            className="max-w-[70ch] text-[16px] leading-relaxed text-ink-muted"
+                          >
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </article>
+                  </article>
+                </TiltCard>
               </li>
             ))}
           </ul>

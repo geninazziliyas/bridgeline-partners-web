@@ -33,9 +33,9 @@ export function TiltCard({
   /** Délai avant l'animation d'entrée, pour faire cascader plusieurs cartes. */
   revealDelayMs?: number;
   /**
-   * Teinte du reflet : `light` (traînée blanche) pour une carte au fond
-   * sombre, `dark` (traînée encre) pour une carte au fond clair — sans ça, un
-   * reflet blanc sur fond blanc serait invisible.
+   * Teinte du reflet, toujours teintée turquoise (couleur de marque) : `light`
+   * accentue le blanc pour une carte au fond sombre, `dark` réduit le blanc
+   * pour rester lisible sur un fond clair.
    */
   tone?: 'light' | 'dark';
 }) {
@@ -121,22 +121,27 @@ export function TiltCard({
       >
         {children}
 
-        {/* Reflet diagonal : un seul passage net au survol, pas de lueur qui suit la souris. */}
+        {/*
+          Reflet diagonal : un seul passage net au survol, comme de la lumière
+          filtrant à travers une vitre teintée turquoise — un cœur clair
+          entouré d'une teinte de marque, pas une simple traînée blanche.
+        */}
         <div
           aria-hidden="true"
           className={cn('pointer-events-none absolute inset-0 overflow-hidden', radiusClassName)}
         >
           <div
-            className={cn(
-              'absolute -inset-y-1/2 left-0 w-1/5 bg-gradient-to-r from-transparent to-transparent',
-              tone === 'light' ? 'via-white/30' : 'via-navy/15',
-            )}
+            className="absolute -inset-y-1/2 left-0 w-1/4"
             style={{
-              transform: `translateX(${hovered ? '650%' : '-650%'}) rotate(-20deg)`,
+              backgroundImage:
+                tone === 'light'
+                  ? 'linear-gradient(100deg, transparent 0%, rgba(31, 232, 201, 0.22) 35%, rgba(255, 255, 255, 0.6) 48%, rgba(31, 232, 201, 0.3) 62%, transparent 100%)'
+                  : 'linear-gradient(100deg, transparent 0%, rgba(31, 232, 201, 0.14) 35%, rgba(255, 255, 255, 0.4) 48%, rgba(31, 232, 201, 0.22) 62%, transparent 100%)',
+              transform: `translateX(${hovered ? '550%' : '-550%'}) rotate(-20deg)`,
               opacity: hovered ? 1 : 0,
               transition: hovered
-                ? 'transform 750ms cubic-bezier(0.22, 1, 0.36, 1), opacity 150ms ease-out'
-                : 'opacity 200ms ease-out',
+                ? 'transform 1400ms linear, opacity 250ms ease-out'
+                : 'opacity 300ms ease-out',
             }}
           />
         </div>
