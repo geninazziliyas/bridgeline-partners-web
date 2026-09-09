@@ -93,6 +93,23 @@
   .animate-pulse-ring {
     animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  /* Anneau qui pivote reellement dans l'espace (rotation sur deux axes,
+     pas juste un spin a plat) : avec perspective sur le parent, le cercle
+     s'ecrase visuellement en ellipse au fil de la rotation. */
+  @keyframes spin-3d {
+    0% {
+      transform: rotateX(55deg) rotateY(0deg);
+    }
+    100% {
+      transform: rotateX(55deg) rotateY(360deg);
+    }
+  }
+
+  .animate-spin-3d {
+    animation: spin-3d 14s linear infinite;
+    transform-style: preserve-3d;
+  }
 }
 
 /* Toute animation se desactive si l'utilisateur le demande. */

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { Container } from '@/components/ui/Container';
+import { TiltCard } from '@/components/ui/TiltCard';
 import type { Dictionary } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
@@ -39,48 +40,48 @@ export function Advantages({ dict }: { dict: Dictionary }) {
             const hasPhoto = index === 3;
 
             return (
-              <article
-                key={item.title}
-                className={cn(
-                  'relative overflow-hidden rounded-card border p-8 lg:p-10',
-                  spanCycle[index % spanCycle.length],
-                  isNavy ? 'border-navy bg-navy text-white' : 'border-hairline bg-white',
-                  hasPhoto && 'flex min-h-[280px] flex-col justify-end text-white',
-                )}
-              >
-                {hasPhoto ? (
-                  <>
-                    <Image
-                      src="/home/advantages.jpg"
-                      alt=""
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 60vw"
-                      className="object-cover"
-                    />
-                    {/* Voile navy : garantit le contraste du texte sur la photo. */}
-                    <div aria-hidden="true" className="absolute inset-0 bg-navy/80" />
-                  </>
-                ) : null}
+              <TiltCard key={item.title} className={spanCycle[index % spanCycle.length]}>
+                <article
+                  className={cn(
+                    'relative h-full overflow-hidden rounded-card border p-8 lg:p-10',
+                    isNavy ? 'border-navy bg-navy text-white' : 'border-hairline bg-white',
+                    hasPhoto && 'flex min-h-[280px] flex-col justify-end text-white',
+                  )}
+                >
+                  {hasPhoto ? (
+                    <>
+                      <Image
+                        src="/home/advantages.jpg"
+                        alt=""
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 60vw"
+                        className="object-cover"
+                      />
+                      {/* Voile navy : garantit le contraste du texte sur la photo. */}
+                      <div aria-hidden="true" className="absolute inset-0 bg-navy/80" />
+                    </>
+                  ) : null}
 
-                <div className={cn(hasPhoto && 'relative')}>
-                  <h3
-                    className={cn(
-                      'font-display text-xl font-bold md:text-2xl',
-                      isNavy || hasPhoto ? 'text-white' : 'text-navy',
-                    )}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className={cn(
-                      'mt-3 max-w-[48ch] text-[16px] leading-relaxed',
-                      isNavy || hasPhoto ? 'text-white/75' : 'text-ink-muted',
-                    )}
-                  >
-                    {item.body}
-                  </p>
-                </div>
-              </article>
+                  <div className={cn(hasPhoto && 'relative')}>
+                    <h3
+                      className={cn(
+                        'font-display text-xl font-bold md:text-2xl',
+                        isNavy || hasPhoto ? 'text-white' : 'text-navy',
+                      )}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={cn(
+                        'mt-3 max-w-[48ch] text-[16px] leading-relaxed',
+                        isNavy || hasPhoto ? 'text-white/75' : 'text-ink-muted',
+                      )}
+                    >
+                      {item.body}
+                    </p>
+                  </div>
+                </article>
+              </TiltCard>
             );
           })}
         </div>
