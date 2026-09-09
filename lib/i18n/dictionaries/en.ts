@@ -90,7 +90,7 @@ export const en: Dictionary = {
       title: 'What sets us apart',
     },
     opportunities: {
-      title: 'Current transactions',
+      title: 'Current investments',
       lead: 'Target amounts, minimum tickets and documents are available once you are signed in.',
       emptyBody: 'No transaction is open for subscription at the moment.',
     },
