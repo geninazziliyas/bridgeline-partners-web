@@ -32,6 +32,7 @@ export const en: Dictionary = {
   nav: {
     about: 'About',
     services: 'Services',
+    investments: 'Investments',
     team: 'The team',
     contact: 'Contact us',
     openMenu: 'Open menu',
@@ -151,6 +152,13 @@ export const en: Dictionary = {
         'We offer an investment vehicle that holds the targeted securities on your behalf, fully segregated.',
     },
     listTitle: 'Our services',
+  },
+
+  investments: {
+    title: 'Current investments',
+    lead: 'Transactions currently open for subscription or available by invitation.',
+    emptyBody:
+      'No transaction is open for subscription at the moment. Contact us to be notified of upcoming raises.',
   },
 
   team: {

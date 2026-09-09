@@ -40,6 +40,7 @@ export const site = {
 export const navigation = [
   { href: '/about', key: 'about' },
   { href: '/services', key: 'services' },
+  { href: '/investments', key: 'investments' },
   { href: '/team', key: 'team' },
   { href: '/contact', key: 'contact' },
 ] as const;

@@ -26,6 +26,7 @@ export const fr = {
   nav: {
     about: 'À propos',
     services: 'Services',
+    investments: 'Investissements',
     team: 'L’équipe',
     contact: 'Nous contacter',
     openMenu: 'Ouvrir le menu',
@@ -147,6 +148,13 @@ export const fr = {
         'Nous proposons un véhicule d’investissement qui détient pour votre compte les titres ciblés de manière totalement séparée.',
     },
     listTitle: 'Nos services',
+  },
+
+  investments: {
+    title: 'Investissements en cours',
+    lead: 'Les opérations actuellement ouvertes à la souscription ou accessibles sur invitation.',
+    emptyBody:
+      'Aucune opération n’est ouverte à la souscription pour le moment. Contactez-nous pour être informé des prochaines levées.',
   },
 
   team: {
