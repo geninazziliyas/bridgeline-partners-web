@@ -80,6 +80,16 @@ export function listAccessRequestsAdmin() {
   });
 }
 
+/**
+ * Filet de sécurité pour le formulaire de contact public : ces messages sont
+ * toujours enregistrés en base même si la notification email échoue (clé
+ * Resend absente, domaine d'envoi non vérifié...). Cette liste reste donc la
+ * source fiable, indépendante de la messagerie.
+ */
+export function listContactMessagesAdmin() {
+  return prisma.contactMessage.findMany({ orderBy: { createdAt: 'desc' } });
+}
+
 export function listDocumentsAdmin() {
   return prisma.document.findMany({
     orderBy: { createdAt: 'desc' },
@@ -92,10 +102,11 @@ export function listDocumentsAdmin() {
 
 /** Compteurs affichés sur la vue d'ensemble de l'administration. */
 export async function getAdminOverviewCounts() {
-  const [deals, investors, pendingRequests] = await Promise.all([
+  const [deals, investors, pendingRequests, contactMessages] = await Promise.all([
     prisma.deal.count(),
     prisma.user.count({ where: { role: 'INVESTOR' } }),
     prisma.accessRequest.count({ where: { status: 'PENDING' } }),
+    prisma.contactMessage.count(),
   ]);
-  return { deals, investors, pendingRequests };
+  return { deals, investors, pendingRequests, contactMessages };
 }

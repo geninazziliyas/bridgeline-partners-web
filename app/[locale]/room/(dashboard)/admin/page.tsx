@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import {
   Briefcase,
+  EnvelopeSimple,
   Files,
   UserCircle,
   UsersThree,
@@ -44,6 +45,12 @@ export default async function AdminOverviewPage({
       icon: Files,
       title: 'Documents',
       body: 'Rapports, term sheets et relevés consultables dans la Room.',
+    },
+    {
+      href: '/room/admin/contact',
+      icon: EnvelopeSimple,
+      title: 'Messages de contact',
+      body: `${counts.contactMessages} message${counts.contactMessages > 1 ? 's' : ''} reçu${counts.contactMessages > 1 ? 's' : ''} depuis le site — utile si un envoi email échoue.`,
     },
   ];
 
