@@ -44,7 +44,6 @@ export function Advantages({ dict }: { dict: Dictionary }) {
                 key={item.title}
                 className={spanCycle[index % spanCycle.length]}
                 revealDelayMs={index * 90}
-                tone={isNavy || hasPhoto ? 'light' : 'dark'}
               >
                 <article
                   className={cn(

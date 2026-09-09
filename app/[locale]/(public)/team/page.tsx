@@ -34,7 +34,7 @@ export default function TeamPage({ params }: { params: { locale: Locale } }) {
           <ul className="space-y-6">
             {team.map((member, index) => (
               <li key={member.id}>
-                <TiltCard tone="dark" revealDelayMs={index * 110}>
+                <TiltCard revealDelayMs={index * 110}>
                   {/* Portrait à taille fixe, en tête de fiche puis à gauche du
                       texte au-delà de sm. Une colonne d'image pleine hauteur
                       déséquilibrait la fiche : la biographie est le contenu
