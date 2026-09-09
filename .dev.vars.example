@@ -1,0 +1,17 @@
+# ---------------------------------------------------------------------------
+# Variables locales pour `wrangler dev` / `npm run cf:preview`.
+# Copier vers .dev.vars (jamais commité) pour tester le build Cloudflare
+# en local avant de renseigner les mêmes valeurs comme secrets dans le
+# tableau de bord Cloudflare (Workers & Pages → le worker → Settings →
+# Variables and Secrets) pour la production.
+#
+# Mêmes variables que .env.example — voir ce fichier pour le détail de
+# chacune.
+# ---------------------------------------------------------------------------
+
+DATABASE_URL=""
+NEXTAUTH_URL="http://localhost:8787"
+NEXTAUTH_SECRET=""
+RESEND_API_KEY=""
+EMAIL_FROM="Bridgeline Partners <no-reply@bridgeline.ch>"
+CONTACT_INBOX="info@bridgeline.ch"

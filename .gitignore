@@ -10,6 +10,7 @@ build
 .env.local
 .env.production.local
 .env.development.local
+.dev.vars
 
 # Prisma
 prisma/dev.db
@@ -25,3 +26,9 @@ yarn-error.log*
 .vercel
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# Cloudflare / OpenNext / Wrangler
+.open-next
+.wrangler
+.worker-next
+cloudflare-env.d.ts
