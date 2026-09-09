@@ -33,9 +33,9 @@ export function TiltCard({
   /** Délai avant l'animation d'entrée, pour faire cascader plusieurs cartes. */
   revealDelayMs?: number;
   /**
-   * Teinte du reflet, toujours teintée turquoise (couleur de marque) : `light`
-   * accentue le blanc pour une carte au fond sombre, `dark` réduit le blanc
-   * pour rester lisible sur un fond clair.
+   * Intensité du reflet : `light` (plus marqué) pour une carte au fond
+   * sombre, `dark` (plus discret) pour une carte au fond clair, où un reflet
+   * trop appuyé délaverait le contenu.
    */
   tone?: 'light' | 'dark';
 }) {
@@ -122,26 +122,25 @@ export function TiltCard({
         {children}
 
         {/*
-          Reflet diagonal : un seul passage net au survol, comme de la lumière
-          filtrant à travers une vitre teintée turquoise — un cœur clair
-          entouré d'une teinte de marque, pas une simple traînée blanche.
+          Reflet diagonal net, sans teinte : un bord net qui balaie la carte,
+          comme le reflet d'une vitre qu'on déplace — pas une lueur diffuse.
         */}
         <div
           aria-hidden="true"
           className={cn('pointer-events-none absolute inset-0 overflow-hidden', radiusClassName)}
         >
           <div
-            className="absolute -inset-y-1/2 left-0 w-1/4"
+            className="absolute -inset-y-1/2 left-0 w-1/5"
             style={{
               backgroundImage:
                 tone === 'light'
-                  ? 'linear-gradient(100deg, transparent 0%, rgba(31, 232, 201, 0.22) 35%, rgba(255, 255, 255, 0.6) 48%, rgba(31, 232, 201, 0.3) 62%, transparent 100%)'
-                  : 'linear-gradient(100deg, transparent 0%, rgba(31, 232, 201, 0.14) 35%, rgba(255, 255, 255, 0.4) 48%, rgba(31, 232, 201, 0.22) 62%, transparent 100%)',
+                  ? 'linear-gradient(100deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.55) 47%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0.55) 53%, transparent 60%, transparent 100%)'
+                  : 'linear-gradient(100deg, transparent 0%, transparent 40%, rgba(120, 130, 150, 0.35) 47%, rgba(120, 130, 150, 0.55) 50%, rgba(120, 130, 150, 0.35) 53%, transparent 60%, transparent 100%)',
               transform: `translateX(${hovered ? '550%' : '-550%'}) rotate(-20deg)`,
               opacity: hovered ? 1 : 0,
               transition: hovered
-                ? 'transform 1400ms linear, opacity 250ms ease-out'
-                : 'opacity 300ms ease-out',
+                ? 'transform 550ms linear, opacity 120ms ease-out'
+                : 'opacity 200ms ease-out',
             }}
           />
         </div>
