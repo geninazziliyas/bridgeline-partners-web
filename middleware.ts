@@ -1,32 +1,23 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { getToken } from 'next-auth/jwt';
 
 import { defaultLocale, isLocale, locales } from '@/lib/i18n/config';
 
 /**
- * Un seul middleware pour deux responsabilités, dans cet ordre :
+ * Langue uniquement. Toute URL sans préfixe de langue est redirigée vers la
+ * version adéquate, choisie d'après le cookie de préférence puis repliée sur
+ * l'anglais.
  *
- * 1. Langue. Toute URL sans préfixe de langue est redirigée vers la version
- *    correspondante, choisie d'après le cookie de préférence puis d'après
- *    l'en-tête Accept-Language du navigateur.
- * 2. Authentification. Les pages de la Room situées derrière la connexion sont
- *    refusées sans jeton de session valide, avec retour vers /[locale]/room/login
- *    et la destination d'origine en callbackUrl.
- *
- * La vérification de session est refaite côté serveur dans le layout du segment
- * protégé : le middleware filtre, le layout garantit.
+ * L'authentification des pages de la Room n'est PAS vérifiée ici : elle l'est
+ * exclusivement côté serveur dans le layout du segment protégé (Node.js, via
+ * `auth()`). Le middleware tournant en edge runtime, son verdict sur le jeton
+ * de session peut diverger de celui du layout — observé concrètement sur
+ * Vercel sous la forme d'une boucle de redirection (middleware renvoie vers
+ * /login, dont le rendu détecte une session valide et renvoie vers le
+ * dashboard, que le middleware refuse à nouveau, etc.). Netlify n'a jamais
+ * montré ce symptôme, mais autant ne dépendre que d'un seul verdict fiable.
  */
 
 const LOCALE_COOKIE = 'bridgeline_locale';
-
-/** Segments protégés, exprimés sans le préfixe de langue. */
-const protectedSegments = [
-  '/room/dashboard',
-  '/room/opportunities',
-  '/room/portfolio',
-  '/room/documents',
-  '/room/admin',
-];
 
 /**
  * Langue à servir pour une URL sans préfixe.
@@ -43,14 +34,14 @@ function resolveLocale(request: NextRequest) {
   return defaultLocale;
 }
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
   const hasLocale = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
   );
 
-  // 1. Aucune langue dans l'URL : on redirige vers la version adéquate.
+  // Aucune langue dans l'URL : on redirige vers la version adéquate.
   if (!hasLocale) {
     const locale = resolveLocale(request);
     const target = new URL(
@@ -58,23 +49,6 @@ export async function middleware(request: NextRequest) {
       request.url,
     );
     return NextResponse.redirect(target);
-  }
-
-  // 2. Page protégée : il faut un jeton de session.
-  const locale = pathname.split('/')[1];
-  const withoutLocale = pathname.slice(locale.length + 1) || '/';
-
-  if (protectedSegments.some((segment) => withoutLocale.startsWith(segment))) {
-    const token = await getToken({
-      req: request,
-      secret: process.env.NEXTAUTH_SECRET,
-    });
-
-    if (!token) {
-      const login = new URL(`/${locale}/room/login`, request.url);
-      login.searchParams.set('callbackUrl', `${pathname}${search}`);
-      return NextResponse.redirect(login);
-    }
   }
 
   return NextResponse.next();
