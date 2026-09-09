@@ -27,6 +27,7 @@ export type DealFormValues = {
   /** Format YYYY-MM-DD, celui attendu par un input type="date". */
   closingDate: string;
   featured: boolean;
+  newsletterUrl: string;
 };
 
 const statusLabels: Record<DealFormValues['status'], string> = {
@@ -202,6 +203,21 @@ export function DealForm({
       <Checkbox id="d-featured" name="featured" defaultChecked={deal?.featured}>
         Mettre en avant sur la vue d&apos;ensemble de la Room
       </Checkbox>
+
+      <Field
+        id="d-newsletterUrl"
+        label="Lien newsletter Beehiiv"
+        hint="Facultatif. Collez l'URL de l'article Beehiiv correspondant ; il apparaîtra comme lien externe sur la fiche de l'opération."
+        errors={errors.newsletterUrl}
+      >
+        <Input
+          id="d-newsletterUrl"
+          name="newsletterUrl"
+          type="url"
+          placeholder="https://..."
+          defaultValue={deal?.newsletterUrl}
+        />
+      </Field>
 
       <SubmitButton pendingLabel="Enregistrement…" className="self-start">
         Enregistrer

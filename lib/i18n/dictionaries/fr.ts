@@ -267,6 +267,7 @@ export const fr = {
     closing: 'Clôture',
     daysLeft: 'jours restants',
     progressLabel: 'Avancement de la levée de',
+    newsletterLink: 'Lire la newsletter',
   },
 
   portfolio: {

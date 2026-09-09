@@ -34,6 +34,7 @@ function parse(formData: FormData) {
     minTicket: formData.get('minTicket'),
     closingDate: formData.get('closingDate'),
     featured: formData.get('featured') ?? undefined,
+    newsletterUrl: formData.get('newsletterUrl'),
   });
 }
 

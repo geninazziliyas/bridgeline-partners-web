@@ -96,6 +96,9 @@ model Deal {
   closingDate  DateTime
   /// Mis en avant sur la vue d'ensemble de la Room.
   featured     Boolean    @default(false)
+  /// Lien externe vers la newsletter Beehiiv correspondante, collé manuellement
+  /// depuis l'administration. Aucune synchronisation automatique avec Beehiiv.
+  newsletterUrl String?
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 

@@ -28,6 +28,8 @@ export type DealView = {
   featured: boolean;
   /** Avancement de la levée, en pourcentage. */
   progress: number;
+  /** Lien externe vers la newsletter Beehiiv correspondante, s'il a été renseigné. */
+  newsletterUrl: string | null;
 };
 
 /** Renvoie la traduction si elle existe, sinon le texte de référence. */
@@ -56,6 +58,7 @@ function toView(deal: Deal, locale: Locale): DealView {
     closingDate: deal.closingDate,
     featured: deal.featured,
     progress: targetAmount > 0 ? (raisedAmount / targetAmount) * 100 : 0,
+    newsletterUrl: deal.newsletterUrl,
   };
 }
 

@@ -54,6 +54,7 @@ export default async function AdminDealsPage({
                 <th className="px-5 py-3 font-medium text-ink-muted">Levé / Cible</th>
                 <th className="px-5 py-3 font-medium text-ink-muted">Clôture</th>
                 <th className="px-5 py-3 font-medium text-ink-muted">Mis en avant</th>
+                <th className="px-5 py-3 font-medium text-ink-muted">Newsletter</th>
                 <th className="px-5 py-3" />
               </tr>
             </thead>
@@ -76,6 +77,20 @@ export default async function AdminDealsPage({
                   </td>
                   <td className="px-5 py-4 text-ink-muted">
                     {deal.featured ? 'Oui' : '—'}
+                  </td>
+                  <td className="px-5 py-4 text-ink-muted">
+                    {deal.newsletterUrl ? (
+                      <a
+                        href={deal.newsletterUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-medium text-accent hover:underline"
+                      >
+                        Lien
+                      </a>
+                    ) : (
+                      '—'
+                    )}
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center justify-end gap-4">

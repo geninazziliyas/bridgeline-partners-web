@@ -49,6 +49,14 @@ export const dealSchema = z.object({
   featured: z
     .union([z.literal('on'), z.literal(undefined)])
     .transform((value) => value === 'on'),
+  newsletterUrl: z
+    .string()
+    .trim()
+    .url('URL invalide.')
+    .max(2000)
+    .optional()
+    .or(z.literal(''))
+    .transform((value) => (value ? value : undefined)),
 });
 
 export const userSchema = z.object({

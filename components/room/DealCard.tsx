@@ -1,3 +1,5 @@
+import { ArrowSquareOut } from '@phosphor-icons/react/dist/ssr';
+
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { StatusBadge } from '@/components/ui/StatusBadge';
@@ -73,6 +75,18 @@ export function DealCard({
           ) : null}
         </div>
       </dl>
+
+      {deal.newsletterUrl ? (
+        <a
+          href={deal.newsletterUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium text-accent transition-colors hover:text-accent/80"
+        >
+          {dict.opportunities.newsletterLink}
+          <ArrowSquareOut size={15} weight="bold" />
+        </a>
+      ) : null}
     </Card>
   );
 }

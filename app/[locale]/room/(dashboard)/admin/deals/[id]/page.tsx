@@ -48,6 +48,7 @@ export default async function EditDealPage({
             minTicket: Number(deal.minTicket),
             closingDate: toDateInputValue(deal.closingDate),
             featured: deal.featured,
+            newsletterUrl: deal.newsletterUrl ?? '',
           }}
         />
       </div>

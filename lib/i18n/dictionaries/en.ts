@@ -268,6 +268,7 @@ export const en: Dictionary = {
     closing: 'Closing',
     daysLeft: 'days left',
     progressLabel: 'Raise progress for',
+    newsletterLink: 'Read the newsletter',
   },
 
   portfolio: {
